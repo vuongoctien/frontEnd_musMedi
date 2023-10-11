@@ -1,0 +1,47 @@
+ccấu trúc code ở video63 45:00_lúc nào đó mình sẽ học kỹ về cấu trúc xây dựng các hàm
+
+lỗi củ loz ở Nodejs gì đó đầu vid64
+
+À hóa ra Tú Tài, Cử nhân, Thạc Sĩ, Tiến Sĩ là vị
+Còn GS, PGS là học hàm
+Mình chỉ học code thôi, còn quy trình nghiệp vụ thực tế phải tìm hiểu nhiều
+
+--------------------------------------------------------------------------------------------
+Cấu trúc dự án Reactjs mới khởi tạo:
+index.html -> index.js
+file index có code rõ: Chạy file App.js (component App), rồi dom vào id "root" ở file index.html kia
+
+mà đấy là lúc mới khởi tạo thôi, về sau đã mình tổ chức lại rồi
+
+Component chính là những cái HomeHeader.js, HomePage.js, DetailDoctor.js v.v. các kiểu
+Component tổ tiên chính là App.js
+Tác dụng dễ thấy chính là có thể tái sử dụng nhiều lần, ví dụ cái Header, trang chủ dùng, trang đặt lịch cũng dùng
+Ví dụ nữa component HomePage (trang chủ) chỉ có việc nhúng đống Component khác vào, quá tiện.   Đó, nói thế là hiểu
+Nguyên tắc: mỗi component chỉ render ra 1 khối(div, React.Fragment, <></>, ...), cái này mình biết rồi
+
+state là dữ liệu có thể thay đổi, mỗi lần thay đổi thì giao diện sẽ được cập nhật mà không cần load lại trang
+state được định nghĩa trong hàm render(), trên hàm return()
+this tức là cái class hiện tại. Gọi this thức là gọi đến class đó
+setState là thay đổi state? và mỗi lần setState thì lại chạy lại hàm render
+
+props là truyền dữ liệu từ component cha sang component con, chưa hiểu lắm
+
+Vòng đời ứng dụng: https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
+3 giai đoạn: mouting, updating, unmounting
+mouting (mới khởi chạy): constructor -> render -> componentDidMount
+updating (đang dùng): new props, setState ... rồi lại render lại -> componentDidUpdate
+unmounting (chắc là lúc tắt đi): ComponentWillUnmount
+
+React là component cha truyền dữ liệu xuống component con
+Redux là thằng đứng ngoài, truyền dữ liệu sang bất kỳ component nào
+---------------------------------------------------------------------------------------------
+Vãi loằn thật, ở video81 mình gặp 1 lỗi
+Code xong chạy ok, nhưng tắt đi bật lại thì dính lỗi 
+
+PS C:\Users\vuong\Desktop\FrontEndCDTT> npm start
+Failed to compile.
+
+./src/containers/System/Admin/ManageDoctor.js
+Module not found: Can't resolve 'markdown-it' in 'C:\Users\vuong\Desktop\FrontEndCDTT\src\containers\System\Admin'     
+
+Chạy lại 'npm i' thì ok. Thôi lần sau đéo dám discard change package-lock.json nữa

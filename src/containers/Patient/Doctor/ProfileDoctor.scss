@@ -1,0 +1,34 @@
+.profile-doctor-container {
+    .intro-doctor {
+        display: flex;
+
+        .content-left {
+            background-size    : cover;
+            background-repeat  : no-repeat;
+            background-position: center;
+            width              : 80px;
+            height             : 80px;
+            border-radius      : 50%;
+        }
+
+        .content-right {
+            width         : calc(100% - 80px); //vl viết liền calc(100%-80px) thì k được chứ, phải viết có dấu cách
+            display       : flex;
+            flex-direction: column;
+            padding-left  : 10px;
+
+            .up {
+                font-weight: 600;
+            }
+
+            .down {
+                text-align: justify;
+            }
+
+        }
+    }
+}
+
+
+
+// price currency

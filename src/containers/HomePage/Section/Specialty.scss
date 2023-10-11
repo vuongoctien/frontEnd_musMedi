@@ -1,0 +1,11 @@
+.section-child {
+    cursor: pointer;
+
+    .section-name {
+        padding: 10px 0;
+
+        &:hover {
+            color: #45cd32;
+        }
+    }
+}
