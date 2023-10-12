@@ -51,7 +51,7 @@ class ManageDoctor extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchAllDoctor()
+        this.props.fetchAllClinic()
         this.props.getAllRequiredDoctorInfo()
     }
 
@@ -422,7 +422,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchAllDoctor: () => dispatch(actions.fetchAllDoctor()),
+        fetchAllClinic: () => dispatch(actions.fetchAllClinic()),
         saveDetailDoctor: (data) => dispatch(actions.saveDetailDoctor(data)),
         getAllRequiredDoctorInfo: () => dispatch(actions.getRequiredDoctorInfo())
     };

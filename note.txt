@@ -45,3 +45,8 @@ Failed to compile.
 Module not found: Can't resolve 'markdown-it' in 'C:\Users\vuong\Desktop\FrontEndCDTT\src\containers\System\Admin'     
 
 Chạy lại 'npm i' thì ok. Thôi lần sau đéo dám discard change package-lock.json nữa
+
+------------------------------------------------------------------------------------------------
+Lần đầu tự code mình đã hiểu hơn props là như nào 
+ít nhất là đã hiểu cách sử dụng trong project này
+Mình sẽ đặt mã là _12_10_2023 để đánh dấu các ghi chú về luồng hoạt động của cái props này

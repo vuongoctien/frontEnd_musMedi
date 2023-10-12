@@ -234,24 +234,24 @@ export const fetchTopDoctor = () => {
     }
 }
 
-export const fetchAllDoctor = () => {
+export const fetchAllClinic = () => { // 12_10_2023_13. đổi luôn tên hàm thành fetchAllClinic, không tiếc
     return async (dispatch, getState) => {
         try {
-            let res = await getAllDoctors()
+            let res = await getAllClinic() // 12_10_2023_12. mình sẽ thử thay hàm gọi API thành getAllClinic xem, và đã thành công
             if (res && res.errCode === 0) {
                 dispatch({
-                    type: actionTypes.FETCH_ALL_DOCTORS_SUCCESS,
+                    type: actionTypes.FETCH_ALL_CLINICS_SUCCESS, // 12_10_2023_11. mấu chốt là ở chỗ này
                     dataDr: res.data
                 })
             } else {
                 dispatch({
-                    type: actionTypes.FETCH_ALL_DOCTORS_FAILED
+                    type: actionTypes.FETCH_ALL_CLINICS_FAILED
                 })
             }
         } catch (e) {
             console.log('FETCH_TOP_DOCTORS_FAILED Error', e)
             dispatch({
-                type: actionTypes.FETCH_ALL_DOCTORS_FAILED
+                type: actionTypes.FETCH_ALL_CLINICS_FAILED
             })
         }
     }

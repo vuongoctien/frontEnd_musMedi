@@ -7,7 +7,7 @@ const initialState = {
     positions: [],
     users: [],
     topDoctors: [],
-    allDoctors: [],
+    allDoctors: [], // 12_10_2023_8. đây là chỗ nó được khởi tạo
     allScheduleTime: [],
     allRequiredDoctorInfo: []
 }
@@ -84,14 +84,14 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
 
-        case actionTypes.FETCH_ALL_DOCTORS_SUCCESS:
-            state.allDoctors = action.dataDr
+        case actionTypes.FETCH_ALL_CLINICS_SUCCESS:
+            state.allDoctors = action.dataDr // 12_10_2023_9. ok giờ xem tiếp mấy cái action
             return {
                 ...state
             }
 
-        case actionTypes.FETCH_ALL_DOCTORS_FAILED:
-            state.allDoctors = []
+        case actionTypes.FETCH_ALL_CLINICS_FAILED:
+            state.allDoctors = [] // 12_10_2023_9. ok giờ xem tiếp mấy cái action
             return {
                 ...state
             }
