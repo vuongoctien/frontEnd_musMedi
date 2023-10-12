@@ -14,7 +14,7 @@ class Login extends Component {
             username: '',
             password: '',
             isShowPassword: false,
-            errMessage: '',
+            errMessage: '', // dùng để đọc errMes từ backend
         }
     }
 
@@ -71,6 +71,7 @@ class Login extends Component {
     }
 
     render() {
+        console.log('check state', this.state)
         return (
             <div className='login-background'>
                 <div className='login-container'>
