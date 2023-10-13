@@ -82,6 +82,10 @@ const getDetailSpecialtyById = (id) => { //ok
     return axios.get(`/api/get-detail-speciatly-by-id?id=${id}`)
 }
 
+const editSpecialty = (newData) => { //ok
+    return axios.put(`/api/edit-specialty`, newData)
+}
+
 const createNewClinic = (data) => {
     return axios.post(`/api/create-new-clinic`, data)
 }
@@ -117,5 +121,6 @@ export {
     getDetailSpecialtyById,
     createNewClinic,
     getAllClinic,
-    getAllDetailClinicById
+    getAllDetailClinicById,
+    editSpecialty
 }

@@ -9,8 +9,9 @@ import { createNewSpeciatly } from '../../../services/userService';
 import { toast } from 'react-toastify';
 import { template } from 'lodash';
 import Select from 'react-select'
-import { getAllSpecialty, getDetailSpecialtyById } from '../../../services/userService';
+import { getAllSpecialty, getDetailSpecialtyById, editSpecialty } from '../../../services/userService';
 import Lightbox from 'react-image-lightbox';
+
 
 const mdParser = new MarkdownIt()
 
@@ -26,18 +27,18 @@ class ManageSpecialty extends Component {
             descriptionMarkdown: '',
 
             //select
-            selectedDoctor: {
+            selectedSpecialty: {
                 label: '<<< không có Chuyên khoa được chọn >>>',
                 value: 0
             },
-            listDoctors: [],
+            listSpecialty: [],
 
             // ảnh
             previewImgURL: '',
             isOpen: false,
 
             // create or update?
-            action: ''// lấy bên constant
+            ADD_or_EDIT: true
 
         }
     }
@@ -46,7 +47,7 @@ class ManageSpecialty extends Component {
         let res = await getAllSpecialty()
         if (res && res.errCode === 0) {
             this.setState({
-                listDoctors: this.buildDataInputSelect(res.data)
+                listSpecialty: this.buildDataInputSelect(res.data)
             })
         }
     }
@@ -56,7 +57,7 @@ class ManageSpecialty extends Component {
     }
 
     buildDataInputSelect = (inputData) => { // 12_10_2023_5. hàm bui này mình chưa xem nhưng nói chung có data nạp vào là được
-        let result = [this.state.selectedDoctor]
+        let result = [this.state.selectedSpecialty]
         if (inputData && inputData.length > 0) {
             inputData.map((item, index) => {
                 let object = {}
@@ -72,22 +73,24 @@ class ManageSpecialty extends Component {
     handleChangeSelect = async (selectedOption) => {
         if (selectedOption.value === 0) {
             this.setState({
-                selectedDoctor: selectedOption,
+                selectedSpecialty: selectedOption,
                 name: '',
                 imageBase64: '',
                 descriptionHTML: '',
                 descriptionMarkdown: '',
+                ADD_or_EDIT: true
             })
         } else {
             let res = await getDetailSpecialtyById(selectedOption.value)
             if (res && res.errCode === 0) {
                 this.setState({
-                    selectedDoctor: selectedOption,
+                    selectedSpecialty: selectedOption,
                     name: res.data.name,
-                    // imageBase64: res.data.image,
+                    imageBase64: res.data.image,
                     descriptionHTML: res.data.descriptionHTML,
                     descriptionMarkdown: res.data.descriptionMarkdown,
-                    previewImgURL: new Buffer(res.data.image, 'base64').toString('binary')
+                    previewImgURL: new Buffer(res.data.image, 'base64').toString('binary'),
+                    ADD_or_EDIT: false
                 })
             }
         }
@@ -137,19 +140,33 @@ class ManageSpecialty extends Component {
     handleSaveNewSpeciatly = async () => {
         let res = await createNewSpeciatly(this.state)
         if (res && res.errCode === 0) {
-            toast.success('Create a new Speciatly succeed')
+            toast.success('Thêm mới chuyên khoa thành công')
+            alert('Thêm mới chuyên khoa thành công')
+            window.location.reload(false)
         } else {
-            toast.error('Create a new Speciatly error')
+            toast.error('Lỗi! Vui lòng kiểm tra lại thông tin')
+        }
+    }
+
+    handleEditSpeciatly = async (new_specialty) => { // phải truyền cả cục data cần edit vào đây
+        // console.log('check new_specialty', new_specialty)
+        let res = await editSpecialty(new_specialty)
+        if (res && res.errCode === 0) {
+            toast.success('Chỉnh sửa thông tin thành công')
+            alert('Chỉnh sửa thông tin thành công')
+            window.location.reload(false)
+        } else {
+            toast.error('Lỗi! Vui lòng kiểm tra lại thông tin')
         }
     }
 
 
     render() {
-        console.log('stata speciatly', this.state)
+        // console.log('stata speciatly', this.state)
         return (
             <div className='manage-speciatly-container'>
                 <div className='add-new-speciatly row'>
-                    <div className='col-7'>
+                    <div className='col-6'>
                         <div className='col-12 ms-title'>Tạo mới & chỉnh sửa chuyên khoa</div>
                         <div className='col-12 form-group row'>
                             <div className='col-3 form-group'>
@@ -157,9 +174,9 @@ class ManageSpecialty extends Component {
                             </div>
                             <div className='col-9 form-group'>
                                 <Select
-                                    value={this.state.selectedDoctor}
+                                    value={this.state.selectedSpecialty}
                                     onChange={this.handleChangeSelect}
-                                    options={this.state.listDoctors} // 12_10_2023_1. list lựa chọn lấy ở state thôi, không có gì
+                                    options={this.state.listSpecialty} // 12_10_2023_1. list lựa chọn lấy ở state thôi, không có gì
                                 />
                             </div>
                         </div>
@@ -196,11 +213,27 @@ class ManageSpecialty extends Component {
                             <label className='label-upload' htmlFor='default_button'>Chọn ảnh <i class="fas fa-images"></i></label>
                         </div>
                     </div>
-                    <div className='col-1'>
+                    <div className='col-3'>
                         <div className='col-12'>
-                            <button className='button-save-speciatly' onClick={() => this.handleSaveNewSpeciatly()}>
-                                Lưu
-                            </button>
+                            {
+                                this.state.ADD_or_EDIT === true ?
+                                    <button className='button-add-speciatly' onClick={() => this.handleSaveNewSpeciatly()}>
+                                        Lưu chuyên khoa mới
+                                    </button>
+                                    :
+                                    <button
+                                        className='button-edit-speciatly'
+                                        onClick={() => this.handleEditSpeciatly({
+                                            id: this.state.selectedSpecialty.value,
+                                            name: this.state.name,
+                                            image: this.state.imageBase64,
+                                            descriptionMarkdown: this.state.descriptionMarkdown,
+                                            descriptionHTML: this.state.descriptionHTML
+                                        })}
+                                    >
+                                        Lưu thông tin chỉnh sửa
+                                    </button>
+                            }
                         </div>
                     </div>
 

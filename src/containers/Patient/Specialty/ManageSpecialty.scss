@@ -14,13 +14,36 @@
     .add-new-speciatly {
         margin-top: 3vh;
 
-        .button-save-speciatly {
-            border          : none;
-            // background   : orange;
-            padding         : 8px 5px;
-            min-width       : 75px;
-            border-radius   : 3px;
-            margin          : 12vh 0;
+        .button-add-speciatly {
+            // trường hợp thêm mới
+            border       : none;
+            background   : palegreen;
+            padding      : 8px 5px;
+            min-width    : 75px;
+            border-radius: 3px;
+            margin       : 12vh 0;
+            cursor       : pointer;
+
+            &:hover {
+                opacity: 0.8;
+            }
+
+        }
+
+        .button-edit-speciatly {
+            // trường hợp xóa
+            border       : none;
+            background   : khaki;
+            padding      : 8px 5px;
+            min-width    : 75px;
+            border-radius: 3px;
+            margin       : 12vh 0;
+            cursor       : pointer;
+
+            &:hover {
+                opacity: 0.8;
+            }
+
         }
 
         .preview-image {
