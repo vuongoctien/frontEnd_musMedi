@@ -9,7 +9,7 @@ import { createNewSpeciatly } from '../../../services/userService';
 import { toast } from 'react-toastify';
 import { template } from 'lodash';
 import Select from 'react-select'
-import { getAllSpecialty, getDetailSpecialtyById, editSpecialty } from '../../../services/userService';
+import { getAllSpecialty, getDetailSpecialtyById, editSpecialty, deleteSpecialty } from '../../../services/userService';
 import Lightbox from 'react-image-lightbox';
 
 
@@ -156,13 +156,24 @@ class ManageSpecialty extends Component {
             alert('Chỉnh sửa thông tin thành công')
             window.location.reload(false)
         } else {
-            toast.error('Lỗi! Vui lòng kiểm tra lại thông tin')
+            toast.error('Lỗi! Có thể chuyên khoa đã bị xóa ở 1 tab khác')
+        }
+    }
+
+    handleDeleteSpeciatly = async (idSpecialtyDelete) => {
+        let res = await deleteSpecialty(idSpecialtyDelete)
+        if (res && res.errCode === 0) {
+            toast.success('Xóa thành công')
+            alert('Xóa thành công')
+            window.location.reload(false)
+        } else {
+            toast.error('Lỗi! Có thể chuyên khoa đã bị xóa ở 1 tab khác')
         }
     }
 
 
     render() {
-        // console.log('stata speciatly', this.state)
+        // console.log('state speciatly', this.state)
         return (
             <div className='manage-speciatly-container'>
                 <div className='add-new-speciatly row'>
@@ -221,18 +232,24 @@ class ManageSpecialty extends Component {
                                         Lưu chuyên khoa mới
                                     </button>
                                     :
-                                    <button
-                                        className='button-edit-speciatly'
-                                        onClick={() => this.handleEditSpeciatly({
-                                            id: this.state.selectedSpecialty.value,
-                                            name: this.state.name,
-                                            image: this.state.imageBase64,
-                                            descriptionMarkdown: this.state.descriptionMarkdown,
-                                            descriptionHTML: this.state.descriptionHTML
-                                        })}
-                                    >
-                                        Lưu thông tin chỉnh sửa
-                                    </button>
+                                    <>
+                                        <button
+                                            className='button-edit-speciatly'
+                                            onClick={() => this.handleEditSpeciatly({
+                                                id: this.state.selectedSpecialty.value,
+                                                name: this.state.name,
+                                                image: this.state.imageBase64,
+                                                descriptionMarkdown: this.state.descriptionMarkdown,
+                                                descriptionHTML: this.state.descriptionHTML
+                                            })}
+                                        >
+                                            Lưu thông tin chỉnh sửa
+                                        </button>
+                                        <button className='button-delete-speciatly' onClick={() => this.handleDeleteSpeciatly(this.state.selectedSpecialty.value)}>
+                                            Xóa chuyên khoa
+                                        </button>
+                                    </>
+
                             }
                         </div>
                     </div>

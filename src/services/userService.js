@@ -86,6 +86,14 @@ const editSpecialty = (newData) => { //ok
     return axios.put(`/api/edit-specialty`, newData)
 }
 
+const deleteSpecialty = (deleteData) => { //ok
+    return axios.delete(`/api/delete-specialty`, {
+        data: { // mình không hiểu tại sao lại viết thế này, nhưng kệ, chạy được rồi
+            id: deleteData
+        }
+    })
+}
+
 const createNewClinic = (data) => {
     return axios.post(`/api/create-new-clinic`, data)
 }
@@ -122,5 +130,6 @@ export {
     createNewClinic,
     getAllClinic,
     getAllDetailClinicById,
-    editSpecialty
+    editSpecialty,
+    deleteSpecialty
 }
