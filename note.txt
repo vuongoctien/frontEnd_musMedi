@@ -50,3 +50,7 @@ Chạy lại 'npm i' thì ok. Thôi lần sau đéo dám discard change package-
 Lần đầu tự code mình đã hiểu hơn props là như nào 
 ít nhất là đã hiểu cách sử dụng trong project này
 Mình sẽ đặt mã là _12_10_2023 để đánh dấu các ghi chú về luồng hoạt động của cái props này
+-> Ồ không phải đâu, đấy là Redux, mấy cái actionType với cả adminReducer ấy
+mình thử rồi mà không tự làm được, khá là khó hiểu
+Mục đích của dùng Redux là đỡ phải gọi đi gọi lại xuống DB nhiều lần (vấn đề hiệu năng)
+Nhưng trong khuôn khổ ĐỒ ÁN này, mình có thể không dùng cho đỡ phức tạp
