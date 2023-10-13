@@ -148,49 +148,69 @@ class ManageSpecialty extends Component {
         console.log('stata speciatly', this.state)
         return (
             <div className='manage-speciatly-container'>
-                <div className='ms-title'>Quan lý chuyen khoa</div>
                 <div className='add-new-speciatly row'>
-                    <div className='col-5 form-group'>
-                        <label>Chọn chuyên khoa</label>
-                        <Select
-                            value={this.state.selectedDoctor}
-                            onChange={this.handleChangeSelect}
-                            options={this.state.listDoctors} // 12_10_2023_1. list lựa chọn lấy ở state thôi, không có gì
-                        />
-                    </div>
-                    <div className='col-6 form-group'>
-                        <label>Ten chuyen khoa</label>
-                        <input
-                            className='form-control'
-                            type="text"
-                            onChange={(event) => this.handleOnChangeInput(event, 'name')}
-                            value={this.state.name}
-                        />
-                    </div>
-                    <div className='col-6 form-group'>
-                        <label>Anh chuyen khoa</label>
-                        <input
-                            className='form-control'
-                            type='file'
-                            onChange={(event) => this.handleOnChangeImage(event)}
-                            id='default_button'
-                            hidden
-                        />
-                        <label className='label-upload' htmlFor='default_button'>Chọn ảnh <i class="fas fa-upload"></i></label>
-                        <div className='preview-image'
-                            style={{ backgroundImage: `url(${this.state.previewImgURL})` }}
-                            onClick={() => this.openPreviewImage()}>
+                    <div className='col-7'>
+                        <div className='col-12 ms-title'>Tạo mới & chỉnh sửa chuyên khoa</div>
+                        <div className='col-12 form-group row'>
+                            <div className='col-3 form-group'>
+                                <h5>chọn chuyên khoa</h5>
+                            </div>
+                            <div className='col-9 form-group'>
+                                <Select
+                                    value={this.state.selectedDoctor}
+                                    onChange={this.handleChangeSelect}
+                                    options={this.state.listDoctors} // 12_10_2023_1. list lựa chọn lấy ở state thôi, không có gì
+                                />
+                            </div>
+                        </div>
+                        <div className='col-12 form-group row'>
+                            <div className='col-3 form-group'>
+                                <h5>Tên chuyên khoa: </h5>
+                            </div>
+                            <div className='col-9 form-group'>
+                                <input
+                                    className='form-control'
+                                    type="text"
+                                    onChange={(event) => this.handleOnChangeInput(event, 'name')}
+                                    value={this.state.name}
+                                />
+                            </div>
 
                         </div>
                     </div>
-                    <div className='col-1'>
-                        <button className='button-save-speciatly' onClick={() => this.handleSaveNewSpeciatly()}>
-                            save
-                        </button>
+                    <div className='col-3'>
+                        <div className='col-12 form-group'></div>
+                        <div className='col-12 form-group'>
+                            <div className='preview-image'
+                                style={{ backgroundImage: `url(${this.state.previewImgURL})` }}
+                                onClick={() => this.openPreviewImage()}>
+
+                            </div>
+                            <input
+                                className='form-control'
+                                type='file'
+                                onChange={(event) => this.handleOnChangeImage(event)}
+                                id='default_button'
+                                hidden
+                            />
+                            <label className='label-upload' htmlFor='default_button'>Chọn ảnh <i class="fas fa-images"></i></label>
+                        </div>
                     </div>
+                    <div className='col-1'>
+                        <div className='col-12'>
+                            <button className='button-save-speciatly' onClick={() => this.handleSaveNewSpeciatly()}>
+                                Lưu
+                            </button>
+                        </div>
+                    </div>
+
+
+
+
+
                     <div className='col-12'>
                         <MdEditor
-                            style={{ height: '300px' }}
+                            style={{ height: '100vh' }}
                             renderHTML={text => mdParser.render(text)}
                             onChange={this.handleEditorChange}
                             value={this.state.descriptionMarkdown}
