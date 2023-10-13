@@ -2,7 +2,7 @@
     padding: 0 15px;
 
     .ms-title {
-        text-align    : center;
+        text-align    : left;
         margin        : 10px 0;
         text-transform: uppercase;
         font-size     : 17px;
@@ -17,6 +17,26 @@
             min-width    : 75px;
             border-radius: 3px;
             margin       : 15px 0;
+        }
+
+        .preview-image {
+            height         : 50px;
+            width          : 100%;
+            border         : 1px solid #ddd;
+            background     : center center no-repeat;
+            background-size: contain;
+            cursor         : pointer;
+        }
+
+        .label-upload {
+            padding         : 5px;
+            border-radius   : 3px;
+            background-color: #ddd;
+            cursor          : pointer;
+
+            &:hover {
+                opacity: 0.9;
+            }
         }
     }
 }

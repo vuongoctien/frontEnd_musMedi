@@ -74,19 +74,19 @@ const createNewSpeciatly = (data) => {
     return axios.post(`/api/create-new-specialty`, data)
 }
 
-const getAllSpecialty = () => {
+const getAllSpecialty = () => { //ok
     return axios.get(`/api/get-specialty`)
 }
 
-const getALlDetailSpecialtyById = (data) => {
-    return axios.get(`/api/get-detail-speciatly-by-id?id=${data.id}&location=${data.location}`)
+const getDetailSpecialtyById = (id) => { //ok
+    return axios.get(`/api/get-detail-speciatly-by-id?id=${id}`)
 }
 
 const createNewClinic = (data) => {
     return axios.post(`/api/create-new-clinic`, data)
 }
 
-const getAllClinic = () => {
+const getAllClinic = () => {//ok
     return axios.get(`/api/get-clinic`)
 }
 
@@ -114,7 +114,7 @@ export {
     postVerifyBookAppointment,
     createNewSpeciatly,
     getAllSpecialty,
-    getALlDetailSpecialtyById,
+    getDetailSpecialtyById,
     createNewClinic,
     getAllClinic,
     getAllDetailClinicById

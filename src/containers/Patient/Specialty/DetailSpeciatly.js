@@ -6,7 +6,7 @@ import HomeHeader from "../../HomePage/HomeHeader"
 import DoctorExtrainfor from "../Doctor/DoctorExtrainfor"
 import ProfileDoctor from "../Doctor/ProfileDoctor"
 import DoctorSchedule from '../Doctor/DoctorSchedule';
-import { getALlDetailSpecialtyById, getAllcodeService } from '../../../services/userService';
+import { getDetailSpecialtyById, getAllcodeService } from '../../../services/userService';
 import _ from 'lodash';
 import { LANGUAGES } from '../../../utils';
 
@@ -25,7 +25,7 @@ class DetailSpeciatly extends Component {
     async componentDidMount() {
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
             let id = this.props.match.params.id
-            let res = await getALlDetailSpecialtyById({
+            let res = await getDetailSpecialtyById({
                 id: id,
                 location: 'ALL'
             })
@@ -73,7 +73,7 @@ class DetailSpeciatly extends Component {
         // if (this.props.match && this.props.match.params && this.props.match.params.id) {
         //     let id = this.props.match.params.id
         //     let location = event.target.value
-        //     let res = await getALlDetailSpecialtyById({
+        //     let res = await getDetailSpecialtyById({
         //         id: id,
         //         location: location
         //     })

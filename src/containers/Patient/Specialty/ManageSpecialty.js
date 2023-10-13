@@ -9,7 +9,8 @@ import { createNewSpeciatly } from '../../../services/userService';
 import { toast } from 'react-toastify';
 import { template } from 'lodash';
 import Select from 'react-select'
-import { getAllSpecialty } from '../../../services/userService';
+import { getAllSpecialty, getDetailSpecialtyById } from '../../../services/userService';
+import Lightbox from 'react-image-lightbox';
 
 const mdParser = new MarkdownIt()
 
@@ -18,6 +19,7 @@ class ManageSpecialty extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            // data
             name: '',
             imageBase64: '',
             descriptionHTML: '',
@@ -29,6 +31,14 @@ class ManageSpecialty extends Component {
                 value: 0
             },
             listDoctors: [],
+
+            // ảnh
+            previewImgURL: '',
+            isOpen: false,
+
+            // create or update?
+            action: ''// lấy bên constant
+
         }
     }
 
@@ -50,7 +60,7 @@ class ManageSpecialty extends Component {
         if (inputData && inputData.length > 0) {
             inputData.map((item, index) => {
                 let object = {}
-                object.label = `${item.id}. ${item.name}`
+                object.label = `${item.id} __ ${item.name}`
                 object.value = item.id
                 result.push(object)
             })
@@ -60,7 +70,29 @@ class ManageSpecialty extends Component {
 
 
     handleChangeSelect = async (selectedOption) => {
-        this.setState({ selectedDoctor: selectedOption })
+        if (selectedOption.value === 0) {
+            this.setState({
+                selectedDoctor: selectedOption,
+                name: '',
+                imageBase64: '',
+                descriptionHTML: '',
+                descriptionMarkdown: '',
+            })
+        } else {
+            let res = await getDetailSpecialtyById(selectedOption.value)
+            if (res && res.errCode === 0) {
+                this.setState({
+                    selectedDoctor: selectedOption,
+                    name: res.data.name,
+                    // imageBase64: res.data.image,
+                    descriptionHTML: res.data.descriptionHTML,
+                    descriptionMarkdown: res.data.descriptionMarkdown,
+                    previewImgURL: new Buffer(res.data.image, 'base64').toString('binary')
+                })
+            }
+        }
+
+
     }
 
     handleOnChangeInput = (event, id) => {
@@ -87,10 +119,19 @@ class ManageSpecialty extends Component {
         let file = data[0]
         if (file) {
             let base64 = await CommonUtils.getBase64(file)
+            let objectUrl = URL.createObjectURL(file)
             this.setState({
+                previewImgURL: objectUrl,
                 imageBase64: base64
             })
         }
+    }
+
+    openPreviewImage = () => {
+        if (!this.state.previewImgURL) return;//
+        this.setState({
+            isOpen: true
+        })
     }
 
     handleSaveNewSpeciatly = async () => {
@@ -104,6 +145,7 @@ class ManageSpecialty extends Component {
 
 
     render() {
+        console.log('stata speciatly', this.state)
         return (
             <div className='manage-speciatly-container'>
                 <div className='ms-title'>Quan lý chuyen khoa</div>
@@ -131,7 +173,20 @@ class ManageSpecialty extends Component {
                             className='form-control'
                             type='file'
                             onChange={(event) => this.handleOnChangeImage(event)}
+                            id='default_button'
+                            hidden
                         />
+                        <label className='label-upload' htmlFor='default_button'>Chọn ảnh <i class="fas fa-upload"></i></label>
+                        <div className='preview-image'
+                            style={{ backgroundImage: `url(${this.state.previewImgURL})` }}
+                            onClick={() => this.openPreviewImage()}>
+
+                        </div>
+                    </div>
+                    <div className='col-1'>
+                        <button className='button-save-speciatly' onClick={() => this.handleSaveNewSpeciatly()}>
+                            save
+                        </button>
                     </div>
                     <div className='col-12'>
                         <MdEditor
@@ -141,12 +196,14 @@ class ManageSpecialty extends Component {
                             value={this.state.descriptionMarkdown}
                         />
                     </div>
-                    <div className='col-12'>
-                        <button className='button-save-speciatly' onClick={() => this.handleSaveNewSpeciatly()}>
-                            save
-                        </button>
-                    </div>
                 </div>
+                {
+                    this.state.isOpen === true &&
+                    <Lightbox
+                        mainSrc={this.state.previewImgURL}
+                        onCloseRequest={() => this.setState({ isOpen: false })}
+                    />
+                }
             </div>
         )
     }

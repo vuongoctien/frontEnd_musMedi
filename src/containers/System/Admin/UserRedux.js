@@ -195,6 +195,7 @@ class UserRedux extends Component {
         console.log('Tien test', user.image)
         if (user.image) {
             imageBase64 = new Buffer(user.image, 'base64').toString('binary')
+            // giờ cần phải nạp được imame dạng {buffer, text vào}
         }
 
         this.setState({
