@@ -13,6 +13,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 class HomePage extends Component {
+    componentDidMount() {
+        document.title = "musMedi - Nền tảng Y tế số 1"
+    }
 
     render() {
         let settings = {

@@ -25,8 +25,9 @@ export default function Login_Doctor() {
 
 
                 {/* Nếu đường dẫn là /loginDoctor, 
-                thì mở component Login ra (được viết ngay chỗ function bên dưới) */}
-                <Route path="/loginDoctor"  >
+                thì mở component Login ra (được viết ngay chỗ function bên dưới) 
+                Nhưng nếu đã đăng nhập rồi thì vẫn vào được Login, cái này mình sẽ phải sử lý sau*/}
+                <Route path="/loginDoctor">
                     <Login />
                 </Route>
             </Switch>
@@ -36,25 +37,27 @@ export default function Login_Doctor() {
 }
 
 function Admin() {
+    document.title = 'Đã đăng nhập'
     let history = useHistory()
     let logOUT = () => {
         localStorage.removeItem("day_la_sting_lu_trong_LocalStorage_khi_dang_nhap")
         history.replace("/loginDoctor")
     }
     return <div>
-        <h2>Đã vào được Admin</h2>
+        <h2>Đã đăng nhập</h2>
         <button onClick={logOUT}>Đăng xuất</button>
     </div>
 }
 
 function Login() {
+    document.title = 'Chưa đăng nhập'
     let history = useHistory()
     let logIN = () => {
         localStorage.setItem("day_la_sting_lu_trong_LocalStorage_khi_dang_nhap", true)
         history.replace("/loginDoctor/admin")
     }
     return <div>
-        <h2>Đăng nhập đi em ơi</h2>
+        <h2>Chưa đăng nhập</h2>
         <button onClick={logIN}>Đăng nhập</button>
     </div>
 }
