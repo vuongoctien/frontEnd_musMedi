@@ -315,8 +315,8 @@ class AddClinic extends Component {
                 password: this.state.password
             })
             if (res && res.errCode === 0) {
-                // alert('Thêm mới CSYT thành công')
-                // window.location.reload(false)
+                alert('Thêm mới CSYT thành công')
+                window.location = "/system/manage-clinic_CR";
                 toast.success('Thêm mới CSYT thành công')// hàm này không thể chạy vì load lại trang rồi
             } else {
                 toast.error('Lỗi! Vui lòng kiểm tra lại thông tin')

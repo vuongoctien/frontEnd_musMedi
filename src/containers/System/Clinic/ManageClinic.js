@@ -409,44 +409,31 @@ class ManageClinic extends Component {
         })
     }
 
-    // handleSaveNewSpeciatly = async () => {
-    //     if (window.confirm(`Bạn chắc chắn muốn thêm CSYT "${this.state.name}" vào hệ thống?`) == true) {
-    //         let res = await createNewClinic(this.state)
-    //         if (res && res.errCode === 0) {
-    //             alert('Thêm mới CSYT thành công')
-    //             window.location.reload(false)
-    //             toast.success('Thêm mới CSYT thành công')// hàm này không thể chạy vì load lại trang rồi
-    //         } else {
-    //             toast.error('Lỗi! Vui lòng kiểm tra lại thông tin')
-    //         }
-    //     }
-    // }
-
     handleEditSpeciatly = async (new_specialty) => { // phải truyền cả cục data cần edit vào đây
-        // if (window.confirm(`Bạn chắc chắn muốn chỉnh sửa thông tin CSYT "${this.state.name}" ?`) == true) {
-        //     let res = await editClinic(new_specialty) /////////////api
-        //     if (res && res.errCode === 0) {
-        //         alert('Chỉnh sửa thông tin thành công')
-        //         window.location.reload(false)
-        //         toast.success('Chỉnh sửa thông tin thành công')// hàm này không thể chạy vì load lại trang rồi
-        //     } else {
-        //         toast.error('Lỗi! Có thể CSYT đã bị xóa ở 1 tab khác')
-        //     }
-        // }
+        if (window.confirm(`Bạn chắc chắn muốn chỉnh sửa thông tin CSYT "${this.state.name}" ?`) == true) {
+            let res = await editClinic(new_specialty) /////////////api
+            if (res && res.errCode === 0) {
+                alert('Chỉnh sửa thông tin thành công')
+                window.location.reload(false)
+                toast.success('Chỉnh sửa thông tin thành công')// hàm này không thể chạy vì load lại trang rồi
+            } else {
+                toast.error('Lỗi! Có thể CSYT đã bị xóa ở 1 tab khác')
+            }
+        }
 
     }
 
     handleDeleteSpeciatly = async (idClinicDelete) => {
-        // if (window.confirm(`Bạn chắc chắn muốn xóa CSYT "${this.state.name}" khỏi hệ thống?`) == true) {
-        //     let res = await deleteClinic(idClinicDelete) ////////////api
-        //     if (res && res.errCode === 0) {
-        //         alert('Xóa thành công')
-        //         window.location.reload(false)
-        //         toast.success('Xóa thành công') // hàm này không thể chạy vì load lại trang rồi
-        //     } else {
-        //         toast.error('Lỗi! Có thể CSYT đã bị xóa ở 1 tab khác')
-        //     }
-        // }
+        if (window.confirm(`Bạn chắc chắn muốn xóa CSYT "${this.state.name}" khỏi hệ thống?`) == true) {
+            let res = await deleteClinic(idClinicDelete) ////////////api
+            if (res && res.errCode === 0) {
+                alert('Xóa thành công')
+                window.location.reload(false)
+                toast.success('Xóa thành công') // hàm này không thể chạy vì load lại trang rồi
+            } else {
+                toast.error('Lỗi! Có thể CSYT đã bị xóa ở 1 tab khác')
+            }
+        }
     }
 
 
@@ -539,7 +526,9 @@ class ManageClinic extends Component {
                                                 name: this.state.name,
                                                 image: this.state.imageBase64,
                                                 descriptionMarkdown: this.state.descriptionMarkdown,
-                                                descriptionHTML: this.state.descriptionHTML
+                                                descriptionHTML: this.state.descriptionHTML,
+                                                province: this.state.selectedProvince.label,
+                                                address: this.state.address
                                             })}
                                         >
                                             Lưu thông tin  chỉnh sửa

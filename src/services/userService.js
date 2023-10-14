@@ -108,6 +108,18 @@ const getAllClinic = () => {//ok
 const getAllDetailClinicById = (id) => {
     return axios.get(`/api/get-detail-clinic-by-id?id=${id}`)
 }
+
+const editClinic = (newData) => { //ok
+    return axios.put(`/api/edit-clinic`, newData)
+}
+
+const deleteClinic = (deleteData) => { //ok
+    return axios.delete(`/api/delete-clinic`, {
+        data: { // mình không hiểu tại sao lại viết thế này, nhưng kệ, chạy được rồi
+            id: deleteData
+        }
+    })
+}
 /********************************************************************************************** */
 
 
@@ -136,5 +148,7 @@ export {
     getAllClinic,
     getAllDetailClinicById,
     editSpecialty,
-    deleteSpecialty
+    deleteSpecialty,
+    editClinic,
+    deleteClinic
 }
