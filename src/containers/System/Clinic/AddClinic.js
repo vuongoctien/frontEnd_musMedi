@@ -3,44 +3,39 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite'
-import './ManageClinic.scss';
+import './AddClinic.scss';
 import { CommonUtils } from '../../../utils'
 import { toast } from 'react-toastify';
 import { template } from 'lodash';
 import Select from 'react-select'
-import { getAllClinic, getAllDetailClinicById, editClinic, deleteClinic } from '../../../services/userService';
 import Lightbox from 'react-image-lightbox';
+import { createNewClinic } from '../../../services/userService'
+import { reject } from 'lodash';
+import { emitter } from '../../../utils/emitter';
+import logo from '../../../assets/musMedi.png'
 
 
 const mdParser = new MarkdownIt()
 
-class ManageClinic extends Component {
+class AddClinic extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            // data
             name: '',
             imageBase64: '',
             descriptionHTML: '',
             descriptionMarkdown: '',
             address: '',
-            province: '',
             nickName: '',
+            password: '',
+            gmail: '',
 
             // ảnh
             previewImgURL: '',
             isOpen: false,
 
-            // create or update?
-            ADD_or_EDIT: true,
-
-            //select
-            selectedClinic: {
-                label: '<<< không có CSYT được chọn >>>',
-                value: 0
-            },
-            listClinic: [],
+            //63 tinh thanh
             selectedProvince: {
                 "label": "Hà Nội",
                 "value": "Hà Nội"
@@ -303,18 +298,33 @@ class ManageClinic extends Component {
     }
 
     async componentDidMount() {
-        let res = await getAllClinic()
-        if (res && res.errCode === 0) {
-            this.setState({
-                listClinic: this.buildDataInputSelect(res.data)
-            })
-        }
-
 
     }
 
-    async componentDidUpdate(prevProps, prevState, snapshot) {  // à prevProps trức là props trước đó
+    handleSaveNewClinic = async () => {
+        if (window.confirm(`Bạn chắc chắn muốn thêm CSYT "${this.state.name}" vào hệ thống?`) == true) {
+            // thêm vào bảng Clinic
+            let res = await createNewClinic({
+                name: this.state.name,
+                address: this.state.address,
+                imageBase64: this.state.imageBase64,
+                descriptionHTML: this.state.descriptionHTML,
+                descriptionMarkdown: this.state.descriptionMarkdown,
+                province: this.state.selectedProvince.value,
+                nickName: this.state.nickName,
+                password: this.state.password
+            })
+            if (res && res.errCode === 0) {
+                // alert('Thêm mới CSYT thành công')
+                // window.location.reload(false)
+                toast.success('Thêm mới CSYT thành công')// hàm này không thể chạy vì load lại trang rồi
+            } else {
+                toast.error('Lỗi! Vui lòng kiểm tra lại thông tin')
+            }
 
+            //thêm tài khoản vào bảng Account
+
+        }
     }
 
     buildDataInputSelect = (inputData) => { // 12_10_2023_5. hàm bui này mình chưa xem nhưng nói chung có data nạp vào là được
@@ -328,41 +338,6 @@ class ManageClinic extends Component {
             })
         }
         return result
-    }
-
-
-    handleChangeSelect = async (selectedOption) => { // khi chọn 1 chuyên khoa trong select
-        if (selectedOption.value === 0) {
-            this.setState({
-                selectedClinic: selectedOption,
-                name: '',
-                address: '',
-                imageBase64: '',
-                descriptionHTML: '',
-                descriptionMarkdown: '',
-                ADD_or_EDIT: true,
-                selectedProvince: '',
-            })
-        } else {
-            let res = await getAllDetailClinicById(selectedOption.value) ////////////////api
-            if (res && res.errCode === 0) {
-                this.setState({
-                    selectedClinic: selectedOption,
-                    name: res.data.name,
-                    address: res.data.address,
-                    // imageBase64: res.data.image,
-                    descriptionHTML: res.data.descriptionHTML,
-                    descriptionMarkdown: res.data.descriptionMarkdown,
-                    previewImgURL: new Buffer(res.data.image, 'base64').toString('binary'),
-                    ADD_or_EDIT: false,
-                    selectedProvince: {
-                        label: res.data.province,
-                        value: res.data.province
-                    }
-
-                })
-            }
-        }
     }
 
     handleOnChangeProvince = (selectedOption) => {
@@ -409,68 +384,39 @@ class ManageClinic extends Component {
         })
     }
 
-    // handleSaveNewSpeciatly = async () => {
-    //     if (window.confirm(`Bạn chắc chắn muốn thêm CSYT "${this.state.name}" vào hệ thống?`) == true) {
-    //         let res = await createNewClinic(this.state)
-    //         if (res && res.errCode === 0) {
-    //             alert('Thêm mới CSYT thành công')
-    //             window.location.reload(false)
-    //             toast.success('Thêm mới CSYT thành công')// hàm này không thể chạy vì load lại trang rồi
-    //         } else {
-    //             toast.error('Lỗi! Vui lòng kiểm tra lại thông tin')
-    //         }
-    //     }
-    // }
-
-    handleEditSpeciatly = async (new_specialty) => { // phải truyền cả cục data cần edit vào đây
-        // if (window.confirm(`Bạn chắc chắn muốn chỉnh sửa thông tin CSYT "${this.state.name}" ?`) == true) {
-        //     let res = await editClinic(new_specialty) /////////////api
-        //     if (res && res.errCode === 0) {
-        //         alert('Chỉnh sửa thông tin thành công')
-        //         window.location.reload(false)
-        //         toast.success('Chỉnh sửa thông tin thành công')// hàm này không thể chạy vì load lại trang rồi
-        //     } else {
-        //         toast.error('Lỗi! Có thể CSYT đã bị xóa ở 1 tab khác')
-        //     }
-        // }
-
-    }
-
-    handleDeleteSpeciatly = async (idClinicDelete) => {
-        // if (window.confirm(`Bạn chắc chắn muốn xóa CSYT "${this.state.name}" khỏi hệ thống?`) == true) {
-        //     let res = await deleteClinic(idClinicDelete) ////////////api
-        //     if (res && res.errCode === 0) {
-        //         alert('Xóa thành công')
-        //         window.location.reload(false)
-        //         toast.success('Xóa thành công') // hàm này không thể chạy vì load lại trang rồi
-        //     } else {
-        //         toast.error('Lỗi! Có thể CSYT đã bị xóa ở 1 tab khác')
-        //     }
-        // }
-    }
-
-
     render() {
-        console.log('state clinic', this.state)
+        console.log('check state addclinic', this.state)
         return (
-            <div className='manage-clinic-container'>
-                <div className='add-new-clinic row'>
-                    <div className='col-9 row'>
-                        <div className='col-12 ms-title'>Xem & chỉnh sửa thông tin CSYT</div>
-                        <div className='col-12 form-group row'>
-                            <div className='col-2'><h6>Chọn cơ sở y tế</h6></div>
-                            <div className='col-10'>
-                                <
-                                    Select
-                                    value={this.state.selectedClinic}
-                                    onChange={this.handleChangeSelect}
-                                    options={this.state.listClinic}
-                                />
-                            </div>
+            <div className='row'>
+                <div className='col-4 logo' >
+                    <img src={logo} alt="some_text" />
+                </div>
+                <div className='col-8'>
+                    <div className='col-12 mb-5 text-center'>
+                        <br></br><br></br><br></br>
+                        <h1>Thêm CSYT mới vào hệ thống musMedi</h1>
+                    </div>
+                </div>
+                <div className='col-12 mx-3 row'>
+                    <div className='col-3'>
+                        <div className='preview-image'
+                            style={{ backgroundImage: `url(${this.state.previewImgURL})` }}
+                            onClick={() => this.openPreviewImage()}>
+
                         </div>
-                        <div className='col-12 form-group row'>
-                            <div className='col-2'><h6>Tên cơ sở y tế: </h6></div>
-                            <div className='col-10'>
+                        <input
+                            className='form-control'
+                            type='file'
+                            onChange={(event) => this.handleOnChangeImage(event)}
+                            id='default_button'
+                            hidden
+                        />
+                        <label className='label-upload' htmlFor='default_button'>Chọn ảnh <i class="fas fa-images"></i></label>
+                    </div>
+                    <div className='col-9'>
+                        <div className='col-12'>
+                            <div className=''><h6>Tên cơ sở y tế: </h6></div>
+                            <div className=''>
                                 <input
                                     className='form-control'
                                     type="text"
@@ -479,9 +425,10 @@ class ManageClinic extends Component {
                                 />
                             </div>
                         </div>
-                        <div className='col-12 form-group row'>
-                            <div className='col-2'><h6>Địa chỉ (chỉ ghi đến cấp huyện): </h6></div>
-                            <div className='col-10'>
+                        <div className='col-12'><br></br></div>
+                        <div className='col-12'>
+                            <div className=''><h6>Địa chỉ (chỉ ghi đến cấp huyện): </h6></div>
+                            <div className=''>
                                 <input
                                     className='form-control'
                                     type="text"
@@ -490,70 +437,64 @@ class ManageClinic extends Component {
                                 />
                             </div>
                         </div>
-                        <div className='col-12 form-group row'>
-                            <div className='col-2'><h6>Tỉnh thành</h6></div>
-                            <div className='col-4'>
-                                <
-                                    Select
-                                    options={this.state.arr63TinhThanh}
-                                    value={this.state.selectedProvince}
-                                    onChange={this.handleOnChangeProvince}
-                                />
+                        <div className='col-12'><br></br></div>
+                        <div className='col-12 row'>
+                            <div className='col-5'>
+                                <div className=''><h6>Tài khoản </h6></div>
+                                <div className=''>
+                                    <input
+                                        className='form-control'
+                                        type="text"
+                                        onChange={(event) => this.handleOnChangeInput(event, 'nickName')}
+                                        value={this.state.nickName}
+                                    />
+                                </div>
+                            </div>
+                            <div className='col-5'>
+                                <div className=''><h6>Mật khẩu </h6></div>
+                                <div className=''>
+                                    <input
+                                        className='form-control'
+                                        type="text"
+                                        onChange={(event) => this.handleOnChangeInput(event, 'password')}
+                                        value={this.state.password}
+                                    />
+                                </div>
+                            </div>
+                            <div className='col-12'><br></br></div>
+                            <div className='col-5'>
+                                <div className=''><h6>Tỉnh thành</h6></div>
+                                <div className=''>
+                                    <
+                                        Select
+                                        options={this.state.arr63TinhThanh}
+                                        value={this.state.selectedProvince}
+                                        onChange={this.handleOnChangeProvince}
+                                    />
+                                </div>
+                            </div>
+                            <div className='col-5'>
+                                <div className=''><h6>Gmail liên lạc </h6></div>
+                                <div className=''>
+                                    <input
+                                        className='form-control'
+                                        type="text"
+                                        onChange={(event) => this.handleOnChangeInput(event, 'gmail')}
+                                        value={this.state.gmail}
+                                    />
+                                </div>
+                            </div>
+                            <div className='col-2'>
+                                <br></br>
+                                <button className='button-add-speciatly' onClick={() => this.handleSaveNewClinic()}>
+                                    Lưu
+                                </button>
                             </div>
                         </div>
-                        <div className='col-12 form-group row'><br></br></div>
-
                     </div>
-                    <div className='col-3'>
-                        <div className='col-12'><br></br></div>
-                        <div className='col-12'><br></br></div>
-                        <div className='col-12 form-group'>
-                            <div className='preview-image'
-                                style={{ backgroundImage: `url(${this.state.previewImgURL})` }}
-                                onClick={() => this.openPreviewImage()}>
 
-                            </div>
-                            <input
-                                className='form-control'
-                                type='file'
-                                onChange={(event) => this.handleOnChangeImage(event)}
-                                id='default_button'
-                                hidden
-                            />
-                            <label className='label-upload' htmlFor='default_button'>Chọn ảnh <i class="fas fa-images"></i></label>
-                        </div>
-                        <div className='col-12'><br></br></div>
-                        <div className='col-12'>
-                            {
-                                this.state.ADD_or_EDIT === true ?
-                                    <>
-                                        <button className='disabled-edit-clinic' disabled >Lưu thông tin  chỉnh sửa</button>
-                                        <button className='disabled-delete-clinic' disabled >Xóa CSYT</button>
-                                    </>
-                                    :
-                                    <>
-                                        <button
-                                            className='button-edit-clinic'
-                                            onClick={() => this.handleEditSpeciatly({
-                                                id: this.state.selectedClinic.value,
-                                                name: this.state.name,
-                                                image: this.state.imageBase64,
-                                                descriptionMarkdown: this.state.descriptionMarkdown,
-                                                descriptionHTML: this.state.descriptionHTML
-                                            })}
-                                        >
-                                            Lưu thông tin  chỉnh sửa
-                                        </button>
-                                        <button className='button-delete-clinic' onClick={() => this.handleDeleteSpeciatly(this.state.selectedClinic.value, this.state.name)}>
-                                            Xóa CSYT
-                                        </button>
-                                    </>
-
-                            }
-                        </div>
-                    </div>
                     <div className='col-12'>
-                        <label>Xem & chỉnh sửa thông tin giới thiệu CSYT ở đây:</label>
+                        <label>Viết thông tin giới thiệu CSYT ở đây:</label>
                         <MdEditor
                             style={{ height: '100vh' }}
                             renderHTML={text => mdParser.render(text)}
@@ -570,7 +511,7 @@ class ManageClinic extends Component {
                     />
                 }
             </div>
-        )
+        );
     }
 
 }
@@ -587,4 +528,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageClinic);
+export default connect(mapStateToProps, mapDispatchToProps)(AddClinic);

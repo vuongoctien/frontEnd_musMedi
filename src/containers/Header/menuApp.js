@@ -28,7 +28,8 @@ export const adminMenu = [
 
         name: 'menu.admin.manage-clinic',
         menus: [
-            { name: 'menu.admin.manage-clinic', link: '/system/manage-clinic' }
+            { name: 'menu.admin.manage-clinic', link: '/system/manage-clinic_RUD' },
+            { name: 'Xem danh sách & thêm', link: '/system/manage-clinic_CR' }
         ]
 
     },
