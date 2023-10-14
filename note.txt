@@ -54,3 +54,5 @@ Mình sẽ đặt mã là _12_10_2023 để đánh dấu các ghi chú về lu�
 mình thử rồi mà không tự làm được, khá là khó hiểu
 Mục đích của dùng Redux là đỡ phải gọi đi gọi lại xuống DB nhiều lần (vấn đề hiệu năng)
 Nhưng trong khuôn khổ ĐỒ ÁN này, mình có thể không dùng cho đỡ phức tạp
+
+đúng là prop rất phức tạp, với chức năng login mình đã dùng mã learn_login_prop2 để đánh dấu 

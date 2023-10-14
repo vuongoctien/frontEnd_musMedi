@@ -60,3 +60,31 @@ export const doctorMenu = [
         ]
     }
 ]
+
+
+/** Từ đây là khu vực mình tự code */
+
+export const musMediAdminMenu = [
+    {
+        name: 'Welcome',
+        menus: [
+            {
+                name: 'Welcome', link: '/system/user-manage'
+            }
+        ]
+    },
+    {
+        name: 'Cơ sở Y tế',
+        menus: [
+            { name: 'Chỉnh sửa & xóa thông tin', link: '/system/manage-clinic_RUD' },
+            { name: 'Xem danh sách & thêm mới', link: '/system/manage-clinic_CR' }
+        ]
+
+    },
+    {
+        name: 'Chuyên khoa',
+        menus: [
+            { name: 'menu.admin.manage-speciatly', link: '/system/manage-speciatly' }
+        ]
+    }
+]
