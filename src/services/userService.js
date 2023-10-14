@@ -74,6 +74,7 @@ const createNewSpeciatly = (data) => {
     return axios.post(`/api/create-new-specialty`, data)
 }
 
+/*********SPECIALTY *****************************************************************************/
 const getAllSpecialty = () => { //ok
     return axios.get(`/api/get-specialty`)
 }
@@ -93,7 +94,9 @@ const deleteSpecialty = (deleteData) => { //ok
         }
     })
 }
+/********************************************************************************************** */
 
+/*********CLINIC *****************************************************************************/
 const createNewClinic = (data) => {
     return axios.post(`/api/create-new-clinic`, data)
 }
@@ -102,9 +105,11 @@ const getAllClinic = () => {//ok
     return axios.get(`/api/get-clinic`)
 }
 
-const getAllDetailClinicById = (data) => {
-    return axios.get(`/api/get-detail-clinic-by-id?id=${data.id}`)
+const getAllDetailClinicById = (id) => {
+    return axios.get(`/api/get-detail-clinic-by-id?id=${id}`)
 }
+/********************************************************************************************** */
+
 
 
 export {

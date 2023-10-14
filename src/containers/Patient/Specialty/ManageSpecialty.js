@@ -138,36 +138,42 @@ class ManageSpecialty extends Component {
     }
 
     handleSaveNewSpeciatly = async () => {
-        let res = await createNewSpeciatly(this.state)
-        if (res && res.errCode === 0) {
-            toast.success('Thêm mới chuyên khoa thành công')
-            alert('Thêm mới chuyên khoa thành công')
-            window.location.reload(false)
-        } else {
-            toast.error('Lỗi! Vui lòng kiểm tra lại thông tin')
+        if (window.confirm(`Bạn chắc chắn muốn thêm chuyên khoa "${this.state.name}" vào hệ thống?`) == true) {
+            let res = await createNewSpeciatly(this.state)
+            if (res && res.errCode === 0) {
+                alert('Thêm mới chuyên khoa thành công')
+                window.location.reload(false)
+                toast.success('Thêm mới chuyên khoa thành công')// hàm này không thể chạy vì load lại trang rồi
+            } else {
+                toast.error('Lỗi! Vui lòng kiểm tra lại thông tin')
+            }
         }
     }
 
     handleEditSpeciatly = async (new_specialty) => { // phải truyền cả cục data cần edit vào đây
-        // console.log('check new_specialty', new_specialty)
-        let res = await editSpecialty(new_specialty)
-        if (res && res.errCode === 0) {
-            toast.success('Chỉnh sửa thông tin thành công')
-            alert('Chỉnh sửa thông tin thành công')
-            window.location.reload(false)
-        } else {
-            toast.error('Lỗi! Có thể chuyên khoa đã bị xóa ở 1 tab khác')
+        if (window.confirm(`Bạn chắc chắn muốn chỉnh sửa thông tin chuyên khoa "${this.state.name}" ?`) == true) {
+            let res = await editSpecialty(new_specialty)
+            if (res && res.errCode === 0) {
+                alert('Chỉnh sửa thông tin thành công')
+                window.location.reload(false)
+                toast.success('Chỉnh sửa thông tin thành công')// hàm này không thể chạy vì load lại trang rồi
+            } else {
+                toast.error('Lỗi! Có thể chuyên khoa đã bị xóa ở 1 tab khác')
+            }
         }
+
     }
 
     handleDeleteSpeciatly = async (idSpecialtyDelete) => {
-        let res = await deleteSpecialty(idSpecialtyDelete)
-        if (res && res.errCode === 0) {
-            toast.success('Xóa thành công')
-            alert('Xóa thành công')
-            window.location.reload(false)
-        } else {
-            toast.error('Lỗi! Có thể chuyên khoa đã bị xóa ở 1 tab khác')
+        if (window.confirm(`Bạn chắc chắn muốn xóa chuyên khoa "${this.state.name}" khỏi hệ thống?`) == true) {
+            let res = await deleteSpecialty(idSpecialtyDelete)
+            if (res && res.errCode === 0) {
+                alert('Xóa thành công')
+                window.location.reload(false)
+                toast.success('Xóa thành công') // hàm này không thể chạy vì load lại trang rồi
+            } else {
+                toast.error('Lỗi! Có thể chuyên khoa đã bị xóa ở 1 tab khác')
+            }
         }
     }
 
@@ -181,7 +187,7 @@ class ManageSpecialty extends Component {
                         <div className='col-12 ms-title'>Tạo mới & chỉnh sửa chuyên khoa</div>
                         <div className='col-12 form-group row'>
                             <div className='col-3 form-group'>
-                                <h5>chọn chuyên khoa</h5>
+                                <h5>Chọn <br></br>chuyên khoa</h5>
                             </div>
                             <div className='col-9 form-group'>
                                 <Select
@@ -193,7 +199,7 @@ class ManageSpecialty extends Component {
                         </div>
                         <div className='col-12 form-group row'>
                             <div className='col-3 form-group'>
-                                <h5>Tên chuyên khoa: </h5>
+                                <h5>Tên <br></br>chuyên khoa: </h5>
                             </div>
                             <div className='col-9 form-group'>
                                 <input
@@ -245,7 +251,7 @@ class ManageSpecialty extends Component {
                                         >
                                             Lưu thông tin chỉnh sửa
                                         </button>
-                                        <button className='button-delete-speciatly' onClick={() => this.handleDeleteSpeciatly(this.state.selectedSpecialty.value)}>
+                                        <button className='button-delete-speciatly' onClick={() => this.handleDeleteSpeciatly(this.state.selectedSpecialty.value, this.state.name)}>
                                             Xóa chuyên khoa
                                         </button>
                                     </>
@@ -259,6 +265,7 @@ class ManageSpecialty extends Component {
 
 
                     <div className='col-12'>
+                        <label>Xem & chỉnh sửa thông tin giới thiệu chuyên khoa ở đây:</label>
                         <MdEditor
                             style={{ height: '100vh' }}
                             renderHTML={text => mdParser.render(text)}

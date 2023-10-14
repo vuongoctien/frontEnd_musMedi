@@ -2,21 +2,103 @@
     padding: 0 15px;
 
     .ms-title {
-        text-align    : center;
-        margin        : 10px 0;
-        text-transform: uppercase;
-        font-size     : 17px;
-        font-weight   : 600;
+        text-align       : center;
+        margin-bottom    : 10px;
+        // text-transform: uppercase;// viết hoa
+        font-size        : 22px;
+        font-weight      : 500;
+        color            : #0071ba;
     }
 
     .add-new-clinic {
-        .button-save-clinic {
+        margin-top: 3vh;
+
+        .disabled-edit-clinic {
+            // trường hợp không sửa
+
             border       : none;
-            background   : orange;
+            background   : khaki;
             padding      : 8px 5px;
             min-width    : 75px;
             border-radius: 3px;
-            margin       : 15px 0;
+            margin-top   : 6vh;
+            text-align   : center;
+            opacity      : 0.6;
+        }
+
+        .disabled-delete-clinic {
+            // trường hợp không xóa
+
+            border       : none;
+            background   : tomato;
+            padding      : 8px 5px;
+            min-width    : 75px;
+            border-radius: 3px;
+            margin-top   : 6vh;
+            margin-left  : 2vh;
+            text-align   : center;
+            opacity      : 0.6;
+        }
+
+        .button-edit-clinic {
+            // trường hợp sửa
+
+            border       : none;
+            background   : khaki;
+            padding      : 8px 5px;
+            min-width    : 75px;
+            border-radius: 3px;
+            margin-top   : 6vh;
+            cursor       : pointer;
+            text-align   : center;
+
+            &:hover {
+                opacity: 0.8;
+            }
+
+        }
+
+        .button-delete-clinic {
+            // trường hợp xóa
+
+            border       : none;
+            background   : tomato;
+            padding      : 8px 5px;
+            min-width    : 75px;
+            border-radius: 3px;
+            margin-top   : 6vh;
+            margin-left  : 2vh;
+            cursor       : pointer;
+            text-align   : center;
+
+            &:hover {
+                opacity: 0.8;
+            }
+
+        }
+
+        .preview-image {
+            height         : 30vh;
+            width          : 100%;
+            border         : 1px solid #ddd;
+            background     : center center no-repeat;
+            background-size: contain;
+            cursor         : pointer;
+            margin-bottom  : 10px;
+        }
+
+        .label-upload {
+            width           : 30vh;
+            text-align      : center;
+            padding         : 5px;
+            border-radius   : 3px;
+            background-color: #ddd;
+            cursor          : pointer;
+
+
+            &:hover {
+                opacity: 0.9;
+            }
         }
     }
 }
