@@ -4,7 +4,7 @@ import { push } from "connected-react-router";
 import * as actions from "../../store/actions"
 import './Login.scss';
 import { FormattedMessage } from 'react-intl';
-import { handleLoginApi } from '../../services/userService';
+import { handleLoginApi, loginClinic } from '../../services/userService';
 import logo from '../../assets/musMedi.png'
 
 
@@ -20,7 +20,7 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        document.title = 'Đăng nhập | Quản trị viên'
+        document.title = 'Đăng nhập | Cơ sở y tế'
     }
 
 
@@ -44,7 +44,7 @@ class Login extends Component {
         })
 
         try {
-            let data = await handleLoginApi(this.state.username, this.state.password)
+            let data = await loginClinic(this.state.username, this.state.password)
             /*
             {
                 "errCode": 0,
@@ -116,7 +116,7 @@ class Login extends Component {
                         <div className='col-12'><img src={logo} alt="some_text" /></div>
 
                         <div className='col-12 text-login'>Đăng nhập</div>
-                        <div className='col-12 text-center'><h5>dành cho quản trị viên</h5></div>
+                        <div className='col-12 text-center'><h5>dành cho Cơ sở Y tế</h5></div>
 
                         <div className='col-12 form-group login-input'>
                             <label>Tài khoản</label>

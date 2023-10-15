@@ -5,6 +5,12 @@ const handleLoginApi = (userEmail, userPassword) => {
 
 }
 
+const loginClinic = (userEmail, userPassword) => {
+    return axios.post('/api/login-clinic', { nickName: userEmail, password: userPassword }) // đổi email thành nickName thôi
+
+}
+
+
 const getAllUsers = (inputId) => {
     return axios.get(`/api/get-all-user?id=${inputId}`)
 }
@@ -150,5 +156,6 @@ export {
     editSpecialty,
     deleteSpecialty,
     editClinic,
-    deleteClinic
+    deleteClinic,
+    loginClinic
 }

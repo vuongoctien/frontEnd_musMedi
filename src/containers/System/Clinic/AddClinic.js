@@ -389,11 +389,11 @@ class AddClinic extends Component {
         return (
             <div className='row'>
                 <div className='col-4 logo' >
-                    <img src={logo} alt="some_text" />
+                    {/* <img src={logo} alt="some_text" /> */}
                 </div>
                 <div className='col-8'>
                     <div className='col-12 mb-5 text-center'>
-                        <br></br><br></br><br></br>
+                        {/* <br></br><br></br><br></br> */}
                         <h1>Thêm CSYT mới vào hệ thống musMedi</h1>
                     </div>
                 </div>

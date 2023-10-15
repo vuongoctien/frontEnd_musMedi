@@ -64,7 +64,33 @@ export const doctorMenu = [
 
 /** Từ đây là khu vực mình tự code */
 
-export const musMediAdminMenu = [
+// export const musMediAdminMenu = [
+//     {
+//         name: 'Welcome',
+//         menus: [
+//             {
+//                 name: 'Welcome', link: '/system/user-manage'
+//             }
+//         ]
+//     },
+//     {
+//         name: 'Cơ sở Y tế',
+//         menus: [
+//             { name: 'Chỉnh sửa & xóa thông tin', link: '/system/manage-clinic_RUD' },
+//             { name: 'Danh sách', link: '/system/manage-clinic_CR' },
+//             { name: 'Thêm mới', link: '/system/addClinic' },
+//         ]
+
+//     },
+//     {
+//         name: 'Chuyên khoa',
+//         menus: [
+//             { name: 'menu.admin.manage-speciatly', link: '/system/manage-speciatly' }
+//         ]
+//     }
+// ]
+
+export const ClinicMenu = [
     {
         name: 'Welcome',
         menus: [
@@ -74,18 +100,35 @@ export const musMediAdminMenu = [
         ]
     },
     {
-        name: 'Cơ sở Y tế',
+        name: 'Lịch khám chữa bệnh',
         menus: [
-            { name: 'Chỉnh sửa & xóa thông tin', link: '/system/manage-clinic_RUD' },
-            { name: 'Danh sách', link: '/system/manage-clinic_CR' },
-            { name: 'Thêm mới', link: '/system/addClinic' },
+            { name: 'Tạm thời bỏ trống', link: '' },
+            { name: 'Tạm thời bỏ trống', link: '' },
+            { name: 'Tạm thời bỏ trống', link: '' },
         ]
-
     },
     {
-        name: 'Chuyên khoa',
+        name: 'Thông tin bác sĩ',
         menus: [
-            { name: 'menu.admin.manage-speciatly', link: '/system/manage-speciatly' }
+            { name: 'Tạm thời bỏ trống', link: '' },
+            { name: 'Tạm thời bỏ trống', link: '' },
+            { name: 'Tạm thời bỏ trống', link: '' },
+        ]
+    },
+    {
+        name: 'Các gói dịch vụ',
+        menus: [
+            { name: 'Tạm thời bỏ trống', link: '' },
+            { name: 'Tạm thời bỏ trống', link: '' },
+            { name: 'Tạm thời bỏ trống', link: '' },
+        ]
+    },
+    {
+        name: 'Lịch khám chữa bệnh',
+        menus: [
+            { name: 'Tạm thời bỏ trống', link: '' },
+            { name: 'Tạm thời bỏ trống', link: '' },
+            { name: 'Tạm thời bỏ trống', link: '' },
         ]
     }
 ]

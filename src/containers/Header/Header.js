@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from "../../store/actions";
 import Navigator from '../../components/Navigator';
-import { adminMenu, doctorMenu, musMediAdminMenu } from './menuApp';
+import { adminMenu, doctorMenu, ClinicMenu } from './menuApp';
 import './Header.scss';
 import { LANGUAGES, USER_ROLE } from '../../utils';
 import { FormattedMessage } from 'react-intl';
@@ -32,13 +32,14 @@ class Header extends Component {
          Đây chính là lỗi bảo mật, không được
         */
         if (userInfo && !_.isEmpty(userInfo)) {
-            let role = userInfo.role
-            if (role === USER_ROLE.ADMIN) {
-                menu = musMediAdminMenu
-            }
-            if (role === USER_ROLE.DOCTOR) {
-                menu = doctorMenu
-            }
+            // let role = userInfo.role
+            // if (role === USER_ROLE.ADMIN) {
+            //     menu = musMediAdminMenu
+            // }
+            // if (role === USER_ROLE.DOCTOR) {
+            //     menu = doctorMenu
+            // }
+            menu = ClinicMenu
         }
 
         this.setState({
@@ -57,7 +58,7 @@ class Header extends Component {
                     <Navigator menus={this.state.menuApp} />
                 </div>
                 <div className='languages'>
-                    <span className='welcome'>musMedi xin chào {userInfo.nickName} !        </span>
+                    <span className='welcome'>musMedi xin chào {userInfo.name} !        </span>
 
 
                     {/* nút logout */}
