@@ -1,6 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import { Redirect, useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import './AdLogin.scss'
+import logo from '../../assets/musMedi.png'
+import { handleLoginApi } from "../../services/userService";
+import AdminCRUD from "./AdminCRUD";
 
 export default function AdLogin() {
     /** Đã hiểu. Bên file App, mình đặt đường dẫn (bên file App) để nó mở component AdLogin này
@@ -9,28 +13,23 @@ export default function AdLogin() {
      * mà thôi, trước mắt cứ chạy được là được, bảo mật có mức độ thôi, đồ án thôi mà
     */
 
+
+
     return (
         <Router>
 
             <Switch>
-                {/* Nếu cố tình không đăng nhập mà vẫn truy cập link của Admin là 
-                thì ông mày check xem đã đăng nhập chưa, bằng localStorage, cái này tạm thời biết thế đã
-                Nếu rồi, ông mày cho mở component Admin cho
-                Nếu chưa, cụ mày bắt về lại link /adLogin, tức là trang đăng nhập */}
+
                 <Route path="/adLogin/admin" render={() => {
-                    return localStorage.getItem("day_la_sting_lu_trong_LocalStorage_khi_dang_nhap") ? <Admin /> : <Redirect to="/adLogin" />
+                    return localStorage.getItem("Day_la_string_luu_trong_LocalStorage_khi_dang_nhap_RuiRoBaoMat") ? <Admin /> : <Redirect to="/adLogin" />
                 }}>
                 </Route>
 
-
-
-                {/* Nếu đường dẫn là /adLogin, 
-                thì mở component Login ra (được viết ngay chỗ function bên dưới) 
-                Nhưng nếu đã đăng nhập rồi thì vẫn vào được Login, cái này mình sẽ phải sử lý sau*/}
                 <Route path="/adLogin" render={() => {
-                    return localStorage.getItem("day_la_sting_lu_trong_LocalStorage_khi_dang_nhap") ? <Redirect to="/adLogin/admin" /> : <Login />
+                    return localStorage.getItem("Day_la_string_luu_trong_LocalStorage_khi_dang_nhap_RuiRoBaoMat") ? <Redirect to="/adLogin/admin" /> : <Login />
                 }}>
                 </Route>
+
             </Switch>
 
         </Router>
@@ -38,27 +37,115 @@ export default function AdLogin() {
 }
 
 function Admin() {
-    document.title = 'Đã đăng nhập'
+    // document.title = 'Đã đăng nhập'
     let history = useHistory()
     let logOUT = () => {
-        localStorage.removeItem("day_la_sting_lu_trong_LocalStorage_khi_dang_nhap")
+        localStorage.removeItem("Day_la_string_luu_trong_LocalStorage_khi_dang_nhap_RuiRoBaoMat")
         history.replace("/adLogin")
     }
-    return <div>
-        <h2>Đã đăng nhập</h2>
-        <button onClick={logOUT}>Đăng xuất</button>
-    </div>
+
+    return <>
+        <div className="header-logout row">
+            <div className="col-4">
+                <img src={logo}></img>
+            </div>
+            <div className="col-6"></div>
+            <div className="col-2">
+                <br />
+                <div>Xin chào {localStorage.getItem("Day_la_string_luu_trong_LocalStorage_khi_dang_nhap_RuiRoBaoMat")}</div>
+                <br />
+                <button type="button" class="btn btn-info" onClick={logOUT}>Đăng xuất</button>
+            </div>
+        </div>
+        <hr />
+
+        <div className='row'>
+            <div className="col-2 vertical-menu">
+                <a className="active">Cơ sở y tế</a>
+                <a href="/adLogin/admin/clinicRead" className="none-active">
+                    -- Danh sách CSYT
+                </a>
+                <a href="/adLogin/admin/clinicAdd" className="none-active">
+                    -- Thêm mới CSYT
+                </a>
+                <a href="/adLogin/admin/clinicEditDelete" className="none-active">
+                    -- Chỉnh sửa & xóa CSYT
+                </a>
+                <a className="active">Chuyên khoa</a>
+                <a href="/adLogin/admin/specialty" className="none-active">
+                    -- Chuyên khoa
+                </a>
+
+            </div>
+            <div id="" className='col-10'>
+                <AdminCRUD />
+            </div>
+        </div>
+    </>
 }
 
 function Login() {
-    document.title = 'Chưa đăng nhập'
+    document.title = 'Quản trị viên'
     let history = useHistory()
-    let logIN = () => {
-        localStorage.setItem("day_la_sting_lu_trong_LocalStorage_khi_dang_nhap", true)
-        history.replace("/adLogin/admin")
+    let logIN = async () => {
+        let nickName = document.getElementById('musMediNickName').value
+        let passWord = document.getElementById('musMediPassWord').value
+        let errMessage = ''
+        try {
+            let data = await handleLoginApi(nickName, passWord)
+            console.log('data', data)
+            if (data && data.errCode !== 0) {
+                errMessage = data.message
+                document.getElementById('thong_bao').innerHTML = errMessage
+                document.getElementById('thong_bao').style = 'color:red'
+            }
+            if (data && data.errCode === 0) {
+                console.log('Đăng nhập thành công, có hàm gì thì quăng vào đây')
+                errMessage = data.message
+                document.getElementById('thong_bao').innerHTML = errMessage
+                document.getElementById('thong_bao').style = 'color:green'
+                let nameAd = data.user.nickName
+                localStorage.setItem("Day_la_string_luu_trong_LocalStorage_khi_dang_nhap_RuiRoBaoMat", nameAd)
+                localStorage.setItem("componentOpen", 1)
+                history.replace("/adLogin/admin")
+            }
+
+        } catch (error) {
+            if (error.response.data) {
+                errMessage = error.response.data.message
+                document.getElementById('thong_bao').innerHTML = errMessage
+            }
+        }
+
+
     }
+
     return <div>
-        <h2>Chưa đăng nhập</h2>
-        <button onClick={logIN}>Đăng nhập</button>
+        <div id="container">
+            <div className="col-6">
+                <img src={logo} />
+            </div>
+            <div className="col-12">
+                <h5>Đăng nhập dành cho Quản trị viên</h5>
+            </div>
+            <hr />
+
+            <label id="label" for="email"><b>Tên đăng nhập</b></label>
+
+            <input id="musMediNickName" type="text" placeholder="Nhập Email" name="email" required />
+
+
+
+            <label id="label" for="psw"><b>Mật khẩu</b></label>
+
+            <input id="musMediPassWord" type="password" placeholder="Nhập Mật Khẩu" name="psw" required />
+
+            <h6 id="thong_bao"><br /></h6>
+            <hr />
+
+            <div id="clearfix">
+                <button id="button" onClick={logIN}>Đăng nhập</button>
+            </div>
+        </div>
     </div>
 }
