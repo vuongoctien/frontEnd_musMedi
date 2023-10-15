@@ -298,7 +298,7 @@ class AddClinic extends Component {
     }
 
     async componentDidMount() {
-
+        document.title = 'tạo CSYT mới'
     }
 
     handleSaveNewClinic = async () => {

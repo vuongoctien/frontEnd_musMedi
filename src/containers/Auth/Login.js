@@ -19,6 +19,10 @@ class Login extends Component {
         }
     }
 
+    componentDidMount() {
+        document.title = 'Đăng nhập | Quản trị viên'
+    }
+
 
     handleOnChangeUsername = (event) => {
         this.setState({

@@ -44,6 +44,7 @@ class ManageSpecialty extends Component {
     }
 
     async componentDidMount() {
+        document.title = 'quản lý Chuyên khoa'
         let res = await getAllSpecialty()
         if (res && res.errCode === 0) {
             this.setState({

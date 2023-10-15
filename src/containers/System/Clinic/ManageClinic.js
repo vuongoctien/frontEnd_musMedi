@@ -303,6 +303,7 @@ class ManageClinic extends Component {
     }
 
     async componentDidMount() {
+        document.title = 'sửa & xóa CSYT'
         let res = await getAllClinic()
         if (res && res.errCode === 0) {
             this.setState({

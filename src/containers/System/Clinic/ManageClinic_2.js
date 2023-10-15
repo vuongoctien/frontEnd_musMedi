@@ -26,6 +26,7 @@ class ManageClinic_2 extends Component {
     }
 
     async componentDidMount() {
+        document.title = 'xem & thêm CSYT'
         let response = await getAllClinic()
         if (response && response.errCode === 0) {
             this.setState({

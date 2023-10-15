@@ -5,6 +5,10 @@ import './UserManage.scss'
 
 class UserManage extends Component {
 
+    componentDidMount() {
+        document.title = 'xin chào Quản trị viên'
+    }
+
     render() {
         return (
             <div className='text-center mt-5'>
