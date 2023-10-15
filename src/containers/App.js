@@ -8,7 +8,7 @@ import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authenticati
 import { path } from '../utils'
 import Home from '../routes/Home';
 import Login from './Auth/Login';
-import Login_Doctor from './Auth/Login_Doctor';
+import AdLogin from './Auth/AdLogin';
 import System from '../routes/System';
 import { CustomToastCloseButton } from '../components/CustomToast';
 import HomePage from './HomePage/HomePage.js'
@@ -58,7 +58,7 @@ class App extends Component {
                                     <Route path={path.DETAIL_SPECIATLY} component={DetailSpeciatly} />
                                     <Route path={path.DETAIL_CLINIC} component={DetailClinic} />
 
-                                    <Route path={'/loginDoctor'} component={Login_Doctor} />
+                                    <Route path={'/adLogin'} component={AdLogin} />
                                     {/* Đây là component tổ tiên*/}
                                 </Switch>
                             </CustomScrollbars>
