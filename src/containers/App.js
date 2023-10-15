@@ -18,7 +18,6 @@ import Doctor from '../routes/Doctor'
 import VerifiEmail from './Patient/VerifiEmail' // và nhớ import vào
 import DetailSpeciatly from './Patient/Specialty/DetailSpeciatly';
 import DetailClinic from './System/Clinic/DetailClinic';
-import AddClinic from './System/Clinic/AddClinic';
 
 class App extends Component {
 
@@ -58,7 +57,6 @@ class App extends Component {
                                     <Route path={path.VERIFY_EMAIL_BOOKING} component={VerifiEmail} />
                                     <Route path={path.DETAIL_SPECIATLY} component={DetailSpeciatly} />
                                     <Route path={path.DETAIL_CLINIC} component={DetailClinic} />
-                                    <Route path={'/addClinic'} component={AddClinic} />
 
                                     <Route path={'/loginDoctor'} component={Login_Doctor} />
                                     {/* Đây là component tổ tiên*/}

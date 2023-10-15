@@ -77,7 +77,8 @@ export const musMediAdminMenu = [
         name: 'Cơ sở Y tế',
         menus: [
             { name: 'Chỉnh sửa & xóa thông tin', link: '/system/manage-clinic_RUD' },
-            { name: 'Xem danh sách & thêm mới', link: '/system/manage-clinic_CR' }
+            { name: 'Danh sách', link: '/system/manage-clinic_CR' },
+            { name: 'Thêm mới', link: '/system/addClinic' },
         ]
 
     },
