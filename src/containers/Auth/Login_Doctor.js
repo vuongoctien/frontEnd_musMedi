@@ -27,8 +27,9 @@ export default function Login_Doctor() {
                 {/* Nếu đường dẫn là /loginDoctor, 
                 thì mở component Login ra (được viết ngay chỗ function bên dưới) 
                 Nhưng nếu đã đăng nhập rồi thì vẫn vào được Login, cái này mình sẽ phải sử lý sau*/}
-                <Route path="/loginDoctor">
-                    <Login />
+                <Route path="/loginDoctor" render={() => {
+                    return localStorage.getItem("day_la_sting_lu_trong_LocalStorage_khi_dang_nhap") ? <Redirect to="/loginDoctor/admin" /> : <Login />
+                }}>
                 </Route>
             </Switch>
 
