@@ -65,11 +65,11 @@ function Admin() {
                 <a href="/adLogin/admin/clinicRead" className="none-active">
                     -- Danh sách CSYT
                 </a>
-                <a href="/adLogin/admin/clinicAdd" className="none-active">
+                {/* <a href="/adLogin/admin/clinicAdd" className="none-active">
                     -- Thêm mới CSYT
-                </a>
+                </a> */}
                 <a href="/adLogin/admin/clinicEditDelete" className="none-active">
-                    -- Chỉnh sửa & xóa CSYT
+                    -- Cập nhật & xóa CSYT
                 </a>
                 <a className="active">Chuyên khoa</a>
                 <a href="/adLogin/admin/specialty" className="none-active">

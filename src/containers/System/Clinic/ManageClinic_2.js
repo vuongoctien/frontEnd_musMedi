@@ -26,7 +26,7 @@ class ManageClinic_2 extends Component {
     }
 
     async componentDidMount() {
-        document.title = 'xem & thêm CSYT'
+        document.title = 'danh sách CSYT'
         let response = await getAllClinic()
         if (response && response.errCode === 0) {
             this.setState({
@@ -37,18 +37,21 @@ class ManageClinic_2 extends Component {
 
     render() {
         let arrClinic = this.state.arrClinic
+        arrClinic.reverse() // đảo ngược mảng
+        console.log('arrClinic', arrClinic)
+
         return (
             <div className="clinic-container row mt-5 mx-4">
-                <div className='col-4'>
-                    <a href='/system/addClinic'>
+                <div className='col-6'>
+                    <a href='/adLogin/admin/clinicAdd'>
                         <button className='btn btn-primary'>
                             <i className="fas fa-plus"></i>  Thêm CSYT mới
                         </button>
                     </a>
                 </div>
-                <div className='col-8'>
+                <div className='col-6'>
                     <br></br>
-                    <h3>Danh sách các CSYT liên kết với hệ thống musMedi</h3>
+                    <h3>Danh sách CSYT</h3>
                 </div>
                 <div className='col-12 mt-2'>
                     <table id="customers">
@@ -59,14 +62,18 @@ class ManageClinic_2 extends Component {
                                 <th>Tên </th>
                                 <th>Địa chỉ (đến cấp huyện) </th>
                                 <th>Tỉnh thành</th>
-                                <th>Tài khoản đăng nhập</th>
+                                <th>Tên đăng nhập</th>
                                 <th></th>
                             </tr>
                             {arrClinic && arrClinic.map((item, index) => {
+
                                 return (
                                     <tr key={index}>
-                                        <td>{item.id}</td>
-                                        <td>IMG</td>
+                                        <td><br />{item.id}<br /><br /></td>
+                                        <td>
+                                            <div className='clinic-image' style={{ backgroundImage: `url(${item.image})` }}></div>
+                                            {/* Chỗ này phải giải thích thêm: bên API mình đã Buffer rồi, qua đây không cần nữa, dùng luôn */}
+                                        </td>
                                         <td>{item.name}</td>
                                         <td>{item.address}</td>
                                         <td>{item.province}</td>
@@ -85,7 +92,7 @@ class ManageClinic_2 extends Component {
                     <br></br><br></br><br></br><br></br>
                 </div>
 
-            </div>
+            </div >
         );
     }
 

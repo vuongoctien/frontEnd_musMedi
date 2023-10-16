@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite'
-import './AddClinic.scss';
+// import './AddDoctor.scss';
 import { CommonUtils } from '../../../utils'
 import { toast } from 'react-toastify';
 import { template } from 'lodash';
@@ -17,7 +17,7 @@ import logo from '../../../assets/musMedi.png'
 
 const mdParser = new MarkdownIt()
 
-class AddClinic extends Component {
+class AddDoctor extends Component {
 
     constructor(props) {
         super(props)
@@ -26,7 +26,7 @@ class AddClinic extends Component {
             imageBase64: '',
             descriptionHTML: '',
             descriptionMarkdown: '',
-            address: '',
+            position: '',
             nickName: '',
             password: '',
             gmail: '',
@@ -36,277 +36,20 @@ class AddClinic extends Component {
             isOpen: false,
 
             //63 tinh thanh
-            selectedProvince: {
-                "label": "Hà Nội",
-                "value": "Hà Nội"
-            },
-            arr63TinhThanh: [
-                {
-                    "label": "Hà Nội",
-                    "value": "Hà Nội"
-                },
-                {
-                    "label": "Thành phố Hồ Chí Minh",
-                    "value": "Thành phố Hồ Chí Minh"
-                },
-                {
-                    "label": "An Giang",
-                    "value": "An Giang"
-                },
-                {
-                    "label": "Bà Rịa Vũng Tàu",
-                    "value": "Bà Rịa Vũng Tàu"
-                },
-                {
-                    "label": "Bình Dương",
-                    "value": "Bình Dương"
-                },
-                {
-                    "label": "Bình Phước",
-                    "value": "Bình Phước"
-                },
-                {
-                    "label": "Bình Thuận",
-                    "value": "Bình Thuận"
-                },
-                {
-                    "label": "Bình Định",
-                    "value": "Bình Định"
-                },
-                {
-                    "label": "Bạc Liêu",
-                    "value": "Bạc Liêu"
-                },
-                {
-                    "label": "Bắc Giang",
-                    "value": "Bắc Giang"
-                },
-                {
-                    "label": "Bắc Kạn",
-                    "value": "Bắc Kạn"
-                },
-                {
-                    "label": "Bắc Ninh",
-                    "value": "Bắc Ninh"
-                },
-                {
-                    "label": "Bến Tre",
-                    "value": "Bến Tre"
-                },
-                {
-                    "label": "Cao Bằng",
-                    "value": "Cao Bằng"
-                },
-                {
-                    "label": "Cà Mau",
-                    "value": "Cà Mau"
-                },
-                {
-                    "label": "Cần Thơ",
-                    "value": "Cần Thơ"
-                },
-                {
-                    "label": "Điện Biên",
-                    "value": "Điện Biên"
-                },
-                {
-                    "label": "Đà Nẵng",
-                    "value": "Đà Nẵng"
-                },
-                {
-                    "label": "Đắk Lắk",
-                    "value": "Đắk Lắk"
-                },
-                {
-                    "label": "Đắk Nông",
-                    "value": "Đắk Nông"
-                },
-                {
-                    "label": "Đồng Nai",
-                    "value": "Đồng Nai"
-                },
-                {
-                    "label": "Đồng Tháp",
-                    "value": "Đồng Tháp"
-                },
-                {
-                    "label": "Gia Lai",
-                    "value": "Gia Lai"
-                },
-                {
-                    "label": "Hà Giang",
-                    "value": "Hà Giang"
-                },
-                {
-                    "label": "Hà Nam",
-                    "value": "Hà Nam"
-                },
-                {
-                    "label": "Hà Tĩnh",
-                    "value": "Hà Tĩnh"
-                },
-                {
-                    "label": "Hòa Bình",
-                    "value": "Hòa Bình"
-                },
-                {
-                    "label": "Hưng Yên",
-                    "value": "Hưng Yên"
-                },
-                {
-                    "label": "Hải Dương",
-                    "value": "Hải Dương"
-                },
-                {
-                    "label": "Hải Phòng",
-                    "value": "Hải Phòng"
-                },
-                {
-                    "label": "Hậu Giang",
-                    "value": "Hậu Giang"
-                },
-                {
-                    "label": "Khánh Hòa",
-                    "value": "Khánh Hòa"
-                },
-                {
-                    "label": "Kiên Giang",
-                    "value": "Kiên Giang"
-                },
-                {
-                    "label": "Kon Tum",
-                    "value": "Kon Tum"
-                },
-                {
-                    "label": "Lai Châu",
-                    "value": "Lai Châu"
-                },
-                {
-                    "label": "Long An",
-                    "value": "Long An"
-                },
-                {
-                    "label": "Lào Cai",
-                    "value": "Lào Cai"
-                },
-                {
-                    "label": "Lâm Đồng",
-                    "value": "Lâm Đồng"
-                },
-                {
-                    "label": "Lạng Sơn",
-                    "value": "Lạng Sơn"
-                },
-                {
-                    "label": "Nam Định",
-                    "value": "Nam Định"
-                },
-                {
-                    "label": "Nghệ An",
-                    "value": "Nghệ An"
-                },
-                {
-                    "label": "Ninh Bình",
-                    "value": "Ninh Bình"
-                },
-                {
-                    "label": "Ninh Thuận",
-                    "value": "Ninh Thuận"
-                },
-                {
-                    "label": "Phú Thọ",
-                    "value": "Phú Thọ"
-                },
-                {
-                    "label": "Phú Yên",
-                    "value": "Phú Yên"
-                },
-                {
-                    "label": "Quảng Bình",
-                    "value": "Quảng Bình"
-                },
-                {
-                    "label": "Quảng Nam",
-                    "value": "Quảng Nam"
-                },
-                {
-                    "label": "Quảng Ngãi",
-                    "value": "Quảng Ngãi"
-                },
-                {
-                    "label": "Quảng Ninh",
-                    "value": "Quảng Ninh"
-                },
-                {
-                    "label": "Quảng Trị",
-                    "value": "Quảng Trị"
-                },
-                {
-                    "label": "Sóc Trăng",
-                    "value": "Sóc Trăng"
-                },
-                {
-                    "label": "Sơn La",
-                    "value": "Sơn La"
-                },
-                {
-                    "label": "Thanh Hóa",
-                    "value": "Thanh Hóa"
-                },
-                {
-                    "label": "Thái Bình ",
-                    "value": "Thái Bình "
-                },
-                {
-                    "label": "Thái Nguyên",
-                    "value": "Thái Nguyên"
-                },
-                {
-                    "label": "Thừa Thiên Huế",
-                    "value": "Thừa Thiên Huế"
-                },
-                {
-                    "label": "Tiền Giang",
-                    "value": "Tiền Giang"
-                },
-                {
-                    "label": "Trà Vinh",
-                    "value": "Trà Vinh"
-                },
-                {
-                    "label": "Tuyên Quang",
-                    "value": "Tuyên Quang"
-                },
-                {
-                    "label": "Tây Ninh",
-                    "value": "Tây Ninh"
-                },
-                {
-                    "label": "Vĩnh Long",
-                    "value": "Vĩnh Long"
-                },
-                {
-                    "label": "Vĩnh Phúc ",
-                    "value": "Vĩnh Phúc "
-                },
-                {
-                    "label": "Yên Bái",
-                    "value": "Yên Bái"
-                }
-            ]
+
         }
     }
 
     async componentDidMount() {
-        document.title = 'tạo CSYT mới'
+        document.title = 'thêm Bác sĩ mới'
     }
 
     handleSaveNewClinic = async () => {
-        if (window.confirm(`Bạn chắc chắn muốn thêm CSYT "${this.state.name}" vào hệ thống?`) == true) {
+        if (window.confirm(`Bạn chắc chắn muốn thêm Bác sĩ "${this.state.name}" vào hệ thống?`) == true) {
             // thêm vào bảng Clinic
             let res = await createNewClinic({
                 name: this.state.name,
-                address: this.state.address,
+                position: this.state.position,
                 imageBase64: this.state.imageBase64,
                 descriptionHTML: this.state.descriptionHTML,
                 descriptionMarkdown: this.state.descriptionMarkdown,
@@ -315,17 +58,13 @@ class AddClinic extends Component {
                 password: this.state.password
             })
             if (res && res.errCode === 0) {
-                alert('Thêm mới CSYT thành công')
-                window.location = "/adLogin/admin/clinicRead";
-                toast.success('Thêm mới CSYT thành công')// hàm này không thể chạy vì load lại trang rồi
+                alert('Thêm mới Bác sĩ thành công')
+                // window.location = "/adLogin/admin/clinicRead";
+                window.location.reload()
+                toast.success('Thêm mới Bác sĩ thành công')// hàm này không thể chạy vì load lại trang rồi
+            } else {
+                toast.error('Lỗi! Vui lòng kiểm tra lại thông tin')
             }
-            if (res && res.errCode === 2) {
-                toast.error('Tên đăng nhập đã tồn tại')
-            }
-            if (res && res.errCode === 1) {
-                toast.error('Vui lòng điền đầy đủ thông tin')
-            }
-
 
             //thêm tài khoản vào bảng Account
 
@@ -390,7 +129,7 @@ class AddClinic extends Component {
     }
 
     render() {
-        console.log('check state addclinic', this.state)
+        console.log('check state AddDoctor', this.state)
         return (
             <div className='row'>
                 <div className='col-4 logo' >
@@ -399,7 +138,7 @@ class AddClinic extends Component {
                 <div className='col-8'>
                     <div className='col-12 mb-5 text-center'>
                         {/* <br></br><br></br><br></br> */}
-                        <h1>Thêm CSYT mới vào hệ thống musMedi</h1>
+                        <h1>Thêm Bác sĩ mới vào hệ thống musMedi</h1>
                     </div>
                 </div>
                 <div className='col-12 mx-3 row'>
@@ -432,13 +171,13 @@ class AddClinic extends Component {
                         </div>
                         <div className='col-12'><br></br></div>
                         <div className='col-12'>
-                            <div className=''><h6>Địa chỉ (chỉ ghi đến cấp huyện): </h6></div>
+                            <div className=''><h6>Chức danh: </h6></div>
                             <div className=''>
                                 <input
                                     className='form-control'
                                     type="text"
-                                    onChange={(event) => this.handleOnChangeInput(event, 'address')}
-                                    value={this.state.address}
+                                    onChange={(event) => this.handleOnChangeInput(event, 'position')}
+                                    value={this.state.position}
                                 />
                             </div>
                         </div>
@@ -499,7 +238,7 @@ class AddClinic extends Component {
                     </div>
 
                     <div className='col-12'>
-                        <label>Viết thông tin giới thiệu CSYT ở đây:</label>
+                        <label>Viết thông tin giới thiệu Bác sĩ ở đây:</label>
                         <MdEditor
                             style={{ height: '100vh' }}
                             renderHTML={text => mdParser.render(text)}
@@ -533,4 +272,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddClinic);
+export default connect(mapStateToProps, mapDispatchToProps)(AddDoctor);
