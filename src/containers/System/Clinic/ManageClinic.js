@@ -425,16 +425,22 @@ class ManageClinic extends Component {
     }
 
     handleDeleteSpeciatly = async (idClinicDelete) => {
-        if (window.confirm(`Bạn chắc chắn muốn xóa CSYT "${this.state.name}" khỏi hệ thống?`) == true) {
-            let res = await deleteClinic(idClinicDelete) ////////////api
-            if (res && res.errCode === 0) {
-                alert('Xóa thành công')
-                window.location.reload(false)
-                toast.success('Xóa thành công') // hàm này không thể chạy vì load lại trang rồi
-            } else {
-                toast.error('Lỗi! Có thể CSYT đã bị xóa ở 1 tab khác')
+        if (window.confirm(`Hành động này sẽ xóa hoàn toàn CSYT "${this.state.name}" khỏi hệ thống.
+        Ngoài ra, nếu xóa một CSTY thì thông tin về những Bác sĩ, Gói dịch vụ của CSYT này vẫn lưu trong Cơ sở dữ liệu.
+        Bạn hãy cân nhắc việc tạm ngưng hoạt động của CSYT này thay vì xóa vĩnh viễn.
+        Bạn vẫn muốn xóa CSYT "${this.state.name}" chứ?`) == true) {
+            if (window.confirm(`Bạn chắc chắn muốn xóa CSYT "${this.state.name}" khỏi hệ thống?`) == true) {
+                let res = await deleteClinic(idClinicDelete) ////////////api
+                if (res && res.errCode === 0) {
+                    alert('Xóa thành công')
+                    window.location.reload(false)
+                    toast.success('Xóa thành công') // hàm này không thể chạy vì load lại trang rồi
+                } else {
+                    toast.error('Lỗi! Có thể CSYT đã bị xóa ở 1 tab khác')
+                }
             }
         }
+
     }
 
 

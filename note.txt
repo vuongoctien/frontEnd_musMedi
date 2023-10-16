@@ -25,6 +25,12 @@ this tức là cái class hiện tại. Gọi this thức là gọi đến class
 setState là thay đổi state? và mỗi lần setState thì lại chạy lại hàm render
 
 props là truyền dữ liệu từ component cha sang component con, chưa hiểu lắm
+Giờ vẫn chưa hiểu nhưng mình đang dùng đây
+Cái Header (thanh menu màu xanh dương) là component cha
+Cái ở dưới là component con
+Khi login, Header sẽ truyền thông tin Clinic vào prop, cha và các con tha hồ dùng
+
+__________________________________________________________________________________
 
 Vòng đời ứng dụng: https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
 3 giai đoạn: mouting, updating, unmounting

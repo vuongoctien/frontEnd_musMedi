@@ -7,6 +7,7 @@ import './Header.scss';
 import { LANGUAGES, USER_ROLE } from '../../utils';
 import { FormattedMessage } from 'react-intl';
 import _ from 'lodash'
+import { getAllDetailClinicById } from '../../services/userService';
 
 class Header extends Component {
     constructor(props) {
@@ -22,7 +23,22 @@ class Header extends Component {
 
     }
 
-    componentDidMount() {
+    async componentDidMount() { //mỗi lần mount
+        // ta sẽ liên tục check DB xem Clinic này có còn ở trạng thái hoạt động không?
+        // hơi ngốn hiệu năng nhưng cứ tạm thế đã
+
+        let res = await getAllDetailClinicById(this.props.userInfo.id) // check lại CSYT này từ DB
+        if (res && res.errCode === 0) { // nếu check được
+            console.log('res', res)
+            if (res.data.status != 1) { // nếu status không phải 1 (= 0)
+                alert('Tài khoản của bạn đang tạm ngừng hoạt động')
+                this.props.processLogout() // đăng xuất
+            }
+        } else {
+            alert('Tài khoản của bạn đang tạm ngừng hoạt động')
+            this.props.processLogout() // đăng xuất
+        }
+
         let { userInfo } = this.props //learn_login_prop4: phải có câu này
         console.log('userInfo', userInfo)
         let menu = []

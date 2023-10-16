@@ -312,7 +312,8 @@ class AddClinic extends Component {
                 descriptionMarkdown: this.state.descriptionMarkdown,
                 province: this.state.selectedProvince.value,
                 nickName: this.state.nickName,
-                password: this.state.password
+                password: this.state.password,
+                status: 1, // cứ đặt mặc định là 1 (có hoạt động) // Muốn chỉnh thì sang bên danh sách
             })
             if (res && res.errCode === 0) {
                 alert('Thêm mới CSYT thành công')
