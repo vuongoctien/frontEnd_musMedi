@@ -29,6 +29,7 @@ Giờ vẫn chưa hiểu nhưng mình đang dùng đây
 Cái Header (thanh menu màu xanh dương) là component cha
 Cái ở dưới là component con
 Khi login, Header sẽ truyền thông tin Clinic vào prop, cha và các con tha hồ dùng
+ồ không, đó là Redux đấy, prop dễ hiểu hơn nhiều, xem ở ListDoctor là hiểu nay
 
 __________________________________________________________________________________
 

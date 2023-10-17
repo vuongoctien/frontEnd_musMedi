@@ -31,20 +31,29 @@
             justify-content: flex-end;
             gap            : 15px;
 
-            button {
-                border       : none;
-                outline      : none;
-                padding      : 5px 8px;
-                border-radius: 3px;
-            }
-
-            .button-booking-confirm {
-                background-color: orange;
-            }
-
-            .button-booking-cancel {
-                background-color: grey;
-            }
         }
+    }
+}
+
+.doctor-image-modal {
+    height         : 25vh;
+    width          : 25vh;
+    border         : 1px solid #ccc;
+    background     : center center no-repeat;
+    background-size: cover;
+    border-radius  : 50%;
+}
+
+#label-upload {
+    width           : 20vh;
+    text-align      : center;
+    padding         : 5px;
+    border-radius   : 3px;
+    background-color: #ddd;
+    cursor          : pointer;
+
+
+    &:hover {
+        opacity: 0.9;
     }
 }
