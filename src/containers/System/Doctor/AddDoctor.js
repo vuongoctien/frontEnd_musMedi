@@ -67,8 +67,7 @@ class AddDoctor extends Component {
             }
             if (res && res.errCode === 0) {
                 alert('Thêm mới Bác sĩ thành công')
-                // window.location = "/adLogin/admin/clinicRead";
-                window.location.reload()
+                window.location = "/system/listDoctor";
                 toast.success('Thêm mới Bác sĩ thành công')// hàm này không thể chạy vì load lại trang rồi
             }
             if (res && res.errCode === 1) {

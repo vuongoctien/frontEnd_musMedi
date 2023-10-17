@@ -38,8 +38,12 @@ const getAllcodeService = (inputType) => {
 
 /****************************DOCTOR */
 
-const createDoctor = (data) => {
+const createDoctor = (data) => { //ok
     return axios.post(`/api/create-new-doctor`, data)
+}
+
+const getAllDoctorByClinicId = (idClinic) => {
+    return axios.get(`/api/get-all-doctor-by-clinicId?idClinic=${idClinic}`)
 }
 
 const getTopDoctorHomeServices = (limit) => {
@@ -165,4 +169,5 @@ export {
     deleteClinic,
     loginClinic,
     createDoctor,
+    getAllDoctorByClinicId,
 }

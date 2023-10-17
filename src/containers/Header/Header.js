@@ -29,7 +29,7 @@ class Header extends Component {
 
         let res = await getAllDetailClinicById(this.props.userInfo.id) // check lại CSYT này từ DB
         if (res && res.errCode === 0) { // nếu check được
-            console.log('res', res)
+            // console.log('res', res)
             if (res.data.status != 1) { // nếu status không phải 1 (= 0)
                 alert('Tài khoản của bạn đang tạm ngừng hoạt động')
                 this.props.processLogout() // đăng xuất
@@ -40,7 +40,7 @@ class Header extends Component {
         }
 
         let { userInfo } = this.props //learn_login_prop4: phải có câu này
-        console.log('userInfo', userInfo)
+        // console.log('userInfo', userInfo)
         let menu = []
         /*learn_login_prop5: đến đây là ổn rồi, chỗ này đơn giản chỉ là check Role trong bảng Account
         Tùy role thì thanh menu sẽ hiện ra các mục thôi, nhưng đấy đơn giản chỉ là ẩn/hiện
@@ -65,7 +65,7 @@ class Header extends Component {
 
     render() {
         const { processLogout, language, userInfo } = this.props;
-        console.log('this.props header', this.props)
+        // console.log('this.props header', this.props)
 
         return (
             <div className="header-container">

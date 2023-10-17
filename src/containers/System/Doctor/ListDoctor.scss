@@ -1,0 +1,20 @@
+.doctor-image {
+    height         : 20vh;
+    width          : 100%;
+    border         : 1px solid #c31313;
+    background     : center center no-repeat;
+    background-size: contain;
+}
+
+.child-doctor {
+    padding-left    : 3vw;
+    padding-right   : 3vw;
+    padding-bottom  : 5vh;
+    padding-top     : 5vh;
+    // border-right : 1px solid green;
+    // border-bottom: 1px solid green;
+}
+
+small {
+    cursor: pointer;
+}
