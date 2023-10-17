@@ -36,6 +36,12 @@ const getAllcodeService = (inputType) => {
     return axios.get(`/api/allcode?type=${inputType}`)
 }
 
+/****************************DOCTOR */
+
+const createDoctor = (data) => {
+    return axios.post(`/api/create-new-doctor`, data)
+}
+
 const getTopDoctorHomeServices = (limit) => {
     return axios.get(`/api/top-doctor-home?limit=${limit}`)
 }
@@ -76,11 +82,11 @@ const postVerifyBookAppointment = (data) => {
     return axios.post(`/api/verify-book-appointment`, data)
 }
 
+/*********SPECIALTY *****************************************************************************/
 const createNewSpeciatly = (data) => {
     return axios.post(`/api/create-new-specialty`, data)
 }
 
-/*********SPECIALTY *****************************************************************************/
 const getAllSpecialty = () => { //ok
     return axios.get(`/api/get-specialty`)
 }
@@ -157,5 +163,6 @@ export {
     deleteSpecialty,
     editClinic,
     deleteClinic,
-    loginClinic
+    loginClinic,
+    createDoctor,
 }

@@ -9,10 +9,11 @@ import { toast } from 'react-toastify';
 import { template } from 'lodash';
 import Select from 'react-select'
 import Lightbox from 'react-image-lightbox';
-import { createNewClinic } from '../../../services/userService'
+import { createDoctor } from '../../../services/userService'
 import { reject } from 'lodash';
 import { emitter } from '../../../utils/emitter';
 import logo from '../../../assets/musMedi.png'
+import * as actions from "../../../store/actions";
 
 
 const mdParser = new MarkdownIt()
@@ -23,13 +24,13 @@ class AddDoctor extends Component {
         super(props)
         this.state = {
             name: '',
+            position: '',
             imageBase64: '',
             descriptionHTML: '',
             descriptionMarkdown: '',
-            position: '',
             nickName: '',
             password: '',
-            gmail: '',
+
 
             // ảnh
             previewImgURL: '',
@@ -41,53 +42,45 @@ class AddDoctor extends Component {
     }
 
     async componentDidMount() {
-        document.title = 'thêm Bác sĩ mới'
+        document.title = `thêm bác sĩ mới | ${this.props.userInfo.name}`
     }
 
     handleSaveNewClinic = async () => {
         if (window.confirm(`Bạn chắc chắn muốn thêm Bác sĩ "${this.state.name}" vào hệ thống?`) == true) {
             // thêm vào bảng Clinic
-            let res = await createNewClinic({
+            let res = await createDoctor({
                 name: this.state.name,
                 position: this.state.position,
                 imageBase64: this.state.imageBase64,
                 descriptionHTML: this.state.descriptionHTML,
                 descriptionMarkdown: this.state.descriptionMarkdown,
-                province: this.state.selectedProvince.value,
                 nickName: this.state.nickName,
-                password: this.state.password
+                password: this.state.password,
+                ///
+                status: 1,
+                clinicID: this.props.userInfo.id,
+                priceDefault: 250,
             })
+            console.log('res', res)
+            if (res && res.errCode === -1) {
+                toast.error('Lỗi máy chủ')
+            }
             if (res && res.errCode === 0) {
                 alert('Thêm mới Bác sĩ thành công')
                 // window.location = "/adLogin/admin/clinicRead";
                 window.location.reload()
                 toast.success('Thêm mới Bác sĩ thành công')// hàm này không thể chạy vì load lại trang rồi
-            } else {
-                toast.error('Lỗi! Vui lòng kiểm tra lại thông tin')
+            }
+            if (res && res.errCode === 1) {
+                toast.error('Vui lòng điền đầy đủ thông tin')
+            }
+            if (res && res.errCode === 2) {
+                toast.error('Tên đăng nhập này đã tồn tại')
             }
 
-            //thêm tài khoản vào bảng Account
-
         }
     }
 
-    buildDataInputSelect = (inputData) => { // 12_10_2023_5. hàm bui này mình chưa xem nhưng nói chung có data nạp vào là được
-        let result = [this.state.selectedClinic]
-        if (inputData && inputData.length > 0) {
-            inputData.map((item, index) => {
-                let object = {}
-                object.label = `${item.id} __ ${item.name}`
-                object.value = item.id
-                result.push(object)
-            })
-        }
-        return result
-    }
-
-    handleOnChangeProvince = (selectedOption) => {
-        console.log('tinh thanh đang chọn là selectedOption', selectedOption)
-        this.setState({ selectedProvince: selectedOption })
-    }
 
     handleOnChangeInput = (event, id) => {
         let stateCopy = { ...this.state }
@@ -138,7 +131,7 @@ class AddDoctor extends Component {
                 <div className='col-8'>
                     <div className='col-12 mb-5 text-center'>
                         {/* <br></br><br></br><br></br> */}
-                        <h1>Thêm Bác sĩ mới vào hệ thống musMedi</h1>
+                        <h1>Thêm Bác sĩ mới vào {this.props.userInfo.name}</h1>
                     </div>
                 </div>
                 <div className='col-12 mx-3 row'>
@@ -158,19 +151,20 @@ class AddDoctor extends Component {
                         <label className='label-upload' htmlFor='default_button'>Chọn ảnh <i class="fas fa-images"></i></label>
                     </div>
                     <div className='col-9'>
-                        <div className='col-12'>
-                            <div className=''><h6>Tên cơ sở y tế: </h6></div>
+                        <div className='col-8'>
+                            <div className=''><h6>Tên bác sĩ: </h6></div>
                             <div className=''>
                                 <input
                                     className='form-control'
                                     type="text"
                                     onChange={(event) => this.handleOnChangeInput(event, 'name')}
                                     value={this.state.name}
+                                    placeholder='Nguyễn Văn A'
                                 />
                             </div>
                         </div>
                         <div className='col-12'><br></br></div>
-                        <div className='col-12'>
+                        <div className='col-8'>
                             <div className=''><h6>Chức danh: </h6></div>
                             <div className=''>
                                 <input
@@ -178,12 +172,13 @@ class AddDoctor extends Component {
                                     type="text"
                                     onChange={(event) => this.handleOnChangeInput(event, 'position')}
                                     value={this.state.position}
+                                    placeholder='Vd "Bác sĩ chuyên khoa II" hoặc "Phó giáo sư, Tiến sĩ"'
                                 />
                             </div>
                         </div>
                         <div className='col-12'><br></br></div>
                         <div className='col-12 row'>
-                            <div className='col-5'>
+                            <div className='col-4'>
                                 <div className=''><h6>Tạo tên đăng nhập: </h6></div>
                                 <div className=''>
                                     <input
@@ -194,7 +189,7 @@ class AddDoctor extends Component {
                                     />
                                 </div>
                             </div>
-                            <div className='col-5'>
+                            <div className='col-4'>
                                 <div className=''><h6>Tạo mật khẩu đăng nhập: </h6></div>
                                 <div className=''>
                                     <input
@@ -206,28 +201,7 @@ class AddDoctor extends Component {
                                 </div>
                             </div>
                             <div className='col-12'><br></br></div>
-                            <div className='col-5'>
-                                <div className=''><h6>Tỉnh thành</h6></div>
-                                <div className=''>
-                                    <
-                                        Select
-                                        options={this.state.arr63TinhThanh}
-                                        value={this.state.selectedProvince}
-                                        onChange={this.handleOnChangeProvince}
-                                    />
-                                </div>
-                            </div>
-                            <div className='col-5'>
-                                <div className=''><h6>Gmail liên lạc </h6></div>
-                                <div className=''>
-                                    <input
-                                        className='form-control'
-                                        type="text"
-                                        onChange={(event) => this.handleOnChangeInput(event, 'gmail')}
-                                        value={this.state.gmail}
-                                    />
-                                </div>
-                            </div>
+
                             <div className='col-2'>
                                 <br></br>
                                 <button className='button-add-speciatly' onClick={() => this.handleSaveNewClinic()}>
@@ -263,12 +237,15 @@ class AddDoctor extends Component {
 const mapStateToProps = state => {
     return {
         language: state.app.language,
+        isLoggedIn: state.user.isLoggedIn,
+        userInfo: state.user.userInfo,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        processLogout: () => dispatch(actions.processLogout()),
+        changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language))
     };
 };
 

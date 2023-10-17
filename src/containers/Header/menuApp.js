@@ -108,9 +108,9 @@ export const ClinicMenu = [
         ]
     },
     {
-        name: 'Thông tin bác sĩ',
+        name: 'Hồ sơ bác sĩ',
         menus: [
-            { name: 'Tạm thời bỏ trống', link: '' },
+            { name: 'Danh sách', link: '/system/listDoctor' },
             { name: 'Tạm thời bỏ trống', link: '' },
             { name: 'Tạm thời bỏ trống', link: '' },
         ]

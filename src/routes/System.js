@@ -5,6 +5,7 @@ import UserManage from '../containers/System/UserManage';
 import UserRedux from '../containers/System/Admin/UserRedux';//nếu bỏ dòng này thì chỗ Markdown toang luôn
 import Header from '../containers/Header/Header';
 import AddDoctor from '../containers/System/Doctor/AddDoctor';
+import ListDoctor from '../containers/System/Doctor/ListDoctor';
 
 
 class System extends Component {
@@ -20,6 +21,7 @@ class System extends Component {
                             {/* <Route path="/system/user-redux" component={UserRedux} /> */}
 
                             <Route path="/system/addDoctor" component={AddDoctor} />
+                            <Route path="/system/listDoctor" component={ListDoctor} />
 
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                         </Switch>
