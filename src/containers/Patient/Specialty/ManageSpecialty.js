@@ -90,7 +90,7 @@ class ManageSpecialty extends Component {
                     imageBase64: res.data.image,
                     descriptionHTML: res.data.descriptionHTML,
                     descriptionMarkdown: res.data.descriptionMarkdown,
-                    previewImgURL: new Buffer(res.data.image, 'base64').toString('binary'),
+    /********** */                previewImgURL: new Buffer(res.data.image, 'base64').toString('binary'),
                     ADD_or_EDIT: false
                 })
             }
