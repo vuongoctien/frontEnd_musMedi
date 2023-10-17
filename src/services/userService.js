@@ -42,9 +42,18 @@ const createDoctor = (data) => { //ok
     return axios.post(`/api/create-new-doctor`, data)
 }
 
-const getAllDoctorByClinicId = (idClinic) => {
+const getAllDoctorByClinicId = (idClinic) => { //ok
     return axios.get(`/api/get-all-doctor-by-clinicId?idClinic=${idClinic}`)
 }
+
+const editDoctorOfClinic = (newData) => {
+    return axios.put(`/api/edit-doctor-of-clinic`, newData)
+}
+
+
+
+
+
 
 const getTopDoctorHomeServices = (limit) => {
     return axios.get(`/api/top-doctor-home?limit=${limit}`)
@@ -170,4 +179,6 @@ export {
     loginClinic,
     createDoctor,
     getAllDoctorByClinicId,
+    editDoctorOfClinic,
+
 }

@@ -9,7 +9,7 @@ import DatePicker from '../../../../components/Input/DatePicker';
 import * as actions from "../../../../store/actions"
 import { LANGUAGES } from '../../../../utils';
 import Select from 'react-select';
-import { getAllDetailClinicById } from '../../../../services/userService';
+import { editDoctorOfClinic } from '../../../../services/userService';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 import MarkdownIt from 'markdown-it';
@@ -54,8 +54,8 @@ class DetailDoctorModal extends Component {
     }
 
     render() {
-        // console.log('this.props.infoDoctor', this.props.infoDoctor)
-        console.log('this.state.previewImgURL', this.state.previewImgURL)
+        console.log('this.props.infoDoctor', this.props.infoDoctor)
+        // console.log('this.state.previewImgURL', this.state.previewImgURL)
         return (
             <Modal
                 isOpen={this.props.isOpenModal}// dòng này không bỏ được đâu, đừng nghịch dại
@@ -130,17 +130,11 @@ class DetailDoctorModal extends Component {
                                 <div className='col-12'><br /></div>
                                 <div className='col-6'>
                                     <div><h6>Tài khoản: </h6></div>
-                                    {this.state.view_or_edit === true ?
-                                        <div><input disabled className='form-control' type="text" value={this.props.infoDoctor.nickName} /></div>
-                                        :
-                                        <div><input className='form-control' type="text" value={this.props.infoDoctor.nickName} /></div>}
+                                    <div><input disabled className='form-control' type="text" value={this.props.infoDoctor.nickName} /></div>
                                 </div>
                                 <div className='col-6'>
                                     <div><h6>Mật khẩu: </h6></div>
-                                    {this.state.view_or_edit === true ?
-                                        <div><input disabled className='form-control' type="password" value='this.props.infoDoctor.password' /></div>
-                                        :
-                                        <div><input className='form-control' type="password" value='this.props.infoDoctor.password' /></div>}
+                                    <div><input disabled className='form-control' type="password" value='this.props.infoDoctor.password' /></div>
                                 </div>
                                 <div className='col-7'><br /></div>
                                 <div className='col-5'>
