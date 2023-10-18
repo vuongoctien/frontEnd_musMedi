@@ -7,6 +7,7 @@ import Header from '../containers/Header/Header';
 import AddDoctor from '../containers/System/Doctor/AddDoctor';
 import ListDoctor from '../containers/System/Doctor/ListDoctor';
 import EditDoctor from '../containers/System/Doctor/EditDoctor';
+import ManageSchedule from '../containers/System/Doctor/ManageSchedule';
 
 
 class System extends Component {
@@ -24,6 +25,7 @@ class System extends Component {
                             <Route path="/system/addDoctor" component={AddDoctor} />
                             <Route path="/system/listDoctor" component={ListDoctor} />
                             <Route path="/system/editDoctor" component={EditDoctor} />
+                            <Route path="/system/editSchedule" component={ManageSchedule} />
 
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                         </Switch>

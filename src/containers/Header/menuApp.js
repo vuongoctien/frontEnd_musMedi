@@ -92,19 +92,11 @@ export const doctorMenu = [
 
 export const ClinicMenu = [
     {
-        name: 'Welcome',
+        name: 'Đơn đặt lịch',
         menus: [
             {
-                name: 'Welcome', link: '/system/user-manage'
+                name: 'Đơn đặt lịch', link: '/system/user-manage',
             }
-        ]
-    },
-    {
-        name: 'Lịch khám chữa bệnh',
-        menus: [
-            { name: 'Tạm thời bỏ trống', link: '' },
-            { name: 'Tạm thời bỏ trống', link: '' },
-            { name: 'Tạm thời bỏ trống', link: '' },
         ]
     },
     {
@@ -117,17 +109,15 @@ export const ClinicMenu = [
     {
         name: 'Các gói dịch vụ',
         menus: [
-            { name: 'Tạm thời bỏ trống', link: '' },
-            { name: 'Tạm thời bỏ trống', link: '' },
-            { name: 'Tạm thời bỏ trống', link: '' },
+            { name: 'Danh sách', link: '' },
+            { name: 'Chỉnh sửa thông tin', link: '' },
         ]
     },
     {
-        name: 'Lịch khám chữa bệnh',
+        name: 'Lịch khám',
         menus: [
-            { name: 'Tạm thời bỏ trống', link: '' },
-            { name: 'Tạm thời bỏ trống', link: '' },
-            { name: 'Tạm thời bỏ trống', link: '' },
+            { name: 'Lịch biểu', link: '' },
+            { name: 'Thiết lập lịch biểu', link: '/system/editSchedule' },
         ]
     }
 ]
