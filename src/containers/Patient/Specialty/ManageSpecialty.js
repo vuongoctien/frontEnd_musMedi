@@ -159,7 +159,7 @@ class ManageSpecialty extends Component {
                 window.location.reload(false)
                 toast.success('Chỉnh sửa thông tin thành công')// hàm này không thể chạy vì load lại trang rồi
             } else {
-                toast.error('Lỗi! Có thể chuyên khoa đã bị xóa ở 1 tab khác')
+                toast.error('Lỗi!')
             }
         }
 
@@ -180,7 +180,7 @@ class ManageSpecialty extends Component {
 
 
     render() {
-        // console.log('state speciatly', this.state)
+        console.log('state speciatly', this.state)
         return (
             <div className='manage-speciatly-container'>
                 <div className='add-new-speciatly row'>

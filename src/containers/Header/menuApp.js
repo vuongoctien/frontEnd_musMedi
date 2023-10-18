@@ -111,8 +111,7 @@ export const ClinicMenu = [
         name: 'Hồ sơ bác sĩ',
         menus: [
             { name: 'Danh sách', link: '/system/listDoctor' },
-            { name: 'Chỉnh sửa & xóa', link: '' },
-            { name: 'Tạm thời bỏ trống', link: '' },
+            { name: 'Chỉnh sửa thông tin', link: '/system/editDoctor' },
         ]
     },
     {

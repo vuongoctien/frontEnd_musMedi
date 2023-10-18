@@ -6,6 +6,7 @@ import UserRedux from '../containers/System/Admin/UserRedux';//nếu bỏ dòng 
 import Header from '../containers/Header/Header';
 import AddDoctor from '../containers/System/Doctor/AddDoctor';
 import ListDoctor from '../containers/System/Doctor/ListDoctor';
+import EditDoctor from '../containers/System/Doctor/EditDoctor';
 
 
 class System extends Component {
@@ -22,6 +23,7 @@ class System extends Component {
 
                             <Route path="/system/addDoctor" component={AddDoctor} />
                             <Route path="/system/listDoctor" component={ListDoctor} />
+                            <Route path="/system/editDoctor" component={EditDoctor} />
 
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                         </Switch>

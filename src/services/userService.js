@@ -46,9 +46,11 @@ const getAllDoctorByClinicId = (idClinic) => { //ok
     return axios.get(`/api/get-all-doctor-by-clinicId?idClinic=${idClinic}`)
 }
 
-const editDoctorOfClinic = (newData) => {
+const editDoctorOfClinic = (newData) => { //ok
     return axios.put(`/api/edit-doctor-of-clinic`, newData)
 }
+
+
 
 
 
@@ -67,7 +69,7 @@ const saveDetailDoctorServices = (data) => {
     return axios.post(`/api/save-info-doctors`, data)
 }
 
-const getDetailInfoDoctor = (inputId) => {
+const getDetailInfoDoctor = (inputId) => { //ok
     return axios.get(`/api/get-detail-doctor-by-id?id=${inputId}`)
 }
 
