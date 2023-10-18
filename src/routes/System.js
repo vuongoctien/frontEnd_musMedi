@@ -25,7 +25,7 @@ class System extends Component {
                             <Route path="/system/addDoctor" component={AddDoctor} />
                             <Route path="/system/listDoctor" component={ListDoctor} />
                             <Route path="/system/editDoctor" component={EditDoctor} />
-                            <Route path="/system/editSchedule" component={ManageSchedule} />
+                            <Route path="/system/editScheduleDoctor" component={ManageSchedule} />
 
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                         </Switch>

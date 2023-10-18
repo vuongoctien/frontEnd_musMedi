@@ -24,13 +24,13 @@ class ManageSchedule extends Component {
     }
 
     componentDidMount() {
-        // this.props.fetchAllDoctor()
-        this.props.fetchAllScheduleTime()
+        /* this.props.fetchAllDoctor()
+         this.props.fetchAllScheduleTime()*/
         console.log('this.props when mount', this.props)
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log('this.props when update', this.props)
+        /*console.log('this.props when update', this.props)
         if (prevProps.allDoctors !== this.props.allDoctors) {
             let dataSelect = this.buildDataInputSelect(this.props.allDoctors)
             this.setState({
@@ -46,7 +46,7 @@ class ManageSchedule extends Component {
             this.setState({
                 rangeTime: data
             })
-        }
+        }*/
     }
 
     buildDataInputSelect = (inputData) => {
@@ -196,15 +196,15 @@ const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
         language: state.app.language,
-        allDoctors: state.admin.allDoctors,
-        allScheduleTime: state.admin.allScheduleTime
+        /* allDoctors: state.admin.allDoctors, 
+        allScheduleTime: state.admin.allScheduleTime */
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        // fetchAllDoctor: () => dispatch(actions.fetchAllDoctor()),
-        fetchAllScheduleTime: () => dispatch(actions.fetchAllScheduleTime())
+        /* fetchAllDoctor: () => dispatch(actions.fetchAllDoctor()), 
+        fetchAllScheduleTime: () => dispatch(actions.fetchAllScheduleTime()) */
     };
 };
 
