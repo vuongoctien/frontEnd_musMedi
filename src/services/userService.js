@@ -50,13 +50,24 @@ const editDoctorOfClinic = (newData) => { //ok
     return axios.put(`/api/edit-doctor-of-clinic`, newData)
 }
 
+//viết gộp MediPackage vào đây
+const createMediPackage = (data) => { //ok
+    return axios.post(`/api/create-new-medipackage`, data)
+}
+
+const getAllMediPackageByClinicId = (idClinic) => { //ok
+    return axios.get(`/api/get-all-medipackage-by-clinicId?idClinic=${idClinic}`)
+}
+
+const editMediPackageOfClinic = (newData) => { //ok
+    return axios.put(`/api/edit-medipackage-of-clinic`, newData)
+}
 
 
 
 
 
-
-
+////////////////////////////////
 const getTopDoctorHomeServices = (limit) => {
     return axios.get(`/api/top-doctor-home?limit=${limit}`)
 }
@@ -182,5 +193,8 @@ export {
     createDoctor,
     getAllDoctorByClinicId,
     editDoctorOfClinic,
+    createMediPackage,
+    getAllMediPackageByClinicId,
+    editMediPackageOfClinic
 
 }

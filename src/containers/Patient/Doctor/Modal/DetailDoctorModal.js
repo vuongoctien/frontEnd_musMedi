@@ -50,7 +50,7 @@ class DetailDoctorModal extends Component {
 
                 <div className='booking-modal-content'>
                     <div className='booking-modal-header'>
-                        <span className='left'>Đây là DetailDoctorModal</span>
+                        <span className='left'>Thông tin chi tiết</span>
                         <span className='right' onClick={() => { this.props.closeBookingClose() }}><i className='fas fa-times'></i></span>
                     </div>
 
@@ -62,37 +62,42 @@ class DetailDoctorModal extends Component {
                                     style={{ backgroundImage: `url(${this.props.infoDoctor.image})` }}
                                 ></div>
                             </div>
-
-
-                            <div className='col-9 row'>
-                                <div className='col-6'>
-                                    <div><h6>Họ và tên: </h6></div>
-                                    <div><input disabled className='form-control' type="text" value={this.props.infoDoctor.name} /></div>
-                                </div>
-                                <div className='col-6'>
-                                    <div><h6>Chức danh: </h6></div>
-                                    <div><input disabled className='form-control' type="text" value={this.props.infoDoctor.position} /></div>
-                                </div>
-                                <div className='col-12'><br /></div>
-                                <div className='col-6'>
-                                    <div><h6>Tài khoản: </h6></div>
-                                    <div><input disabled className='form-control' type="text" value={this.props.infoDoctor.nickName} /></div>
-                                </div>
-                                <div className='col-6'>
-                                    <div><h6>Mật khẩu: </h6></div>
-                                    <div><input disabled className='form-control' type="password" value='this.props.infoDoctor.password' /></div>
-                                </div>
-                                <div className='col-7'><br /></div>
-                                <div className='col-5'>
-                                    <div><h6><br /></h6></div>
-
-                                    <div>
-                                        <button type='button' className='btn btn-info'
-                                            onClick={() => { }}>Chỉnh sửa thông tin <i className="far fa-edit"></i>
-                                        </button>
+                            {this.props.infoDoctor.position ?
+                                <div className='col-9 row'>
+                                    <div className='col-6'>
+                                        <div><h6>Họ và tên: </h6></div>
+                                        <div><input disabled className='form-control' type="text" value={this.props.infoDoctor.name} /></div>
                                     </div>
+                                    <div className='col-6'>
+                                        <div><h6>Chức danh: </h6></div>
+                                        <div><input disabled className='form-control' type="text" value={this.props.infoDoctor.position} /></div>
+                                    </div>
+                                    <div className='col-12'><br /></div>
+                                    <div className='col-6'>
+                                        <div><h6>Tài khoản: </h6></div>
+                                        <div><input disabled className='form-control' type="text" value={this.props.infoDoctor.nickName} /></div>
+                                    </div>
+                                    <div className='col-6'>
+                                        <div><h6>Mật khẩu: </h6></div>
+                                        <div><input disabled className='form-control' type="password" value='this.props.infoDoctor.password' /></div>
+                                    </div>
+                                    <div className='col-12'><br /></div>
                                 </div>
-                            </div>
+                                :
+                                <div className='col-9 row'>
+                                    <div className='col-12'>
+                                        <div><h6>Tên gói khám: </h6></div>
+                                        <div><input disabled className='form-control' type="text" value={this.props.infoDoctor.name} /></div>
+                                    </div>
+                                    <div className='col-12'><br /></div>
+                                    <div className='col-12'>
+                                        <div><h6>Loại: </h6></div>
+                                        <div><input disabled className='form-control' type="text" value={this.props.infoDoctor.packageType} /></div>
+                                    </div>
+                                    <div className='col-12'><br /></div>
+                                </div>
+                            }
+
                         </div>
                     </div>
                     <div className='col-12' >

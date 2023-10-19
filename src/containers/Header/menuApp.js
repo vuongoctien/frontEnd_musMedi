@@ -100,17 +100,10 @@ export const ClinicMenu = [
         ]
     },
     {
-        name: 'Hồ sơ bác sĩ',
+        name: 'Bác sĩ & Gói dịch vụ',
         menus: [
             { name: 'Danh sách', link: '/system/listDoctor' },
             { name: 'Chỉnh sửa thông tin', link: '/system/editDoctor' },
-        ]
-    },
-    {
-        name: 'Các gói dịch vụ',
-        menus: [
-            { name: 'Danh sách', link: '' },
-            { name: 'Chỉnh sửa thông tin', link: '' },
         ]
     },
     {
