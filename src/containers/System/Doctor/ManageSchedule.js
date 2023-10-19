@@ -26,7 +26,7 @@ class ManageSchedule extends Component {
     componentDidMount() {
         /* this.props.fetchAllDoctor()
          this.props.fetchAllScheduleTime()*/
-        console.log('this.props when mount', this.props)
+        // console.log('this.props when mount', this.props)
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -140,7 +140,7 @@ class ManageSchedule extends Component {
         let { rangeTime } = this.state
         let { language } = this.props
         let yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
-        console.log('this.props when reder', this.props)
+        // console.log('this.props when reder', this.props)
 
         return (
             <div className='manage-schedule-container'>
