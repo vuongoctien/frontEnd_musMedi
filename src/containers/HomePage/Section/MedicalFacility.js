@@ -43,7 +43,7 @@ class MedicalFacility extends Component {
                                         return (
                                             <div className='section-customize clinic-child' key={index} >
                                                 <a href={`detail-clinic/${item.id}`}>
-                                                    <div className='bg-image section-outstanding-doctor' style={{ backgroundImage: `url(${item.image})` }}></div>
+                                                    <div className='bg-image' style={{ backgroundImage: `url(${item.image})` }}></div>
                                                 </a>
                                                 <div className='clinic-name'>{item.name}</div>
                                             </div>

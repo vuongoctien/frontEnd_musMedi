@@ -60,8 +60,6 @@ class OutstandingDoctor extends Component {
                                         if (item.image) {
                                             imageBase64 = new Buffer(item.image, 'base64').toString('binary')
                                         }
-                                        let nameVi = `${item.positionData.ValueVi} _ ${item.firstName} ${item.lastName}`
-                                        let nameEn = `${item.positionData.ValueEn} _ ${item.lastName} ${item.firstName}`
                                         return (
 
 
@@ -73,7 +71,7 @@ class OutstandingDoctor extends Component {
                                                         </div>
                                                     </a>
                                                     <div className='position text-center'>
-                                                        <div>{language === LANGUAGES.VI ? nameVi : nameEn}</div>
+                                                        <div>{item.name}</div>
                                                         <div>Chuyên khoa của ổng này</div>
                                                     </div>
                                                 </div>
