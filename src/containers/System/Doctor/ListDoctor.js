@@ -109,7 +109,7 @@ class ListDoctor extends Component {
                     <div className='col-12'><hr /></div>
                     <div className='col-1'></div>
                     <div className='col-8'><h2>Gói dịch vụ</h2></div>
-                    <div className='col-3'><a href='/system/addDoctor'><button type="button" class="btn btn-outline-success"><i className="fas fa-plus"></i> Thêm gói dịch vụ mới</button></a></div>
+                    <div className='col-3'><a href='/system/addMediPackage'><button type="button" class="btn btn-outline-success"><i className="fas fa-plus"></i> Thêm gói dịch vụ mới</button></a></div>
                     <div className='col-1'></div>
                     <div className="col-10 row list-doctor">
                         {this.state.arrMediPackage && this.state.arrMediPackage.map((item, index) => {

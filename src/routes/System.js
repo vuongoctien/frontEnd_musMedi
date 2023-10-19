@@ -5,6 +5,7 @@ import UserManage from '../containers/System/UserManage';
 import UserRedux from '../containers/System/Admin/UserRedux';//nếu bỏ dòng này thì chỗ Markdown toang luôn
 import Header from '../containers/Header/Header';
 import AddDoctor from '../containers/System/Doctor/AddDoctor';
+import AddMediPackage from '../containers/System/Doctor/AddMediPackage';
 import ListDoctor from '../containers/System/Doctor/ListDoctor';
 import EditDoctor from '../containers/System/Doctor/EditDoctor';
 import ManageSchedule from '../containers/System/Doctor/ManageSchedule';
@@ -23,6 +24,7 @@ class System extends Component {
                             {/* <Route path="/system/user-redux" component={UserRedux} /> */}
 
                             <Route path="/system/addDoctor" component={AddDoctor} />
+                            <Route path="/system/addMediPackage" component={AddMediPackage} />
                             <Route path="/system/listDoctor" component={ListDoctor} />
                             <Route path="/system/editDoctor" component={EditDoctor} />
                             <Route path="/system/editScheduleDoctor" component={ManageSchedule} />
