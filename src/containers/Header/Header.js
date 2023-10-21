@@ -77,7 +77,7 @@ class Header extends Component {
                     {/* <div className="header-tabs-container">
                         <Navigator menus={this.state.menuApp} />
                     </div> */}
-                    <a href='/system/user-manage' title='Đơn đặt lịch'><h1><i className="far fa-list-alt"></i></h1></a>
+                    <a href='/system/user-manage' title='Đơn đặt lịch'><h1><i className="fas fa-tasks"></i></h1></a>
 
                     {/* <a href=''><h1></h1></a> */}
                     <a href='/system/listDoctor' title='Bác sĩ & gói dịch vụ'><h1><i className="fas fa-stethoscope"></i></h1></a>
