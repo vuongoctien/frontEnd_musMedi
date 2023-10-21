@@ -1,22 +1,44 @@
 @import "../../styles/common.scss";
 
 .header-container {
-    z-index: 99;
-    display: flex;
-    justify-content: space-between;
+    z-index         : 99;
+    display         : flex;
+    justify-content : space-between;
     background-color: $colormain;
-    color: $common-text-color;
-    height: 40px;
-    position: relative;
+    color           : $common-text-color;
+    height          : 7vh;
+    position        : sticky;
+    border-bottom   : 1px solid $border;
+    top             : 0px;
+
+    .rowLoz {
+        display: flex;
+
+        a {
+            margin-right: 2vw;
+        }
+    }
+
+    .logo-clinic-management-system {
+        height             : 7vh;
+        width              : 15vw;
+        background-image   : url(../../assets/MANAGEmusMedi.png);
+        background-repeat  : no-repeat;
+        background-size    : cover;
+        background-position: center;
+        margin-right       : 5vw;
+        border-right       : 1px solid $border;
+    }
 
     .btn-logout {
-        color: $common-text-color;
-        line-height: 40px;
-        height: 40px;
-        padding: 0 10px;
+        color         : $common-text-color;
+        line-height   : 7vh;
+        height        : 7vh;
+        // padding    : 0 10px;
+        border-left   : 1px solid $border;
 
         &:hover {
-            background-color: darken($colormain, 5);
+            background-color: darken($colormain, 25);
         }
 
         i {
@@ -24,31 +46,14 @@
         }
     }
 
-    .languages {
-        .welcome {
-            margin-right: 10px;
-        }
+    .avatar-clinic {
+        height       : 7vh;
+        width        : 7vh;
+        border-radius: 50%;
+        margin-right : 1vw;
 
-        .language-en {
-            margin-right: 15px;
-            margin-left: 10px;
-            cursor: pointer;
-            opacity: 0.8;
-
-            &.active {
-                opacity: 1;
-                color: #00ff0c;
-            }
-        }
-
-        .language-vi {
-            cursor: pointer;
-            opacity: 0.8;
-
-            &.active {
-                opacity: 1;
-                color: orange;
-            }
-        }
+        background-repeat  : no-repeat;
+        background-size    : cover;
+        background-position: center;
     }
 }

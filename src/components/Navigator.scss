@@ -13,13 +13,14 @@
     .menu-group {
         &:hover {
             cursor          : pointer;
-            background-color: darken($colormain, 5);
+            background-color: darken($colormain, 25);
         }
 
         .menu-group-name {
-            line-height : 40px;
-            padding     : 0 15px;
-            border-right: 1px solid $border;
+            line-height     : 7vh;
+            padding         : 0 15px;
+            border-right    : 1px solid $border;
+            // border-bottom: 1px solid $border;
 
             &:first-child {
                 border-left: 1px solid $border;

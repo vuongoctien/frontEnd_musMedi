@@ -69,16 +69,35 @@ class Header extends Component {
 
         return (
             <div className="header-container">
-                {/* thanh navigator */}
-                <div className="header-tabs-container">
-                    <Navigator menus={this.state.menuApp} />
-                </div>
-                <div className='languages'>
-                    <span className='welcome'>musMedi xin chào {userInfo.name} !        </span>
+                <div className='rowLoz'>
+                    <div className='logo-clinic-management-system'>
 
+                    </div>
+                    {/* thanh navigator */}
+                    {/* <div className="header-tabs-container">
+                        <Navigator menus={this.state.menuApp} />
+                    </div> */}
+                    <a href='/system/user-manage' title='Đơn đặt lịch'><h1><i className="far fa-list-alt"></i></h1></a>
+
+                    {/* <a href=''><h1></h1></a> */}
+                    <a href='/system/listDoctor' title='Bác sĩ & gói dịch vụ'><h1><i className="fas fa-stethoscope"></i></h1></a>
+                    <a href='/system/LichBacSi' title='Lịch biểu'><h1><i className="fas fa-calendar-alt"></i></h1></a>
+                </div>
+
+                <div className='search'>
+                    <i className="fas fa-search"></i>
+                    <input type='text' placeholder='Tìm kiếm' />
+                </div>
+
+                <div className='rowLoz'>
+                    <div className='welcome'>{userInfo.name}</div>
+                    <div className='avatar-clinic' style={{ backgroundImage: `url(${new Buffer(this.props.userInfo.image, 'base64').toString('binary')})` }}>
+
+                    </div>
 
                     {/* nút logout */}
-                    <div className="btn btn-logout" onClick={processLogout} title='Log out'>
+                    <div className="btn btn-logout" onClick={processLogout} title='Đăng xuất'>
+                        <i className="fas fa-sign-out-alt"></i>
                         <i className="fas fa-sign-out-alt"></i>
                     </div>
                 </div>

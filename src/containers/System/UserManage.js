@@ -20,6 +20,7 @@ class UserManage extends Component {
 
     componentDidMount() {
         document.title = `đơn đặt lịch | ${this.props.userInfo.name}`
+        document.getElementsByClassName('fa-list-alt')[0].setAttribute("style", "color:orange;")
     }
 
     render() {
