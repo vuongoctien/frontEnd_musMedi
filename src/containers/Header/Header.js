@@ -81,7 +81,7 @@ class Header extends Component {
 
                     {/* <a href=''><h1></h1></a> */}
                     <a href='/system/listDoctor' title='Bác sĩ & gói dịch vụ'><h1><i className="fas fa-stethoscope"></i></h1></a>
-                    <a href='/system/LichBacSi' title='Lịch biểu'><h1><i className="fas fa-calendar-alt"></i></h1></a>
+                    <a href='/system/ThoiGianBieu' title='Lịch biểu'><h1><i className="fas fa-calendar-alt"></i></h1></a>
                 </div>
 
                 <div className='search'>

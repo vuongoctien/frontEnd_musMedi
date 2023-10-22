@@ -110,7 +110,7 @@ export const ClinicMenu = [
         name: 'Lịch biểu',
         menus: [
             { name: 'Lịch biểu', link: '' },
-            { name: 'Lập lịch biểu cho bác sĩ', link: '/system/LichBacSi' },
+            { name: 'Lập lịch biểu cho bác sĩ', link: '/system/ThoiGianBieu' },
             { name: 'ManageSchedule bản cũ, dùng để nghịch & tìm hiểu', link: '/system/editScheduleDoctor' },
             { name: 'Lập lịch biểu cho gói dịch vụ', link: '' },
         ]

@@ -1,0 +1,109 @@
+.lichbieu {
+    background-color: rgb(255, 255, 255);
+
+    .title-schedule {
+        text-align: center;
+    }
+
+    .chonthongtin {
+
+        // border: 1px solid red;
+        .edit-schedule {
+            cursor: pointer;
+            color : rgb(0, 255, 170);
+        }
+
+        .avatar {
+            background-size    : cover;
+            background-repeat  : no-repeat;
+            background-position: center;
+            border-radius      : 50%;
+            width              : 5vw;
+            height             : 5vw;
+        }
+
+        .fa-edit {
+            cursor: pointer;
+
+            &:hover {
+                color: lightgreen;
+            }
+        }
+    }
+
+    .lich {
+        // border: 1px solid green;
+        border      : 2px dashed blue;
+        margin-left : 1vw;
+        margin-right: 1vw;
+
+        .lichRow {
+            // border: 1px solid blue;
+
+            .col {
+                border    : 1px solid gainsboro;
+                min-height: 30vh;
+                display   : flex;
+
+                .thu_ngay_thang {
+                    // border    : 1px solid sienna;
+                    // text-align: center;
+                    width: 40%;
+                    color: blue;
+                }
+
+                .list_khung_gio {
+                    text-align: center;
+                    width     : 60%;
+                }
+            }
+        }
+
+
+    }
+}
+
+
+// .taolich {
+//     position        : fixed;
+//     right           : 0px;
+//     top             : 10vh;
+//     width           : 50vw;
+//     background-color: rgb(157, 255, 222);
+//     border-radius   : 2%;
+//     border          : 3px solid saddlebrown;
+
+//     .mini-img {
+//         height             : 23px;
+//         width              : 23px;
+//         border-radius      : 50%;
+//         margin-right       : 1vw;
+//         background-repeat  : no-repeat;
+//         background-size    : cover;
+//         background-position: center;
+//     }
+
+//     .fa-window-close {
+//         cursor: pointer;
+
+//         &:hover {
+//             color: orange;
+//         }
+//     }
+
+
+//     .inputClock {
+//         width: 7vw;
+//     }
+
+//     .khungiodatao {
+//         min-height      : 20vh;
+//         padding         : 1vh;
+//         background-color: rgb(217, 252, 240);
+//         border          : 2vh solid rgb(231, 255, 247);
+//     }
+
+//     .btn {
+//         margin: 2vh;
+//     }
+// }

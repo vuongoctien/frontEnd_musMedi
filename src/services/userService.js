@@ -67,6 +67,19 @@ const editMediPackageOfClinic = (newData) => { //ok
 
 
 
+
+
+
+/***********************SCHEDULE**************************** */
+const createSchedule = (data) => {
+    return axios.post(`/api/create-schedule`, data)
+}
+/*********************************************************** */
+
+
+
+
+
 ////////////////////////////////
 const getTopDoctorHomeServices = (limit) => {
     return axios.get(`/api/top-doctor-home?limit=${limit}`)
@@ -200,6 +213,7 @@ export {
     editDoctorOfClinic,
     createMediPackage,
     getAllMediPackageByClinicId,
-    editMediPackageOfClinic
+    editMediPackageOfClinic,
+    createSchedule,
 
 }

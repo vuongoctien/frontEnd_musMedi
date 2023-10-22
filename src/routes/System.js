@@ -9,8 +9,7 @@ import AddMediPackage from '../containers/System/Doctor/AddMediPackage';
 import ListDoctor from '../containers/System/Doctor/ListDoctor';
 import EditDoctor from '../containers/System/Doctor/EditDoctor';
 import ManageSchedule from '../containers/System/Doctor/ManageSchedule';
-import LichBacSi from '../containers/System/Doctor/LichBacSi';
-
+import ThoiGianBieu from '../containers/System/Doctor/ThoiGianBieu';
 class System extends Component {
     render() {
         const { systemMenuPath, isLoggedIn } = this.props;
@@ -28,7 +27,8 @@ class System extends Component {
                             <Route path="/system/listDoctor" component={ListDoctor} />
                             <Route path="/system/editDoctor" component={EditDoctor} />
                             <Route path="/system/editScheduleDoctor" component={ManageSchedule} />
-                            <Route path="/system/LichBacSi" component={LichBacSi} />
+                            <Route path="/system/ThoiGianBieu" component={ThoiGianBieu} />
+
 
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                         </Switch>
