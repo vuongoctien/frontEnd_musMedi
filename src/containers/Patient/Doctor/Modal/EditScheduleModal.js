@@ -235,6 +235,8 @@ class EditScheduleModal extends Component {
             >
 
                 <div className='booking-modal-content'>
+                    <h3>Cảnh báo: Modal này bị lỗi nghiêm trọng chỗ <u>let thisDate = (new Date(new Date().setDate(this.state.selectedDate.getDate())))</u></h3>
+
                     <div className='booking-modal-header'>
                         <span className='left'>Tạo lịch biểu</span>
                         <span className='right' onClick={() => { this.props.closeModal(); this.setState({ list_Khung_Gio_Da_Tao: [] }) }}><i className='fas fa-times'></i></span>

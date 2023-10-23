@@ -1,0 +1,63 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h1>Xử lý ngày tháng</h1>
+    <p>Cái trò new Date() là lấy thời điểm hiện tại, ok biết rồi, nhưng chưa đủ</p>
+    <p>https://200lab.io/blog/date-trong-javascript/</p>
+
+    <p>
+        let ngayBinhThuong = new Date(2023, 9, 31);
+        ===> Tue Oct 31 2023 00:00:00 GMT+0700 (Indochina Time)
+    </p>
+
+    <p>
+        let ngay32thang10 = new Date(2023, 9, 32);
+        ===> Wed Nov 01 2023 00:00:00 GMT+0700 (Indochina Time)
+    </p>
+
+    <h4>Lưu ý tiếng anh không có tháng 1,2,...12 mà chỉ có Jan, Feb, ... Dec</h4>
+    <h4>Vậy nên họ dùng số thứ tự cho tháng 0,1,2... đến 11. Vậy nên để hiển thị đúng, nhớ cộng thêm 1</h4>
+
+    <p>Ok, đến bước lấy time từ DatePicker vào state vẫn ok, thời gian đang nằm gọn trong biến this.state.selecteDate
+    </p>
+    <p>Giờ làm gì tiếp??? Mục tiêu là lấy 1 ngày sau, 2 ngày sau, ... 7 ngày sau ... 39 ngày sau</p>
+    <p>let ngayDuocChonDaLuuVaoState = new Date(2024, 0, 28)</p>
+
+    <p>Ôi mình đã hiểu, cái hàm SetDate sẽ làm thay đổi giá trị nạp vào, Làm thế nào bây giờ...</p>
+    <p>À có 1 giải pháp. Ngày được chọn liên tục bị thay đổi theo 2 cách</p>
+    <p>Một là lúc nhét vào vòng lặp (Với hàm tạo lịch), Hai là khi render lại</p>
+    <p>Trong vòng lặp thì chỉ cần thay đổi công thức là xong</p>
+    <p>Còn để tránh render, khi chọn 1 ngày thì bố load lại trang, fix cứng từ đầu, ờ sao?</p>
+    <p>Làm giống mấy cái bsi, ckhoa, csyt trên trang chủ ấy, đính thêm id trên đường link</p>
+
+    <h4>Chốt: Đã hiểu vấn đề nhưng không thể sửa. <br>
+        Tuy nhiên công sức hôm nay cũng không thừa, mình vẫn có 1 trang để tạo lịch nhanh <br>
+        Tạm thời dùng cái này để tạo dữ liệu cũng rất hữu dụng, rất nhàn
+    </h4>
+
+
+    <script>
+        // let ngayBinhThuong = new Date(2023, 9, 31);
+        // console.log('ngayBinhThuong>> ', ngayBinhThuong)
+        // let ngay32thang10 = new Date(2023, 9, 31 + 1);
+        // console.log('ngay32thang10>> ', ngay32thang10)
+
+        const ngayDuocChonDaLuuVaoState = new Date(2024, 0, 28)
+        console.log('ngayDuocChonDaLuuVaoState', ngayDuocChonDaLuuVaoState)
+        let ngayCanLayTrongVongLap = (new Date(ngayDuocChonDaLuuVaoState.setDate(ngayDuocChonDaLuuVaoState.getDate() + 5)))
+        console.log('ngayCanLayTrongVongLap', ngayCanLayTrongVongLap)
+        console.log('ngayDuocChonDaLuuVaoState sau khi đã bị chui vào hàm setDate', ngayDuocChonDaLuuVaoState)
+    </script>
+</body>
+
+</html>

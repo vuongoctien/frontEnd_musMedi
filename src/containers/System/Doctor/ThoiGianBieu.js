@@ -124,7 +124,8 @@ class ThoiGianBieu extends Component {
         return (
             <div className='lichbieu'>
                 <div className='title-schedule'>
-                    <br />
+                    <h1>Cảnh báo: Trang này bị lỗi nghiêm trọng chỗ <u>let thisDate = (new Date(new Date().setDate(this.state.selectedDate.getDate())))</u></h1>
+
                 </div>
                 <div className='chonthongtin'>
                     <form>
@@ -170,10 +171,15 @@ class ThoiGianBieu extends Component {
                             <div className='lichRow row'>
                                 {[0, 1, 2, 3, 4, 5, 6] && [0, 1, 2, 3, 4, 5, 6].map((item, index2) => {
                                     let date = (new Date(new Date().setDate(this.state.selectedDate.getDate() + index1 * 7 + index2)))
-                                    let stringDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
-                                    // console.log('stringDate', stringDate)
-                                    // let arrFilter = this.state.all_Schedule.filter(item => item.date === stringDate)
-                                    // console.log(arrFilter)
+                                    let getDateThemSo_0 = (date) => {
+                                        let number = date.getDate()
+                                        if (number < 10) number = '0' + number
+                                        return number
+                                    }
+                                    let stringDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + getDateThemSo_0(date)
+                                    console.log('stringDate', stringDate)
+                                    let arrFilter = this.state.all_Schedule.filter(item => item.date === stringDate)
+                                    console.log(arrFilter)
                                     return (
                                         <div className='col'>
                                             <div className='thu_ngay_thang'>
@@ -184,10 +190,9 @@ class ThoiGianBieu extends Component {
                                                 <p>{this.getDaytoString(date.getDay())}</p>
                                             </div>
                                             <div className='list_khung_gio'>
-                                                {/* {arrFilter && arrFilter.map(item => {
+                                                {arrFilter && arrFilter.map(item => {
                                                     return (<h6>{item.clockTime}</h6>)
-                                                })} */}
-                                                {stringDate}
+                                                })}
                                             </div>
                                         </div>
                                     )
