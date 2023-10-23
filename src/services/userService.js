@@ -80,6 +80,12 @@ const deleteSchedule = (data) => { //ok wow cú pháp dị biệt, quên
         data
     })
 }
+
+const getSchedule = () => { //ok
+    return axios.get(`api/get-schedule`)
+}
+
+// /api/get-schedule?date=2023-10-29&dr_or_pk=1&dr_or_pk_ID=22
 /*********************************************************** */
 
 
@@ -222,5 +228,5 @@ export {
     editMediPackageOfClinic,
     createSchedule,
     deleteSchedule,
-
+    getSchedule
 }

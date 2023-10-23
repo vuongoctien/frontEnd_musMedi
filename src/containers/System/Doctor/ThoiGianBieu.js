@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl';
 import _ from 'lodash'
 import Select from 'react-select'
 import DatePicker from '../../../components/Input/DatePicker';
-import { getAllDoctorByClinicId, createSchedule } from '../../../services/userService';
+import { getAllDoctorByClinicId, getSchedule } from '../../../services/userService';
 import { toast } from 'react-toastify';
 import EditScheduleModal from '../../Patient/Doctor/Modal/EditScheduleModal';
 
@@ -21,7 +21,9 @@ class ThoiGianBieu extends Component {
 
             // selectedDate: new Date(new Date().setDate(new Date().getDate())),
             selectedDate: new Date(),
-            isOpenModal: false
+            isOpenModal: false,
+
+            all_Schedule: []
 
         }
     }
@@ -34,6 +36,11 @@ class ThoiGianBieu extends Component {
         if (res && res.errCode === 0) {
             this.setState({ listDoctors: this.buildDataInputSelect(res.all_doctor_of_clinic) })
             this.setState({ selectedDoctor: this.state.listDoctors[0] })
+        }
+
+        let res2 = await getSchedule() // đành lôi hết 1 lượt về FrontEnd xử lý cho khỏi bị bất đồng bộ
+        if (res2 && res2.errCode === 0) {
+            this.setState({ all_Schedule: res2.data })
         }
     }
 
@@ -112,7 +119,7 @@ class ThoiGianBieu extends Component {
     render() {
         let today = new Date()
         let yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
-
+        console.log('this.state', this.state)
 
         return (
             <div className='lichbieu'>
@@ -163,6 +170,10 @@ class ThoiGianBieu extends Component {
                             <div className='lichRow row'>
                                 {[0, 1, 2, 3, 4, 5, 6] && [0, 1, 2, 3, 4, 5, 6].map((item, index2) => {
                                     let date = (new Date(new Date().setDate(this.state.selectedDate.getDate() + index1 * 7 + index2)))
+                                    let stringDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+                                    // console.log('stringDate', stringDate)
+                                    // let arrFilter = this.state.all_Schedule.filter(item => item.date === stringDate)
+                                    // console.log(arrFilter)
                                     return (
                                         <div className='col'>
                                             <div className='thu_ngay_thang'>
@@ -173,15 +184,10 @@ class ThoiGianBieu extends Component {
                                                 <p>{this.getDaytoString(date.getDay())}</p>
                                             </div>
                                             <div className='list_khung_gio'>
-                                                <h6>06:00 - 06:30</h6>
-                                                <h6>06:00 - 06:30</h6>
-                                                <h6>06:00 - 06:30</h6>
-                                                <h6>06:00 - 06:30</h6>
-                                                <h6>06:00 - 06:30</h6>
-                                                <h6>06:00 - 06:30</h6>
-                                                <h6>06:00 - 06:30</h6>
-                                                <h6>06:00 - 06:30</h6>
-                                                <h6>06:00 - 06:30</h6>
+                                                {/* {arrFilter && arrFilter.map(item => {
+                                                    return (<h6>{item.clockTime}</h6>)
+                                                })} */}
+                                                {stringDate}
                                             </div>
                                         </div>
                                     )
