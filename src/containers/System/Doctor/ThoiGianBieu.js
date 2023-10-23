@@ -21,7 +21,7 @@ class ThoiGianBieu extends Component {
 
             // selectedDate: new Date(new Date().setDate(new Date().getDate())),
             selectedDate: new Date(),
-            isOpenModal: true
+            isOpenModal: false
 
         }
     }

@@ -71,8 +71,14 @@ const editMediPackageOfClinic = (newData) => { //ok
 
 
 /***********************SCHEDULE**************************** */
-const createSchedule = (data) => {
+const createSchedule = (data) => { //ok
     return axios.post(`/api/create-schedule`, data)
+}
+
+const deleteSchedule = (data) => { //ok wow cú pháp dị biệt, quên
+    return axios.delete(`/api/delete-schedule`, {
+        data
+    })
 }
 /*********************************************************** */
 
@@ -215,5 +221,6 @@ export {
     getAllMediPackageByClinicId,
     editMediPackageOfClinic,
     createSchedule,
+    deleteSchedule,
 
 }
