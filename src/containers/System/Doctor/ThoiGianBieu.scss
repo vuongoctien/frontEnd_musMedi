@@ -2,10 +2,13 @@
     background-color: rgb(255, 255, 255);
 
     .title-schedule {
-        text-align: center;
+        text-align      : center;
+        background-color: rgb(255, 247, 248);
+
     }
 
     .chonthongtin {
+        background-color: rgb(255, 247, 248);
 
         // border: 1px solid red;
         .edit-schedule {
@@ -18,15 +21,17 @@
             background-repeat  : no-repeat;
             background-position: center;
             border-radius      : 50%;
+            border             : 1px solid black;
             width              : 5vw;
             height             : 5vw;
         }
 
         .fa-edit {
             cursor: pointer;
+            color : rgb(72, 255, 72);
 
             &:hover {
-                color: lightgreen;
+                color: green;
             }
         }
     }
@@ -41,7 +46,7 @@
             // border: 1px solid blue;
 
             .col {
-                border    : 1px solid gainsboro;
+                border    : 1px solid blue;
                 min-height: 30vh;
                 display   : flex;
 

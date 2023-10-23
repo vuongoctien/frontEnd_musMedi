@@ -10,6 +10,7 @@ import Select from 'react-select'
 import DatePicker from '../../../components/Input/DatePicker';
 import { getAllDoctorByClinicId, createSchedule } from '../../../services/userService';
 import { toast } from 'react-toastify';
+import EditScheduleModal from '../../Patient/Doctor/Modal/EditScheduleModal';
 
 class ThoiGianBieu extends Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class ThoiGianBieu extends Component {
 
             // selectedDate: new Date(new Date().setDate(new Date().getDate())),
             selectedDate: new Date(),
-            list_Khung_Gio_Da_Tao: [], // vẫn là của bên phải, còn bên trái không cần
+            isOpenModal: true
 
         }
     }
@@ -102,6 +103,11 @@ class ThoiGianBieu extends Component {
         // console.log(this.dom(3))
     }
 
+    closeModal = () => {
+        this.setState({
+            isOpenModal: false
+        })
+    }
 
     render() {
         let today = new Date()
@@ -146,7 +152,7 @@ class ThoiGianBieu extends Component {
                             </div>
                             <div class="form-group col-md-1">
                                 <label>&nbsp;</label>
-                                <h1><i class="far fa-edit"></i></h1>
+                                <h1 onClick={() => { this.setState({ isOpenModal: true }) }}><i class="far fa-edit"></i></h1>
                             </div>
                         </div>
                     </form>
@@ -184,6 +190,13 @@ class ThoiGianBieu extends Component {
                         )
                     })}
                 </div>
+                <EditScheduleModal
+                    // ờ hiểu rồi, mình truyền mấy cái sau xuống component con:
+                    // sang bên kia thằng con cứ thế dùng, 
+                    isOpenModal={this.state.isOpenModal} // trạng thái đóng/mở modal (state)
+                    closeModal={this.closeModal} // hàm đóng modal
+                    selectedDoctor={this.state.selectedDoctor}
+                />
             </div>
 
         );
