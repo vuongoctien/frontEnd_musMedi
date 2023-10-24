@@ -1,0 +1,17 @@
+.full {
+    margin-left  : 2vw;
+    margin-right : 2vw;
+    margin-top   : 2vh;
+    margin-bottom: 2vh;
+
+    .body {
+        table {
+            width: 100%;
+
+            th,
+            td {
+                border: 1px solid gainsboro;
+            }
+        }
+    }
+}

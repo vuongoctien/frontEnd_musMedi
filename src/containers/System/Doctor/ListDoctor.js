@@ -16,6 +16,7 @@ import { emitter } from '../../../utils/emitter';
 import logo from '../../../assets/musMedi.png'
 import * as actions from "../../../store/actions";
 import DetailDoctorModal from '../../Patient/Doctor/Modal/DetailDoctorModal';
+import FooterClinic from '../../Footer/FooterClinic';
 
 
 
@@ -142,6 +143,7 @@ class ListDoctor extends Component {
 
                     </div>
                 </div>
+                <FooterClinic />
             </div>
         );
     }

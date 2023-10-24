@@ -14,6 +14,7 @@ import {
     getDetailMediPackageById, getAllMediPackageByClinicId, editMediPackageOfClinic
 } from '../../../services/userService';
 import './EditDoctor.scss'
+import FooterClinic from '../../Footer/FooterClinic';
 
 const mdParser = new MarkdownIt()
 
@@ -253,194 +254,197 @@ class EditDoctor extends Component {
         // console.log('this.props.userInfo', this.props.userInfo)
         // console.log('state hien tai', this.state)
         return (
-            <div className='col-12 row'>
-                <div className='col-12'><br /></div>
-                <div className='col-3'></div>
-                <div className='col-9'><h1>Chỉnh sửa thông tin bác sĩ & gói dịch vụ</h1></div>
-                <div className='col-12'><hr /></div>
-                <div className='col-3'>
-                    <div className='col-12 form-group'>
-                        <div className='preview-image'
-                            style={{ backgroundImage: `url(${this.state.previewImgURL})` }}
-                            onClick={() => this.openPreviewImage()}>
+            <div className=''>
+                <div className='col-12 row'>
+                    <div className='col-12'><br /></div>
+                    <div className='col-3'></div>
+                    <div className='col-9'><h1>Chỉnh sửa thông tin bác sĩ & gói dịch vụ</h1></div>
+                    <div className='col-12'><hr /></div>
+                    <div className='col-3'>
+                        <div className='col-12 form-group'>
+                            <div className='preview-image'
+                                style={{ backgroundImage: `url(${this.state.previewImgURL})` }}
+                                onClick={() => this.openPreviewImage()}>
+
+                            </div>
+                            <input
+                                className='form-control'
+                                type='file'
+                                onChange={(event) => this.handleOnChangeImage(event)}
+                                id='default_button'
+                                hidden
+                            />
+                            <label className='label-upload' htmlFor='default_button'>Chọn ảnh <i class="fas fa-images"></i></label>
+                        </div>
+                    </div>
+                    <div className='col-9 row'>
+                        <div className='col-2 form-group'>
+                            <b><i>Chọn đối tượng chỉnh sửa:</i></b>
+                        </div>
+                        <div className='col-1 form-group'>
+                            <h1><i className="fas fa-exchange-alt" onClick={() => this.handleChangeDoctorOrMediPackage()}></i></h1>
+                        </div>
+                        <div className='col-1 form-group row'>
+                            <h1>
+                                {this.state.Doctor_or_MediPackage === true ?
+                                    <i className="fas fa-user-md"></i>
+                                    :
+                                    <i className="fas fa-notes-medical"></i>
+                                }
+                            </h1>
+                        </div>
+                        <div className='col-8 form-group'>
+                            {this.state.Doctor_or_MediPackage === true ?
+                                <Select
+                                    value={this.state.selectedDoctor}
+                                    onChange={this.handleChangeSelect}
+                                    options={this.state.listDoctor}
+                                />
+                                :
+                                <Select
+                                    value={this.state.selectedMediPackage}
+                                    onChange={this.handleChangeSelect}
+                                    options={this.state.listMediPackage}
+                                />
+                            }
 
                         </div>
-                        <input
-                            className='form-control'
-                            type='file'
-                            onChange={(event) => this.handleOnChangeImage(event)}
-                            id='default_button'
-                            hidden
-                        />
-                        <label className='label-upload' htmlFor='default_button'>Chọn ảnh <i class="fas fa-images"></i></label>
-                    </div>
-                </div>
-                <div className='col-9 row'>
-                    <div className='col-2 form-group'>
-                        <b><i>Chọn đối tượng chỉnh sửa:</i></b>
-                    </div>
-                    <div className='col-1 form-group'>
-                        <h1><i className="fas fa-exchange-alt" onClick={() => this.handleChangeDoctorOrMediPackage()}></i></h1>
-                    </div>
-                    <div className='col-1 form-group row'>
-                        <h1>
-                            {this.state.Doctor_or_MediPackage === true ?
-                                <i className="fas fa-user-md"></i>
-                                :
-                                <i className="fas fa-notes-medical"></i>
-                            }
-                        </h1>
-                    </div>
-                    <div className='col-8 form-group'>
                         {this.state.Doctor_or_MediPackage === true ?
-                            <Select
-                                value={this.state.selectedDoctor}
-                                onChange={this.handleChangeSelect}
-                                options={this.state.listDoctor}
-                            />
+                            <div className='col-6 form-group'>
+                                <label>Họ và tên bác sĩ:</label>
+                                <input
+                                    className='form-control'
+                                    type="text"
+                                    onChange={(event) => this.handleOnChangeInput(event, 'name')}
+                                    value={this.state.name}
+                                />
+                            </div>
                             :
-                            <Select
-                                value={this.state.selectedMediPackage}
-                                onChange={this.handleChangeSelect}
-                                options={this.state.listMediPackage}
-                            />
+                            <div className='col-6 form-group'>
+                                <label>Tên gói dịch vụ:</label>
+                                <input
+                                    className='form-control'
+                                    type="text"
+                                    onChange={(event) => this.handleOnChangeInput(event, 'name')}
+                                    value={this.state.name}
+                                />
+                            </div>
+                        }
+                        {this.state.Doctor_or_MediPackage === true ?
+                            <div className='col-6 form-group'>
+                                <label>Chức danh:</label>
+                                <input
+                                    className='form-control'
+                                    type="text"
+                                    onChange={(event) => this.handleOnChangeInput(event, 'position')}
+                                    value={this.state.position}
+                                />
+                            </div>
+                            :
+                            <div className='col-6 form-group'>
+                                <label>Loại:</label>
+                                <Select
+                                    value={this.state.selectedPackageType}
+                                    onChange={this.handleOnChangePackageType}
+                                    options={[{
+                                        "label": "Gói khám",
+                                        "value": "Gói khám"
+                                    },
+                                    {
+                                        "label": "Xét nghiệm",
+                                        "value": "Xét nghiệm"
+                                    },
+                                    {
+                                        "label": "Khác",
+                                        "value": "Khác"
+                                    }]}
+                                />
+                            </div>
                         }
 
-                    </div>
-                    {this.state.Doctor_or_MediPackage === true ?
                         <div className='col-6 form-group'>
-                            <label>Họ và tên bác sĩ:</label>
+                            <label>Tài khoản đăng nhập:</label>
                             <input
                                 className='form-control'
                                 type="text"
-                                onChange={(event) => this.handleOnChangeInput(event, 'name')}
-                                value={this.state.name}
+                                // onChange={(event) => this.handleOnChangeInput(event, 'nickName')}
+                                // value={this.state.nickName}
+                                disabled
                             />
                         </div>
-                        :
                         <div className='col-6 form-group'>
-                            <label>Tên gói dịch vụ:</label>
+                            <label>Mật khẩu:</label>
                             <input
                                 className='form-control'
                                 type="text"
-                                onChange={(event) => this.handleOnChangeInput(event, 'name')}
-                                value={this.state.name}
+                                // onChange={(event) => this.handleOnChangeInput(event, 'password')}
+                                // value={this.state.password}
+                                disabled
                             />
                         </div>
-                    }
-                    {this.state.Doctor_or_MediPackage === true ?
-                        <div className='col-6 form-group'>
-                            <label>Chức danh:</label>
-                            <input
-                                className='form-control'
-                                type="text"
-                                onChange={(event) => this.handleOnChangeInput(event, 'position')}
-                                value={this.state.position}
-                            />
-                        </div>
-                        :
-                        <div className='col-6 form-group'>
-                            <label>Loại:</label>
-                            <Select
-                                value={this.state.selectedPackageType}
-                                onChange={this.handleOnChangePackageType}
-                                options={[{
-                                    "label": "Gói khám",
-                                    "value": "Gói khám"
-                                },
-                                {
-                                    "label": "Xét nghiệm",
-                                    "value": "Xét nghiệm"
-                                },
-                                {
-                                    "label": "Khác",
-                                    "value": "Khác"
-                                }]}
-                            />
-                        </div>
-                    }
+                        <div className='col-12'>
+                            {
+                                this.state.ADD_or_EDIT === true ?
+                                    <button className='button-add-speciatly' style={{ opacity: 0 }}>
+                                        Chỗ này sẽ bỏ trống và cho oppaity = 0
+                                    </button>
+                                    :
+                                    <>
+                                        {this.state.Doctor_or_MediPackage === true ?
+                                            <button
+                                                className='btn btn-info'
+                                                onClick={() => this.handleEditDoctor({
+                                                    idClinic: this.props.userInfo.id,
+                                                    idDoctor: this.state.selectedDoctor.value,
+                                                    name: this.state.name,
+                                                    position: this.state.position,
+                                                    image: this.state.imageBase64,
+                                                    descriptionMarkdown: this.state.descriptionMarkdown,
+                                                    descriptionHTML: this.state.descriptionHTML
+                                                })}
+                                            >
+                                                Cập nhật thông tin bác sĩ <i className="far fa-edit"></i>
+                                            </button>
+                                            :
+                                            <button
+                                                className='btn btn-info'
+                                                onClick={() => this.handleEditMediPackage({
+                                                    idClinic: this.props.userInfo.id,
+                                                    idMediPackage: this.state.selectedMediPackage.value,
+                                                    name: this.state.name,
+                                                    packageType: this.state.selectedPackageType.value,
+                                                    image: this.state.imageBase64,
+                                                    descriptionMarkdown: this.state.descriptionMarkdown,
+                                                    descriptionHTML: this.state.descriptionHTML
+                                                })}
+                                            >
+                                                Cập nhật thông tin gói dịch vụ <i className="far fa-edit"></i>
+                                            </button>}
+                                    </>
 
-                    <div className='col-6 form-group'>
-                        <label>Tài khoản đăng nhập:</label>
-                        <input
-                            className='form-control'
-                            type="text"
-                            // onChange={(event) => this.handleOnChangeInput(event, 'nickName')}
-                            // value={this.state.nickName}
-                            disabled
-                        />
-                    </div>
-                    <div className='col-6 form-group'>
-                        <label>Mật khẩu:</label>
-                        <input
-                            className='form-control'
-                            type="text"
-                            // onChange={(event) => this.handleOnChangeInput(event, 'password')}
-                            // value={this.state.password}
-                            disabled
-                        />
+                            }
+                        </div>
                     </div>
                     <div className='col-12'>
-                        {
-                            this.state.ADD_or_EDIT === true ?
-                                <button className='button-add-speciatly' style={{ opacity: 0 }}>
-                                    Chỗ này sẽ bỏ trống và cho oppaity = 0
-                                </button>
-                                :
-                                <>
-                                    {this.state.Doctor_or_MediPackage === true ?
-                                        <button
-                                            className='btn btn-info'
-                                            onClick={() => this.handleEditDoctor({
-                                                idClinic: this.props.userInfo.id,
-                                                idDoctor: this.state.selectedDoctor.value,
-                                                name: this.state.name,
-                                                position: this.state.position,
-                                                image: this.state.imageBase64,
-                                                descriptionMarkdown: this.state.descriptionMarkdown,
-                                                descriptionHTML: this.state.descriptionHTML
-                                            })}
-                                        >
-                                            Cập nhật thông tin bác sĩ <i className="far fa-edit"></i>
-                                        </button>
-                                        :
-                                        <button
-                                            className='btn btn-info'
-                                            onClick={() => this.handleEditMediPackage({
-                                                idClinic: this.props.userInfo.id,
-                                                idMediPackage: this.state.selectedMediPackage.value,
-                                                name: this.state.name,
-                                                packageType: this.state.selectedPackageType.value,
-                                                image: this.state.imageBase64,
-                                                descriptionMarkdown: this.state.descriptionMarkdown,
-                                                descriptionHTML: this.state.descriptionHTML
-                                            })}
-                                        >
-                                            Cập nhật thông tin gói dịch vụ <i className="far fa-edit"></i>
-                                        </button>}
-                                </>
-
-                        }
+                        <label>Xem & chỉnh sửa thông tin giới thiệu bác sĩ ở đây:</label>
+                        <MdEditor
+                            style={{ height: '100vh' }}
+                            renderHTML={text => mdParser.render(text)}
+                            onChange={this.handleEditorChange}
+                            value={this.state.descriptionMarkdown}
+                        />
                     </div>
+                    {
+                        this.state.isOpen === true &&
+                        <Lightbox
+                            mainSrc={this.state.previewImgURL}
+                            onCloseRequest={() => this.setState({ isOpen: false })}
+                        />
+                    }
                 </div>
-                <div className='col-12'>
-                    <label>Xem & chỉnh sửa thông tin giới thiệu bác sĩ ở đây:</label>
-                    <MdEditor
-                        style={{ height: '100vh' }}
-                        renderHTML={text => mdParser.render(text)}
-                        onChange={this.handleEditorChange}
-                        value={this.state.descriptionMarkdown}
-                    />
-                </div>
-                {
-                    this.state.isOpen === true &&
-                    <Lightbox
-                        mainSrc={this.state.previewImgURL}
-                        onCloseRequest={() => this.setState({ isOpen: false })}
-                    />
-                }
-            </div>
 
+                <FooterClinic />
+            </div>
         )
     }
 

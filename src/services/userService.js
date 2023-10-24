@@ -85,7 +85,13 @@ const getSchedule = () => { //ok
     return axios.get(`api/get-schedule`)
 }
 
-// /api/get-schedule?date=2023-10-29&dr_or_pk=1&dr_or_pk_ID=22
+const getDoctorByIdClinicAndIdDoctor = (query) => { //ok
+    return axios.get(`/api/get-doctor-by-idclinic-and-iddoctor?doctorID=${query.doctorId}&clinicID=${query.clinicID}`)
+}
+
+const getMediPkByIdClinicAndIdDoctor = (query) => { //ok
+    return axios.get(`/api/get-medipk-by-idclinic-and-iddoctor?medi_packageID=${query.medi_packageID}&clinicID=${query.clinicID}`)
+}
 /*********************************************************** */
 
 
@@ -228,5 +234,8 @@ export {
     editMediPackageOfClinic,
     createSchedule,
     deleteSchedule,
-    getSchedule
+    getSchedule,
+    getDoctorByIdClinicAndIdDoctor,
+    getMediPkByIdClinicAndIdDoctor,
+
 }

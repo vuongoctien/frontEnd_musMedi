@@ -6,6 +6,7 @@ import './UserManage.scss';
 import { LANGUAGES, USER_ROLE } from '../../utils';
 import { FormattedMessage } from 'react-intl';
 import _ from 'lodash'
+import FooterClinic from '../Footer/FooterClinic';
 
 class UserManage extends Component {
     constructor(props) {
@@ -28,16 +29,20 @@ class UserManage extends Component {
         console.log('this.props UserManage', this.props)
 
         return (
-            <div className='text-center'>
-                <br />
-                <h1>Chào mừng {this.props.userInfo.name} đến với trang quản trị</h1>
-                <hr />
-                <h4>Này ông cháu Vương Ngọc Tiến, ở trang này ta đã lấy được thông tin CSYT đăng nhập từ props</h4>
-                <br />
-                <br />
-                <h4>Component này sẽ hiện đơn đặt lịch </h4>
+            <div className=''>
+                <div className='text-center'>
+                    <br />
+                    <h1>Chào mừng {this.props.userInfo.name} đến với trang quản trị</h1>
+                    <hr />
+                    <h4>Này ông cháu Vương Ngọc Tiến, ở trang này ta đã lấy được thông tin CSYT đăng nhập từ props</h4>
+                    <br />
+                    <br />
+                    <h4>Component này sẽ hiện đơn đặt lịch </h4>
 
+                </div>
+                <FooterClinic />
             </div>
+
 
         );
     }
