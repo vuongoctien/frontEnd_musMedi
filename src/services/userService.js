@@ -81,8 +81,8 @@ const deleteSchedule = (data) => { //ok wow cú pháp dị biệt, quên
     })
 }
 
-const getSchedule = () => { //ok
-    return axios.get(`api/get-schedule`)
+const getSchedule = (query) => { //ok
+    return axios.get(`/api/get-schedule?clinicID=${query.clinicID}&dr_or_pk=${query.dr_or_pk}&dr_or_pk_ID=${query.dr_or_pk_ID}`)
 }
 
 const getDoctorByIdClinicAndIdDoctor = (query) => { //ok
@@ -92,6 +92,7 @@ const getDoctorByIdClinicAndIdDoctor = (query) => { //ok
 const getMediPkByIdClinicAndIdDoctor = (query) => { //ok
     return axios.get(`/api/get-medipk-by-idclinic-and-iddoctor?medi_packageID=${query.medi_packageID}&clinicID=${query.clinicID}`)
 }
+
 /*********************************************************** */
 
 

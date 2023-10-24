@@ -85,13 +85,13 @@ class LichBieu extends Component {
                             <h1>Lịch biểu</h1>
                             <h5>
                                 Từ ngày &nbsp;
-                                {new Date(yy, mm - 1, dd).getDate()}/
-                                {new Date(yy, mm - 1, dd).getMonth() + 1}/
-                                {new Date(yy, mm - 1, dd).getFullYear()}
+                                {new Date(yy, +mm - 1, dd).getDate()}/
+                                {new Date(yy, +mm - 1, dd).getMonth() + 1}/
+                                {new Date(yy, +mm - 1, dd).getFullYear()}
                                 &nbsp; đến ngày &nbsp;
-                                {new Date(yy, mm - 1, +dd + 6).getDate()}/
-                                {new Date(yy, mm - 1, +dd + 6).getMonth() + 1}/
-                                {new Date(yy, mm - 1, +dd + 6).getFullYear()}
+                                {new Date(yy, +mm - 1, +dd + 6).getDate()}/
+                                {new Date(yy, +mm - 1, +dd + 6).getMonth() + 1}/
+                                {new Date(yy, +mm - 1, +dd + 6).getFullYear()}
                             </h5>
                             <h6>Click vào tên bác sĩ/gói dịch vụ để xem & cập nhật lịch khám</h6>
                         </div>
@@ -119,9 +119,9 @@ class LichBieu extends Component {
                                     return (
                                         <th style={{ width: '11vw', textAlign: 'center' }}>
                                             <h5>{this.HomNayLaThuMay(new Date(yy, mm - 1, +dd + index).getDay())}</h5>
-                                            {new Date(yy, mm - 1, +dd + index).getDate()}/
-                                            {new Date(yy, mm - 1, +dd + index).getMonth() + 1}/
-                                            {new Date(yy, mm - 1, +dd + index).getFullYear()}
+                                            {new Date(yy, +mm - 1, +dd + index).getDate()}/
+                                            {new Date(yy, +mm - 1, +dd + index).getMonth() + 1}/
+                                            {new Date(yy, +mm - 1, +dd + index).getFullYear()}
                                         </th>)
                                 })}
                             </tr>

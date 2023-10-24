@@ -8,7 +8,13 @@ import { FormattedMessage } from 'react-intl';
 import _ from 'lodash'
 import Select from 'react-select'
 import DatePicker from '../../../components/Input/DatePicker';
-import { getDoctorByIdClinicAndIdDoctor, getMediPkByIdClinicAndIdDoctor, createSchedule, deleteSchedule } from '../../../services/userService';
+import {
+    getDoctorByIdClinicAndIdDoctor,
+    getMediPkByIdClinicAndIdDoctor,
+    createSchedule,
+    deleteSchedule,
+    getSchedule
+} from '../../../services/userService';
 import { toast } from 'react-toastify';
 import FooterClinic from '../../Footer/FooterClinic';
 
@@ -19,6 +25,7 @@ class CapNhatLich extends Component {
             selectedArea: { "label": "Chỉ 1 ngày", "value": 0 },
             list_Khung_Gio_Da_Tao: [],
             thisDr_or_Pk: {},
+            all_schedule: [],
 
             getDateSelected: '',
             getMonthSelected: '',
@@ -27,7 +34,7 @@ class CapNhatLich extends Component {
     }
 
     async componentDidMount() {
-        document.title = `lịch biểu | ${this.props.userInfo.name}`
+
         document.getElementsByClassName('fa-calendar-alt')[0].setAttribute("style", "color:orange;")
         if (this.props.match.params.dr_or_pk === '1') {
             let res = await getDoctorByIdClinicAndIdDoctor({
@@ -43,6 +50,15 @@ class CapNhatLich extends Component {
             })
             this.setState({ thisDr_or_Pk: res.medi_packageData })
         }
+        document.title = `${this.state.thisDr_or_Pk.name} | ${this.props.userInfo.name}`
+        let res = await getSchedule({
+            clinicID: this.props.userInfo.id,
+            dr_or_pk: this.props.match.params.dr_or_pk,
+            dr_or_pk_ID: this.state.thisDr_or_Pk.id
+        })
+        console.log('res', res)
+        this.setState({ all_schedule: res.all_schedule })
+        console.log('this.state.all_schedule', this.state.all_schedule)
 
     }
 
@@ -134,7 +150,7 @@ class CapNhatLich extends Component {
                 }
 
                 if (this.state.selectedArea.value === 1) { // trường hợp Chọn mỗi thứ mấy
-                    for (let i = 0; i < 5; i++) {
+                    for (let i = 0; i < 3; i++) {
                         this.state.list_Khung_Gio_Da_Tao.map(async item => {
                             let NgayCanXuLy = new Date(yy, +mm - 1, +dd + i * 7)
                             let d = NgayCanXuLy.getDate()
@@ -157,7 +173,7 @@ class CapNhatLich extends Component {
                 }
 
                 if (this.state.selectedArea.value === 2) { // trường hợp Chọn mỗi ngày
-                    for (let i = 0; i < 41; i++) {
+                    for (let i = 0; i < 21; i++) {
                         this.state.list_Khung_Gio_Da_Tao.map(async item => {
                             let NgayCanXuLy = new Date(yy, +mm - 1, +dd + i)
                             let d = NgayCanXuLy.getDate()
@@ -204,7 +220,7 @@ class CapNhatLich extends Component {
                 }
 
                 if (this.state.selectedArea.value === 1) { // trường hợp Chọn mỗi thứ mấy
-                    for (let i = 0; i < 5; i++) {
+                    for (let i = 0; i < 3; i++) {
 
                         let NgayCanXuLy = new Date(yy, +mm - 1, +dd + i * 7)
                         let d = NgayCanXuLy.getDate()
@@ -226,7 +242,7 @@ class CapNhatLich extends Component {
                 }
 
                 if (this.state.selectedArea.value === 2) { // trường hợp Chọn mỗi ngày
-                    for (let i = 0; i < 41; i++) {
+                    for (let i = 0; i < 21; i++) {
 
                         let NgayCanXuLy = new Date(yy, +mm - 1, +dd + i)
                         let d = NgayCanXuLy.getDate()
@@ -258,6 +274,7 @@ class CapNhatLich extends Component {
         // console.log('this.props is ', this.props)
         // console.log('test', new Date(this.props.match.params.yy, this.props.match.params.mm - 1, +this.props.match.params.dd + 10))
         // phải thêm dấu cộng ở đầu biến, nếu không nó hiểu là nối chuỗi
+
         let yy = this.props.match.params.yy
         let mm = this.props.match.params.mm
         let dd = this.props.match.params.dd
@@ -326,8 +343,8 @@ class CapNhatLich extends Component {
                                         onChange={this.handleChangeArea}
                                         options={[
                                             { "label": "Chỉ 1 ngày", "value": 0 },
-                                            { "label": `Mỗi ${this.getDaytoString(new Date(yy, +mm - 1, dd).getDay())} trong 5 tuần tới`, "value": 1 },
-                                            { "label": "Mỗi ngày trong 42 ngày tới", "value": 2 }
+                                            { "label": `Mỗi ${this.getDaytoString(new Date(yy, +mm - 1, dd).getDay())} trong 3 tuần tới`, "value": 1 },
+                                            { "label": "Mỗi ngày trong 21 ngày tới", "value": 2 }
                                         ]}
                                     />
                                 </div>
@@ -393,9 +410,9 @@ class CapNhatLich extends Component {
                                             return number
                                         }
                                         let stringDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + getDateThemSo_0(date)
-                                        // console.log('stringDate', stringDate)
-                                        // let arrFilter = this.state.all_Schedule.filter(item => item.date === stringDate)
-                                        // console.log(arrFilter)
+                                        let arrFilter = this.state.all_schedule.filter(item => item.date === stringDate)
+                                        arrFilter = arrFilter.map(item => item.clockTime)
+                                        arrFilter = arrFilter.sort()
                                         return (
                                             <div className='col'>
                                                 <div className='thu_ngay_thang'>
@@ -406,10 +423,9 @@ class CapNhatLich extends Component {
                                                     <p>{this.getDaytoString(date.getDay())}</p>
                                                 </div>
                                                 <div className='list_khung_gio'>
-                                                    {stringDate}
-                                                    {/* {arrFilter && arrFilter.map(item => {
-                                                        return (<h6>{item.clockTime}</h6>)
-                                                    })} */}
+                                                    {arrFilter && arrFilter.map(item => {
+                                                        return (<h6 style={{ backgroundColor: 'rgb(255 249 195)' }}>{item}</h6>)
+                                                    })}
                                                 </div>
                                             </div>
                                         )
