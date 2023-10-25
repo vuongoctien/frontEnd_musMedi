@@ -34,12 +34,17 @@
             .khungiodatao {
                 margin-top      : 1vh;
                 margin-bottom   : 1vh;
-                min-height      : 10vh;
+                min-height      : 15vh;
                 background-color: rgb(217, 252, 240);
 
                 button {
                     margin          : 1vh;
                     background-color: antiquewhite;
+                    cursor          : pointer;
+
+                    &:hover {
+                        background-color: red;
+                    }
                 }
             }
 

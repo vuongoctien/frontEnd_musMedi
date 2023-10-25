@@ -22,6 +22,7 @@ class CapNhatLich extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            render: 0,
             selectedArea: { "label": "Chỉ 1 ngày", "value": 0 },
             list_Khung_Gio_Da_Tao: [],
             thisDr_or_Pk: {},
@@ -120,6 +121,11 @@ class CapNhatLich extends Component {
         }
     }
 
+    XoaKhungGio = (index) => {
+        this.state.list_Khung_Gio_Da_Tao.splice(index, 1)
+        this.setState({ render: 0 })
+    }
+
     TaoLichBieu = () => {
         let yy = this.props.match.params.yy
         let mm = this.props.match.params.mm
@@ -172,8 +178,31 @@ class CapNhatLich extends Component {
                     }
                 }
 
-                if (this.state.selectedArea.value === 2) { // trường hợp Chọn mỗi ngày
+                if (this.state.selectedArea.value === 2) { // trường hợp Chọn mỗi 21 ngày
                     for (let i = 0; i < 21; i++) {
+                        this.state.list_Khung_Gio_Da_Tao.map(async item => {
+                            let NgayCanXuLy = new Date(yy, +mm - 1, +dd + i)
+                            let d = NgayCanXuLy.getDate()
+                            let m = +NgayCanXuLy.getMonth() + 1
+                            let y = NgayCanXuLy.getFullYear()
+                            let stringNgayCanXuLy = y + '-' + m + '-' + d
+                            let res = await createSchedule({
+                                date: stringNgayCanXuLy,
+                                clinicID: this.props.userInfo.id,
+                                dr_or_pk: this.props.match.params.dr_or_pk,
+                                dr_or_pk_ID: this.props.match.params.dr_or_pk_ID,
+                                clockTime: item
+                            })
+                            if (res && res.errCode === 0) toast.success('Thêm lịch thành công')
+                            if (res && res.errCode === 1) toast.error('Vui lòng điền đầy đủ thông tin')
+                            if (res && res.errCode === -1) toast.error('Lỗi máy chủ')
+                            if (!res) toast.error('Lỗi chưa xác định')
+                        })
+                    }
+                }
+
+                if (this.state.selectedArea.value === 3) { // trường hợp Chọn mỗi 7 ngày
+                    for (let i = 0; i < 7; i++) {
                         this.state.list_Khung_Gio_Da_Tao.map(async item => {
                             let NgayCanXuLy = new Date(yy, +mm - 1, +dd + i)
                             let d = NgayCanXuLy.getDate()
@@ -241,8 +270,30 @@ class CapNhatLich extends Component {
                     }
                 }
 
-                if (this.state.selectedArea.value === 2) { // trường hợp Chọn mỗi ngày
+                if (this.state.selectedArea.value === 2) { // trường hợp Chọn mỗi 21 ngày
                     for (let i = 0; i < 21; i++) {
+
+                        let NgayCanXuLy = new Date(yy, +mm - 1, +dd + i)
+                        let d = NgayCanXuLy.getDate()
+                        let m = +NgayCanXuLy.getMonth() + 1
+                        let y = NgayCanXuLy.getFullYear()
+                        let stringNgayCanXuLy = y + '-' + m + '-' + d
+                        let res = await deleteSchedule({
+                            date: stringNgayCanXuLy,
+                            clinicID: this.props.userInfo.id,
+                            dr_or_pk: this.props.match.params.dr_or_pk,
+                            dr_or_pk_ID: this.props.match.params.dr_or_pk_ID
+                        })
+                        if (res && res.errCode === 0) toast.success('Xóa lịch thành công')
+                        if (res && res.errCode === 1) toast.error('Vui lòng điền đầy đủ thông tin')
+                        if (res && res.errCode === -1) toast.error('Lỗi máy chủ')
+                        if (!res) toast.error('Lỗi chưa xác định')
+
+                    }
+                }
+
+                if (this.state.selectedArea.value === 3) { // trường hợp Chọn mỗi 7 ngày
+                    for (let i = 0; i < 7; i++) {
 
                         let NgayCanXuLy = new Date(yy, +mm - 1, +dd + i)
                         let d = NgayCanXuLy.getDate()
@@ -344,15 +395,18 @@ class CapNhatLich extends Component {
                                         options={[
                                             { "label": "Chỉ 1 ngày", "value": 0 },
                                             { "label": `Mỗi ${this.getDaytoString(new Date(yy, +mm - 1, dd).getDay())} trong 3 tuần tới`, "value": 1 },
+                                            { "label": "Mỗi ngày trong 7 ngày tới", "value": 3 },
                                             { "label": "Mỗi ngày trong 21 ngày tới", "value": 2 }
                                         ]}
                                     />
                                 </div>
                             </div>
                             <div className='khungiodatao'>
-                                Các khung giờ vừa tạo sẽ xuất hiện ở đây:&emsp;
-                                {this.state.list_Khung_Gio_Da_Tao.map(item => {
-                                    return (<button>{item}</button>)
+                                Các khung giờ vừa tạo sẽ xuất hiện ở đây, click vào từng khung giờ nếu muốn xóa. Để sắp xếp, nhấn vào &nbsp;
+                                <a onClick={() => { this.state.list_Khung_Gio_Da_Tao.sort(); this.setState({ render: 0 }) }} href='#'>đây</a> &nbsp;
+                                (Việc sắp xếp chỉ có tác dụng hiển thị lúc này, không ảnh hưởng đến thứ tự hiển thị ở trang chủ & lịch biểu) <br />
+                                {this.state.list_Khung_Gio_Da_Tao.map((item, index) => {
+                                    return (<button title='Click để xóa' onClick={() => this.XoaKhungGio(index)}>{item}</button>)
                                 })}
                             </div>
                             <div className='button1'>
