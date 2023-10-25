@@ -48,8 +48,8 @@ class DetailDoctor extends Component {
                             </div>
                             <div className='down'>
                                 <textarea
-                                    rows='5'
-                                    cols='100'
+                                    rows='6'
+                                    cols='120'
                                     value={this.state.doctorData.intro}
                                     disabled
                                 ></textarea>
@@ -58,7 +58,8 @@ class DetailDoctor extends Component {
                         </div>
                     </div>
                     <div className='schedule-doctor'>
-
+                        <div className='content-left'></div>
+                        <div className='content-right'></div>
                     </div>
                     <div className='detail-info-doctor'>
                         <div dangerouslySetInnerHTML={{ __html: this.state.doctorData.descriptionHTML }} />

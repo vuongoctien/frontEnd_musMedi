@@ -42,23 +42,25 @@
                     color           : black;
                     font-weight     : 100;
                     font-style      : italic;
+                    resize          : none;
+
                 }
             }
         }
     }
 
     .schedule-doctor {
-        margin    : 0 100px;
+        margin    : 0 50px;
         display   : flex;
         min-height: 200px;
+        min-width : 1200px;
         padding   : 10px 0;
 
-        .content-left {
-            width: 50%;
-        }
-
+        .content-left,
         .content-right {
-            width: 50%;
+            width : 50%;
+            border: 1px solid red;
+
         }
 
     }
