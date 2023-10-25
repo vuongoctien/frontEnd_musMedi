@@ -10,7 +10,11 @@
 
             th,
             td {
-                border: 1px solid gainsboro;
+                border: 1px dashed green;
+            }
+
+            th {
+                background-color: rgb(221, 255, 221);
             }
         }
     }

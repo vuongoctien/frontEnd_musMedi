@@ -21,6 +21,7 @@ class LichBieu extends Component {
             getDateSelected: '',
             getMonthSelected: '',
             getFullYearSelected: '',
+            all_schedule: []
         }
     }
 
@@ -31,6 +32,14 @@ class LichBieu extends Component {
         this.setState({ listDoctor: res1.all_doctor_of_clinic })
         let res2 = await getAllMediPackageByClinicId(this.props.userInfo.id)
         this.setState({ listMediPackage: res2.all_mediPackage_of_clinic })
+        let res = await getSchedule({
+            clinicID: this.props.userInfo.id,
+            dr_or_pk: '',
+            dr_or_pk_ID: ''
+        })
+        // console.log('res', res)
+        this.setState({ all_schedule: res.all_schedule })
+        console.log('this.state', this.state)
     }
 
     handleOnChangeDatePicker = (date) => {
@@ -81,7 +90,7 @@ class LichBieu extends Component {
             <div className=''>
                 <div className='full'>
                     <div className='head row'>
-                        <div className='col-7'>
+                        <div className='col-5'>
                             <h1>Lịch biểu</h1>
                             <h5>
                                 Từ ngày &nbsp;
@@ -95,13 +104,16 @@ class LichBieu extends Component {
                             </h5>
                             <h6>Click vào tên bác sĩ/gói dịch vụ để xem & cập nhật lịch khám</h6>
                         </div>
-                        <div className='col-2'>
+                        <div className='col-4'>
                             <label>Xem lịch 7 ngày kể từ:</label> <br />
                             <DatePicker
                                 onChange={this.handleOnChangeDatePicker}
                                 className='form-control'
                                 minDate={new Date(new Date().setDate(new Date().getDate()))} // yesterday
                             />
+                            <label>(Lưu ý: để chọn lại hôm nay, vui lòng trở về trang Lịch Biểu,
+                                rồi bấm vào tên bác sĩ/gói dịch vụ.
+                                Xin lỗi vì sự bất tiện)</label>
                         </div>
                         <div className='col-2'>
                             <label><br /></label> <br />
@@ -128,15 +140,40 @@ class LichBieu extends Component {
                             {this.state.listDoctor.map((doctor, index1) => {
                                 return (
                                     <tr>
-                                        <td>
-                                            <a href={`/system/CapNhatLich/${dd}&${mm}&${yy}&${doctor.id}&${1}`}>
+                                        <td style={{ backgroundColor: '#f7f7f7' }}>
+                                            <a href={`/system/CapNhatLich/${dd}&${mm}&${yy}&${doctor.id}&${1}`} target="_blank">
                                                 {doctor.name}
                                             </a>
                                         </td>
                                         {[0, 1, 2, 3, 4, 5, 6].map((item, index2) => {
+                                            let date = new Date(yy, +mm - 1, +dd + index2)
+                                            let getDateThemSo_0 = (date) => {
+                                                let number = date.getDate()
+                                                if (number < 10) number = '0' + number
+                                                return number
+                                            }
+                                            let getMonthThemSo_0 = (date) => {
+                                                let number = +date.getMonth() + 1
+                                                if (number < 10) number = '0' + number
+                                                return number
+                                            }
+                                            let stringDate = date.getFullYear() + '-' + getMonthThemSo_0(date) + '-' + getDateThemSo_0(date)
+                                            let arrFilter = this.state.all_schedule.filter(lich =>
+                                                lich.date === stringDate
+                                                &&
+                                                lich.dr_or_pk === 1
+                                                &&
+                                                lich.dr_or_pk_ID === doctor.id
+                                            )
+                                            // console.log('arrFilter', arrFilter)
+                                            arrFilter = arrFilter.map(lich => lich.clockTime)
+                                            arrFilter = arrFilter.sort()
                                             return (
-                                                <td style={{ textAlign: 'center' }}>
-                                                    Ok cột số {index2} và bác sĩ {doctor.name}
+                                                <td style={{ backgroundColor: 'rgb(255, 245, 227)', textAlign: 'center' }}>
+                                                    {/* bác sĩ có id {doctor.id} & ngày {stringDate} và dr_or_pk =1 */}
+                                                    {arrFilter.map(clockTime => {
+                                                        return (<h6 >{clockTime}</h6>)
+                                                    })}
                                                 </td>)
                                         })}
                                     </tr>
@@ -145,15 +182,39 @@ class LichBieu extends Component {
                             {this.state.listMediPackage.map((medi_package, index1) => {
                                 return (
                                     <tr>
-                                        <td>
+                                        <td style={{ backgroundColor: '#f7f7f7' }}>
                                             <a href={`/system/CapNhatLich/${dd}&${mm}&${yy}&${medi_package.id}&${0}`}>
                                                 {medi_package.name}
                                             </a>
                                         </td>
                                         {[0, 1, 2, 3, 4, 5, 6].map((item, index2) => {
+                                            let date = new Date(yy, +mm - 1, +dd + index2)
+                                            let getDateThemSo_0 = (date) => {
+                                                let number = date.getDate()
+                                                if (number < 10) number = '0' + number
+                                                return number
+                                            }
+                                            let getMonthThemSo_0 = (date) => {
+                                                let number = +date.getMonth() + 1
+                                                if (number < 10) number = '0' + number
+                                                return number
+                                            }
+                                            let stringDate = date.getFullYear() + '-' + getMonthThemSo_0(date) + '-' + getDateThemSo_0(date)
+                                            let arrFilter = this.state.all_schedule.filter(lich =>
+                                                lich.date === stringDate
+                                                &&
+                                                lich.dr_or_pk === 0
+                                                &&
+                                                lich.dr_or_pk_ID === medi_package.id
+                                            )
+                                            // console.log('arrFilter', arrFilter)
+                                            arrFilter = arrFilter.map(lich => lich.clockTime)
+                                            arrFilter = arrFilter.sort()
                                             return (
-                                                <td style={{ textAlign: 'center' }}>
-                                                    cộ {index2} và gói khám {medi_package.name}
+                                                <td style={{ backgroundColor: 'rgb(255, 245, 227)', textAlign: 'center' }}>
+                                                    {arrFilter.map(clockTime => {
+                                                        return (<h6>{clockTime}</h6>)
+                                                    })}
                                                 </td>)
                                         })}
                                     </tr>

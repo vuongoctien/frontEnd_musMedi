@@ -56,9 +56,9 @@ class CapNhatLich extends Component {
             dr_or_pk: this.props.match.params.dr_or_pk,
             dr_or_pk_ID: this.state.thisDr_or_Pk.id
         })
-        console.log('res', res)
+        // console.log('res', res)
         this.setState({ all_schedule: res.all_schedule })
-        console.log('this.state.all_schedule', this.state.all_schedule)
+        // console.log('this.state.all_schedule', this.state.all_schedule)
 
     }
 
@@ -361,8 +361,8 @@ class CapNhatLich extends Component {
                                 </div>
                                 <div className='col-9'>
                                     <p>Với lựa chọn "Tạo lịch biểu", lịch khám mới tạo sẽ được bổ sung vào lịch khám cũ.<br />
-                                        Để tránh trùng lặp, bạn có thể lựa chọn "Làm rỗng lịch" trước khi tạo lịch khám mới.<br />
-                                        Xin lỗi vì sự bất tiện này, đội lập trình của chúng tôi chưa biết cách xử lý bất đồng bộ JavaScript
+                                        Để tránh trùng lặp, bạn có thể lựa chọn "Làm rỗng lịch" trước khi tạo lịch khám mới.
+
                                     </p>
                                 </div>
                             </div>
@@ -409,7 +409,12 @@ class CapNhatLich extends Component {
                                             if (number < 10) number = '0' + number
                                             return number
                                         }
-                                        let stringDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + getDateThemSo_0(date)
+                                        let getMonthThemSo_0 = (date) => {
+                                            let number = +date.getMonth() + 1
+                                            if (number < 10) number = '0' + number
+                                            return number
+                                        }
+                                        let stringDate = date.getFullYear() + '-' + getMonthThemSo_0(date) + '-' + getDateThemSo_0(date)
                                         let arrFilter = this.state.all_schedule.filter(item => item.date === stringDate)
                                         arrFilter = arrFilter.map(item => item.clockTime)
                                         arrFilter = arrFilter.sort()
