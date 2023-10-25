@@ -39,7 +39,7 @@ class CapNhatLich extends Component {
         document.getElementsByClassName('fa-calendar-alt')[0].setAttribute("style", "color:orange;")
         if (this.props.match.params.dr_or_pk === '1') {
             let res = await getDoctorByIdClinicAndIdDoctor({
-                doctorId: this.props.match.params.dr_or_pk_ID,
+                doctorID: this.props.match.params.dr_or_pk_ID,
                 clinicID: this.props.userInfo.id
             })
             this.setState({ thisDr_or_Pk: res.doctorData })

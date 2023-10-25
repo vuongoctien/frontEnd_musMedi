@@ -53,7 +53,7 @@ class App extends Component {
                                     <Route path={'/doctor/'} component={userIsAuthenticated(Doctor)} />
 
                                     <Route path={path.HOMEPAGE} component={HomePage} />
-                                    <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
+                                    <Route path={`/detail-doctor/:clinicID&:doctorID`} component={DetailDoctor} />
                                     <Route path={path.VERIFY_EMAIL_BOOKING} component={VerifiEmail} />
                                     <Route path={path.DETAIL_SPECIATLY} component={DetailSpeciatly} />
                                     <Route path={path.DETAIL_CLINIC} component={DetailClinic} />

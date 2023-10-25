@@ -1,19 +1,21 @@
 .doctor-detail-container {
-    height: 500px;
+    min-height : 500px;
+    padding-top: 20px;
 
     .intro-doctor {
         display: flex;
-        margin : 0 100px;
+        margin : 0 50px;
 
         .content-left {
             width              : 20%;
             background-size    : cover;
             background-repeat  : no-repeat;
             background-position: center;
-            width              : 120px;
-            height             : 120px;
+            width              : 140px;
+            height             : 140px;
             border-radius      : 50%;
             margin             : 10px 20px;
+            border             : 1px solid gainsboro;
         }
 
         .content-right {
@@ -23,13 +25,24 @@
             padding-left  : 10px;
 
             .up {
-                padding-top: 15px;
-                font-size  : 20px;
-                font-weight: 600;
+                padding-left: 2px;
+                padding-top : 15px;
+
+                h3 {
+                    font-weight: 600;
+                }
             }
 
             .down {
-                padding-top: 10px;
+                padding-top: 3px;
+
+                textarea {
+                    background-color: white;
+                    border          : none;
+                    color           : black;
+                    font-weight     : 100;
+                    font-style      : italic;
+                }
             }
         }
     }

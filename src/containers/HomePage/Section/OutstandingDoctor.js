@@ -65,14 +65,14 @@ class OutstandingDoctor extends Component {
 
                                             < div className='section-customize' key={index} >
                                                 <div className='customize-border'>
-                                                    <a href={`detail-doctor/${item.id}`}>
+                                                    <a href={`detail-doctor/${item.clinicID}&${item.id}`}>
                                                         <div className='outer-bg'>
                                                             <div className='bg-image section-outstanding-doctor' style={{ backgroundImage: `url(${imageBase64})` }}></div>
                                                         </div>
                                                     </a>
                                                     <div className='position text-center'>
                                                         <div>{item.name}</div>
-                                                        <div>Chuyên khoa của ổng này</div>
+                                                        <div>{item.position}</div>
                                                     </div>
                                                 </div>
                                             </div>

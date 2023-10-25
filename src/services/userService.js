@@ -86,7 +86,7 @@ const getSchedule = (query) => { //ok
 }
 
 const getDoctorByIdClinicAndIdDoctor = (query) => { //ok
-    return axios.get(`/api/get-doctor-by-idclinic-and-iddoctor?doctorID=${query.doctorId}&clinicID=${query.clinicID}`)
+    return axios.get(`/api/get-doctor-by-idclinic-and-iddoctor?doctorID=${query.doctorID}&clinicID=${query.clinicID}`)
 }
 
 const getMediPkByIdClinicAndIdDoctor = (query) => { //ok
