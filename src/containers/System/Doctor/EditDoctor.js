@@ -28,6 +28,8 @@ class EditDoctor extends Component {
             position: '',
             selectedPackageType: {},
             imageBase64: '',
+            intro: '',
+            thongtinkham: '',
             descriptionHTML: '',
             descriptionMarkdown: '',
 
@@ -57,7 +59,8 @@ class EditDoctor extends Component {
     }
 
     async componentDidMount() {
-        document.title = 'Chỉnh sửa thông tin Bác sĩ |'
+        document.title = `Chỉnh sửa thông tin | ${this.props.userInfo.name}`
+        document.getElementsByClassName('fa-stethoscope')[0].setAttribute("style", "color:orange;")
         let res = await getAllDoctorByClinicId(this.props.userInfo.id)
         if (res && res.errCode === 0) {
             this.setState({
@@ -129,6 +132,8 @@ class EditDoctor extends Component {
                     selectedDoctor: selectedOption,
                     name: '',
                     imageBase64: '',
+                    intro: '',
+                    thongtinkham: '',
                     position: '',
                     descriptionHTML: '',
                     descriptionMarkdown: '',
@@ -142,6 +147,8 @@ class EditDoctor extends Component {
                         selectedDoctor: selectedOption,
                         name: res.data.name,
                         imageBase64: res.data.image,
+                        intro: res.data.intro,
+                        thongtinkham: res.data.thongtinkham,
                         position: res.data.position,
                         descriptionHTML: res.data.descriptionHTML,
                         descriptionMarkdown: res.data.descriptionMarkdown,
@@ -156,6 +163,8 @@ class EditDoctor extends Component {
                     selectedMediPackage: selectedOption,
                     name: '',
                     imageBase64: '',
+                    intro: '',
+                    thongtinkham: '',
                     selectedPackageType: {},
                     descriptionHTML: '',
                     descriptionMarkdown: '',
@@ -169,6 +178,8 @@ class EditDoctor extends Component {
                         selectedMediPackage: selectedOption,
                         name: res.data.name,
                         imageBase64: res.data.image,
+                        intro: res.data.intro,
+                        thongtinkham: res.data.thongtinkham,
                         selectedPackageType: {
                             label: res.data.packageType,
                             value: res.data.packageType
@@ -223,6 +234,8 @@ class EditDoctor extends Component {
             name: '',
             position: '',
             imageBase64: '',
+            intro: '',
+            thongtinkham: '',
             descriptionHTML: '',
             descriptionMarkdown: '',
             previewImgURL: '',
@@ -382,6 +395,24 @@ class EditDoctor extends Component {
                                 disabled
                             />
                         </div>
+                        <div className='col-12 form-group'>
+                            <label>Thông tin khám: </label>
+                            <textarea
+                                className='form-control'
+                                rows='10'
+                                onChange={(event) => this.handleOnChangeInput(event, 'thongtinkham')}
+                                value={this.state.thongtinkham}
+                            ></textarea>
+                        </div>
+                        <div className='col-12 form-group'>
+                            <label>Đoạn giới thiệu ngắn (intro): </label>
+                            <textarea
+                                className='form-control'
+                                rows='4'
+                                onChange={(event) => this.handleOnChangeInput(event, 'intro')}
+                                value={this.state.intro}
+                            ></textarea>
+                        </div>
                         <div className='col-12'>
                             {
                                 this.state.ADD_or_EDIT === true ?
@@ -399,6 +430,8 @@ class EditDoctor extends Component {
                                                     name: this.state.name,
                                                     position: this.state.position,
                                                     image: this.state.imageBase64,
+                                                    intro: this.state.intro,
+                                                    thongtinkham: this.state.thongtinkham,
                                                     descriptionMarkdown: this.state.descriptionMarkdown,
                                                     descriptionHTML: this.state.descriptionHTML
                                                 })}
@@ -414,6 +447,8 @@ class EditDoctor extends Component {
                                                     name: this.state.name,
                                                     packageType: this.state.selectedPackageType.value,
                                                     image: this.state.imageBase64,
+                                                    intro: this.state.intro,
+                                                    thongtinkham: this.state.thongtinkham,
                                                     descriptionMarkdown: this.state.descriptionMarkdown,
                                                     descriptionHTML: this.state.descriptionHTML
                                                 })}
@@ -426,7 +461,7 @@ class EditDoctor extends Component {
                         </div>
                     </div>
                     <div className='col-12'>
-                        <label>Xem & chỉnh sửa thông tin giới thiệu bác sĩ ở đây:</label>
+                        <label>Xem & chỉnh sửa đoạn giới thiệu đầy đủ:</label>
                         <MdEditor
                             style={{ height: '100vh' }}
                             renderHTML={text => mdParser.render(text)}

@@ -97,12 +97,10 @@ class DetailDoctorModal extends Component {
                                     <div className='col-12'><br /></div>
                                 </div>
                             }
-
                         </div>
                     </div>
                     <div className='col-12' >
-                        {/* <div className='col-12'><br /></div> */}
-                        <div className='col-12' style={{ color: 'blue' }}>Thông tin giới thiệu</div>
+                        <div className='col-12' style={{ color: 'blue' }}>Thông tin khám</div>
                         <div className='col-12' style={{ color: 'blue' }}>
                             <i className="fas fa-arrow-down"></i>
                             <i className="fas fa-arrow-down"></i>
@@ -116,8 +114,52 @@ class DetailDoctorModal extends Component {
                             <i className="fas fa-arrow-down"></i>
                         </div>
                         <div className='col-12'><br /></div>
-                        <div style={{ minHeight: '70vh' }}>
-                            {this.props.infoDoctor.descriptionHTML}
+                        <div>
+                            <textarea disabled className='form-control' rows='10' value={this.props.infoDoctor.thongtinkham}></textarea>
+                        </div>
+                        <div className='col-12'><br /></div>
+                    </div>
+                    <div className='col-12' >
+                        <div className='col-12' style={{ color: 'blue' }}>Đoạn giới thiệu ngắn</div>
+                        <div className='col-12' style={{ color: 'blue' }}>
+                            <i className="fas fa-arrow-down"></i>
+                            <i className="fas fa-arrow-down"></i>
+                            <i className="fas fa-arrow-down"></i>
+                            <i className="fas fa-arrow-down"></i>
+                            <i className="fas fa-arrow-down"></i>
+                            <i className="fas fa-arrow-down"></i>
+                            <i className="fas fa-arrow-down"></i>
+                            <i className="fas fa-arrow-down"></i>
+                            <i className="fas fa-arrow-down"></i>
+                            <i className="fas fa-arrow-down"></i>
+                        </div>
+                        <div className='col-12'><br /></div>
+                        <div style={{ minHeight: '15vh' }}>
+                            <textarea disabled className='form-control' rows='5' value={this.props.infoDoctor.intro}></textarea>
+                        </div>
+                        <div className='col-12'><br /></div>
+                    </div>
+
+                    <div className='col-12' >
+                        <div className='col-12' style={{ color: 'blue' }}>Đoạn giới thiệu đầy đủ</div>
+                        <div className='col-12' style={{ color: 'blue' }}>
+                            <i className="fas fa-arrow-down"></i>
+                            <i className="fas fa-arrow-down"></i>
+                            <i className="fas fa-arrow-down"></i>
+                            <i className="fas fa-arrow-down"></i>
+                            <i className="fas fa-arrow-down"></i>
+                            <i className="fas fa-arrow-down"></i>
+                            <i className="fas fa-arrow-down"></i>
+                            <i className="fas fa-arrow-down"></i>
+                            <i className="fas fa-arrow-down"></i>
+                            <i className="fas fa-arrow-down"></i>
+                        </div>
+                        <div className='col-12'><br /></div>
+                        <div
+                            style={{ minHeight: '70vh' }}
+                            dangerouslySetInnerHTML={{ __html: this.props.infoDoctor.descriptionHTML }}
+                        >
+
                         </div>
                     </div>
 

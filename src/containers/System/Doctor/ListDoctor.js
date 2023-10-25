@@ -63,8 +63,11 @@ class ListDoctor extends Component {
         return (
             <div className=''>
                 <div className='row'>
+                    <div className='col-12'><br /></div>
                     <div className='col-10 text-center'><h1>Danh sách bác sĩ & gói dịch vụ</h1></div>
-                    <div className='col-2'><h1><a href='/system/editDoctor'>Edit</a></h1></div>
+                    <div className='col-2'><h1><a href='/system/editDoctor'>
+                        <i className="fas fa-user-edit"></i>
+                    </a></h1></div>
                 </div>
                 <div className='row'>
                     <div className='col-12'><hr /></div>

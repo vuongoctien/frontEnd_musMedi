@@ -26,6 +26,8 @@ class AddDoctor extends Component {
             name: '',
             position: '',
             imageBase64: '',
+            intro: '',
+            thongtinkham: '',
             descriptionHTML: '',
             descriptionMarkdown: '',
             nickName: '',
@@ -43,6 +45,8 @@ class AddDoctor extends Component {
 
     async componentDidMount() {
         document.title = `thêm bác sĩ mới | ${this.props.userInfo.name}`
+        document.getElementsByClassName('fa-stethoscope')[0].setAttribute("style", "color:orange;")
+
     }
 
     handleSaveNewClinic = async () => {
@@ -52,6 +56,8 @@ class AddDoctor extends Component {
                 name: this.state.name,
                 position: this.state.position,
                 imageBase64: this.state.imageBase64,
+                intro: this.state.intro,
+                thongtinkham: this.state.thongtinkham,
                 descriptionHTML: this.state.descriptionHTML,
                 descriptionMarkdown: this.state.descriptionMarkdown,
                 nickName: this.state.nickName,
@@ -129,7 +135,7 @@ class AddDoctor extends Component {
                 </div>
                 <div className='col-8'>
                     <div className='col-12 mb-5 text-center'>
-                        {/* <br></br><br></br><br></br> */}
+                        <br></br>
                         <h1>Thêm Bác sĩ mới vào {this.props.userInfo.name}</h1>
                     </div>
                 </div>
@@ -198,6 +204,26 @@ class AddDoctor extends Component {
                                         value={this.state.password}
                                     />
                                 </div>
+                            </div>
+                            <div className='col-12'><br></br></div>
+                            <div className='col-12'>
+                                <label>Thông tin khám: </label>
+                                <textarea
+                                    className='form-control'
+                                    rows='10'
+                                    onChange={(event) => this.handleOnChangeInput(event, 'thongtinkham')}
+                                    value={this.state.thongtinkham}
+                                ></textarea>
+                            </div>
+                            <div className='col-12'><br></br></div>
+                            <div className='col-12'>
+                                <label>Đoạn giới thiệu ngắn (intro): </label>
+                                <textarea
+                                    className='form-control'
+                                    rows='4'
+                                    onChange={(event) => this.handleOnChangeInput(event, 'intro')}
+                                    value={this.state.intro}
+                                ></textarea>
                             </div>
                             <div className='col-12'><br></br></div>
 
