@@ -28,13 +28,17 @@
                 padding-left: 2px;
                 padding-top : 15px;
 
-                h3 {
+                h5 {
+                    font-size: 18px;
+                }
+
+                h1 {
+                    font-size  : 30px;
                     font-weight: 600;
                 }
             }
 
             .down {
-                padding-top: 3px;
 
                 textarea {
                     background-color: white;
@@ -43,26 +47,127 @@
                     font-weight     : 100;
                     font-style      : italic;
                     resize          : none;
-
                 }
             }
         }
     }
 
     .schedule-doctor {
-        margin    : 0 50px;
-        display   : flex;
-        min-height: 200px;
-        min-width : 1200px;
-        padding   : 10px 0;
+        margin-left  : 70px;
+        margin-bottom: 30px;
+        display      : flex;
+        min-height   : 250px;
+        min-width    : 1200px;
+        padding      : 10px 0;
 
         .content-left,
         .content-right {
-            width : 50%;
-            border: 1px solid red;
-
+            width       : 48%;
+            margin-right: 15px;
+            border-right: 1px solid gainsboro;
         }
 
+        .content-left {
+            #animation {
+                i {
+                    font-size: 22px;
+                    color    : green;
+                }
+            }
+
+            select {
+                background-color: #e0edff;
+                border          : 1px solid #ddd;
+                outline         : none;
+                cursor          : pointer;
+                padding         : 5px 3px;
+                color           : #1b1bb0;
+                font-weight     : 600;
+                font-size       : 15px;
+
+                option {
+                    cursor: pointer;
+                }
+            }
+
+            .text-calendar {
+                margin: 10px 0;
+
+                p {
+                    margin-top   : 13px;
+                    margin-bottom: 0;
+                    font-size    : 15px;
+                    font-family  : sans-serif;
+                    font-weight  : 600;
+                }
+
+            }
+
+            .giokham {
+                margin-top: 12px;
+                display   : flex;
+                gap       : 7px;
+                flex-wrap : wrap;
+
+                button {
+                    text-align      : center;
+                    width           : 135px;
+                    border          : 1px solid gainsboro;
+                    background-color: #ffff87;
+                    height          : 33px;
+                    font-size       : 14px;
+                    font-family     : cursive;
+
+                    &:hover {
+                        background-color: #ffc800;
+                    }
+                }
+            }
+
+            .book-free {
+                padding-top: 15px;
+                font-size  : 17px;
+                color      : green;
+            }
+        }
+
+        .content-right {
+            a {
+                color: #0055b0;
+            }
+
+            label {
+                font-size: 16px;
+
+                a {
+                    color : green;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: rgb(0, 183, 21);
+                    }
+                }
+            }
+
+            textarea {
+                background-color: #f0f5ff;
+                border          : 2px solid #dfdfff;
+                color           : black;
+                font-weight     : 100;
+                font-size       : 16px;
+                margin-left     : 10px;
+                width           : 560px;
+            }
+        }
+
+    }
+
+    .text-center {
+        label {
+            font-size: 20px;
+            color    : #452d00;
+            border   : 4px groove white;
+        }
     }
 
     .detail-info-doctor {

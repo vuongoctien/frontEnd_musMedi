@@ -71,8 +71,9 @@ class OutstandingDoctor extends Component {
                                                         </div>
                                                     </a>
                                                     <div className='position text-center'>
-                                                        <div>{item.name}</div>
-                                                        <div>{item.position}</div>
+                                                        <h6>{item.position}</h6>
+                                                        <h5>{item.name}</h5>
+
                                                     </div>
                                                 </div>
                                             </div>

@@ -93,6 +93,12 @@ const getMediPkByIdClinicAndIdDoctor = (query) => { //ok
     return axios.get(`/api/get-medipk-by-idclinic-and-iddoctor?medi_packageID=${query.medi_packageID}&clinicID=${query.clinicID}`)
 }
 
+const getScheduleForUser = (query) => { //ok
+    return axios.get(`/api/get-schedule-for-user?clinicID=${query.clinicID}&dr_or_pk=${query.dr_or_pk}&dr_or_pk_ID=${query.dr_or_pk_ID}&date=${query.date}`)
+}
+
+
+
 /*********************************************************** */
 
 
@@ -102,6 +108,10 @@ const getMediPkByIdClinicAndIdDoctor = (query) => { //ok
 ////////////////////////////////
 const getTopDoctorHomeServices = (limit) => {
     return axios.get(`/api/top-doctor-home?limit=${limit}`)
+}
+
+const getTopMediPackageHomeServices = (limit) => {
+    return axios.get(`/api/top-medipackage-home/api/top-doctor-home/api/top-medipackage-home?limit=${limit}`)
 }
 
 const getAllDoctors = () => {
@@ -206,6 +216,7 @@ export {
     editUserService,
     getAllcodeService,
     getTopDoctorHomeServices,
+    getTopMediPackageHomeServices,
     getAllDoctors,
     saveDetailDoctorServices,
     getDetailInfoDoctor,
@@ -238,5 +249,6 @@ export {
     getSchedule,
     getDoctorByIdClinicAndIdDoctor,
     getMediPkByIdClinicAndIdDoctor,
+    getScheduleForUser,
 
 }

@@ -115,7 +115,7 @@ class CapNhatLich extends Component {
             alert('Vui lòng điền đầy đủ thông tin')
         } else {
             let string = ''
-            string = this.NUMtoSTR(0) + ':' + this.NUMtoSTR(1) + '-' + this.NUMtoSTR(2) + ':' + this.NUMtoSTR(3)
+            string = this.NUMtoSTR(0) + ':' + this.NUMtoSTR(1) + ' - ' + this.NUMtoSTR(2) + ':' + this.NUMtoSTR(3)
             this.state.list_Khung_Gio_Da_Tao.push(string)
             this.setState({ render: 0 })
         }
