@@ -11,7 +11,7 @@ import { template } from 'lodash';
 import Select from 'react-select'
 import { getAllSpecialty, getDetailSpecialtyById, editSpecialty, deleteSpecialty } from '../../../services/userService';
 import Lightbox from 'react-image-lightbox';
-
+import 'react-image-lightbox/style.css';
 
 const mdParser = new MarkdownIt()
 

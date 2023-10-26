@@ -16,87 +16,56 @@ class DetailClinic extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            arrDoctorId: [],
-            dataDetailClinic: {},
-            listProvince: []
+            clinic: {}
         }
     }
 
     async componentDidMount() {
-        if (this.props.match && this.props.match.params && this.props.match.params.id) {
-            let id = this.props.match.params.id
-            let res = await getAllDetailClinicById({
-                id: id
-            })
-
-            if (res && res.errCode === 0) {
-                let data = res.data
-                let arrDoctorId = []
-                if (data && !_.isEmpty(data)) {
-                    let arr = data.doctorClinic
-                    if (arr && arr.length > 0) {
-                        arr.map(item => {
-                            arrDoctorId.push(item.doctorId)
-                        })
-                    }
-                }
-
-                this.setState({
-                    dataDetailClinic: res.data,
-                    arrDoctorId: arrDoctorId,
-                })
-            }
+        let res = await getAllDetailClinicById(this.props.match.params.id)
+        if (res && res.errCode === 0) {
+            this.setState({ clinic: res.data })
         }
-    }
-
-    async componentDidUpdate(prevProps, prevState, snapshot) {  // à prevProps trức là props trước đó
-
     }
 
 
     render() {
-        let { arrDoctorId, dataDetailClinic } = this.state
-        let { language } = this.props
+        /**Một bài học lớn
+         * Hàm render đếch đợi hàm Mount, bởi vậy hiện tượng bất đồng bộ xảy ra
+         * khi render chưa kịp load ảnh => Buffer lỗi => toang
+         * Chưa kịp có ảnh đã toang, mà toang là die luôn không chờ ảnh
+         * Bởi vậy mới thấy, anh HoiDanIt quá kinh nghiệm rồi
+         */
+        let img = ''
+        if (this.state.clinic.image) img = new Buffer(this.state.clinic.image, 'base64').toString('binary')
+
         return (
             <div className='detail-clinic-container'>
                 <HomeHeader />
                 <div className='detail-clinic-body'>
                     <div className='description-clinic'>
-                        {dataDetailClinic && !_.isEmpty(dataDetailClinic)
-                            &&
-                            <>
-                                <div>{dataDetailClinic.name}</div>
-                                <div dangerouslySetInnerHTML={{ __html: dataDetailClinic.descriptionHTML }}></div>
-                            </>}
+                        <div className='anh' style={{ backgroundImage: `url(${img})` }}>
+
+                        </div>
+                        <div className='ten-diachi'>
+                            <h2>&nbsp;&nbsp;{this.state.clinic.name}</h2>
+                            <h5>
+                                &nbsp;&nbsp;<i className="fas fa-map-marker-alt"></i>&nbsp;
+                                {this.state.clinic.address}
+                            </h5>
+                            <h5>
+                                &nbsp;&nbsp;<i className="fas fa-location-arrow"></i>&nbsp;
+                                {this.state.clinic.province}
+                            </h5>
+                        </div>
+                        <div className='datlich'>
+                            <p>ĐẶT LỊCH</p>
+                            <i className="far fa-paper-plane"></i>
+                        </div>
                     </div>
-                    {arrDoctorId && arrDoctorId.length > 0 && arrDoctorId.map((item, index) => {
-                        return (
-                            <div className='each-doctor'>
-                                <div className='dt-content-left'>
-                                    <div className='profile-doctor'>
-                                        <ProfileDoctor
-                                            doctorId={item}
-                                            isShowDescriptionDoctor={true}
-                                            isShowLinkDetail={true}
-                                            isShowPrice={false}
-                                        />
-                                    </div>
-                                </div>
-                                <div className='dt-content-right'>
-                                    <div className='doctor-schedule'>
-                                        <DoctorSchedule
-                                            doctorIdFromParent={item}
-                                        />
-                                    </div>
-                                    <div className='doctor-extra-info'>
-                                        <DoctorExtrainfor
-                                            doctorIdFromParent={item}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })}
+                    <div dangerouslySetInnerHTML={{ __html: this.state.clinic.descriptionHTML }} className='gioithieu'>
+
+                    </div>
+
                 </div>
             </div>
         )

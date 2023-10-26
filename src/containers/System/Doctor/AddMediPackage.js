@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { template } from 'lodash';
 import Select from 'react-select'
 import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
 import { createMediPackage } from '../../../services/userService'
 import { reject } from 'lodash';
 import { emitter } from '../../../utils/emitter';

@@ -1,72 +1,91 @@
 .detail-clinic-container {
-    .description-clinic {
-        background-color: white !important;
-        padding         : 10px;
-        margin          : 15px 0;
-        height          : 200px;
-        // chỗ này cũng cần phải sửa, chắc những video cuối anh ấy sẽ làm
-
-        // h1,
-        // h2,
-        // h3 {
-        //     font-size  : 16px;
-        //     font-weight: 600;
-        // }
-    }
-
-    .search-sp-doctor {
-        select {
-            height       : 30px;
-            padding      : 5px 8px;
-            border       : none;
-            outline      : none;
-            border-radius: 3px;
-            cursor       : pointer;
-        }
-    }
 
     .detail-clinic-body {
-        padding         : 0 100px;
+        padding         : 0 70px;
         background-color: #eee;
         display         : flex;
         flex-direction  : column;
-    }
 
-    .each-doctor {
-        display         : flex;
-        width           : 100%;
-        min-height      : 300px;
-        margin          : 15px 0;
-        padding         : 10px;
-        background-color: #fff;
-        box-shadow      : 0 1px 6px #20122447;
-        border-radius   : 8px;
+        .description-clinic {
+            background-color: white !important;
+            padding         : 10px;
+            margin          : 15px 0;
+            height          : 180px;
+            display         : flex;
 
-        .dt-content-left {
-            width        : 50%;
-            border-right : 1px solid #ddd;
-            padding-right: 10px;
-        }
+            .anh {
+                height         : 150px;
+                width          : 250px;
+                background     : center center no-repeat;
+                background-size: cover;
+            }
 
-        .dt-content-right {
-            width  : 50%;
-            padding: 10px;
+            .ten-diachi {
+                padding-left: 10px;
+                width       : 650px;
 
-            .doctor-schedule {
-                .doctor-schedule-container {
-                    border-right: unset !important;
+                h2 {
+                    font-size  : 32px;
+                    font-weight: 900;
+                    font-family: math;
+                }
+
+                h5 {
+                    margin-left: 10px;
+                    font-size  : 17px;
                 }
             }
 
-            .doctor-extra-info {
-                border-top : 1px solid #ddd;
-                margin-top : 10px;
-                padding-top: 10px;
+            .datlich {
+                margin-top: 20px;
+                width     : 300px;
+                height    : 150px;
 
-                .doctor-extra-info-container {
-                    padding-left: 0 !important;
+                p {
+                    font-size  : 28px;
+                    font-family: math;
+                    font-weight: 900;
+                    color      : #a56b00;
+                    cursor     : pointer;
+
+                    &:hover {
+                        text-decoration: underline;
+                        color          : rgb(255, 188, 161);
+                    }
+                }
+
+                i {
+                    font-size                : 24px;
+                    color                    : blue;
+                    position                 : relative;
+                    top                      : -11px;
+                    animation-name           : example;
+                    animation-duration       : 3s;
+                    animation-iteration-count: infinite;
+                }
+
+                @keyframes example {
+                    0% {
+                        left: 0px;
+                        top : -15px;
+                    }
+
+                    75% {
+                        left: 130px;
+                        top : -15px;
+                    }
+
+                    100% {
+                        left: 130px;
+                        top : -48px;
+                    }
                 }
             }
         }
+
+        .gioithieu {
+            min-height: 200px;
+        }
     }
+
 }
