@@ -352,7 +352,7 @@ class ManageClinic extends Component {
                     selectedClinic: selectedOption,
                     name: res.data.name,
                     address: res.data.address,
-                    // imageBase64: res.data.image,
+                    imageBase64: new Buffer(res.data.image, 'base64').toString('binary'),
                     descriptionHTML: res.data.descriptionHTML,
                     descriptionMarkdown: res.data.descriptionMarkdown,
                     previewImgURL: new Buffer(res.data.image, 'base64').toString('binary'),

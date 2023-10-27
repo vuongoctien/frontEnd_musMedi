@@ -87,7 +87,7 @@ class ManageSpecialty extends Component {
                 this.setState({
                     selectedSpecialty: selectedOption,
                     name: res.data.name,
-                    imageBase64: res.data.image,
+                    imageBase64: new Buffer(res.data.image, 'base64').toString('binary'),
                     descriptionHTML: res.data.descriptionHTML,
                     descriptionMarkdown: res.data.descriptionMarkdown,
     /********** */                previewImgURL: new Buffer(res.data.image, 'base64').toString('binary'),

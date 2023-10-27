@@ -186,12 +186,10 @@ class DetailDoctor extends Component {
                                 <p><i className='fas fa-calendar-alt'></i>&nbsp;LỊCH KHÁM</p>
                             </div>
                             <div className='giokham'>
-                                {listClockTime.map(clockTime => {
-                                    return (
-                                        <button>{clockTime}</button>
-                                    )
-                                })}
-
+                                {listClockTime.length === 0 ?
+                                    <h5 style={{ color: '#ff00a1' }}>Không có lịch hẹn trong ngày này</h5> : <></>
+                                }
+                                {listClockTime.map(clockTime => { return (<button>{clockTime}</button>) })}
                             </div>
                             <div className='book-free'>
                                 <span>

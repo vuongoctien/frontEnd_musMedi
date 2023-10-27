@@ -66,7 +66,7 @@ class DetailClinic extends Component {
                             </h5>
                         </div>
                         <div className='datlich'>
-                            <p>ĐẶT LỊCH</p>
+                            <a href='#danhsachbacsi'><p>ĐẶT LỊCH</p></a>
                             <i className="far fa-paper-plane"></i>
                         </div>
                     </div>
@@ -74,7 +74,17 @@ class DetailClinic extends Component {
 
                     </div>
                 </div>
-                <div className='list'>
+                <div id='danhsachbacsi' className='list'>
+                    <div className='titlelistdoctor'>
+                        <div className='h1'>
+                            <h1>Danh sách bác sĩ&nbsp;<i className="fas fa-level-down-alt"></i></h1>
+                        </div>
+                        <div className='jump'>
+                            <p>Bấm vào <a href='#cacgoidichvu'>đây</a> để xem những gói dịch vụ y tế như khám sức khỏe, xét nghiệm, nội soi, v.v. </p>
+                        </div>
+                    </div>
+                    {this.state.all_doctor_of_clinic.length === 0 ?
+                        <label className='label'>Danh sách trống</label> : <></>}
                     {this.state.all_doctor_of_clinic && this.state.all_doctor_of_clinic.map((item, index) => {
                         return (<BacSi_TaiSuDung
                             // thử truyền cả cục data xem:
@@ -82,6 +92,13 @@ class DetailClinic extends Component {
                             clinicInfo={this.state.clinic}
                         />)
                     })}
+                </div>
+                <div id='cacgoidichvu' className='list'>
+                    <div className='titlelistdoctor'>
+                        <div className='h1'>
+                            <h1>Các gói dịch vụ&nbsp;<i className="fas fa-level-down-alt"></i></h1>
+                        </div>
+                    </div>
                 </div>
             </div>
         )

@@ -90,6 +90,44 @@
 
     .list {
         margin-left: 60px;
+        min-height : 50vh;
+
+        .label {
+            font-size       : 19px;
+            background-color: #ffa50066;
+            padding         : 4px 19px;
+            border-radius   : 7px;
+            margin-top      : 13px;
+            margin-left     : 10px;
+        }
+
+        .titlelistdoctor {
+            padding-top: 20px;
+
+            .h1 {
+                border: 1px outset gainsboro;
+                color : #395e3f;
+            }
+
+            width          : 1100px;
+            display        : flex;
+            justify-content: space-between;
+
+            .jump {
+                width        : 400px;
+                padding-left : 10px;
+                border-left  : 1px groove gainsboro;
+                border-bottom: 1px groove gainsboro;
+
+                h1 {
+                    border: 1px outset gainsboro;
+                }
+
+                p {
+                    font-size: 17px;
+                }
+            }
+        }
     }
 
 }

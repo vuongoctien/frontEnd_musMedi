@@ -108,6 +108,13 @@
                 display   : flex;
                 gap       : 7px;
                 flex-wrap : wrap;
+                min-height: 75px;
+
+                h5 {
+                    background-color: #ffffb5;
+                    padding         : 3px 13px;
+                    border-radius   : 13px;
+                }
 
                 button {
                     text-align      : center;

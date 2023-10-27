@@ -57,11 +57,15 @@ class BacSi_TaiSuDung extends Component {
                     dr_or_pk_ID: this.props.doctorInfo.id,
                     date: stringDate
                 })
-                console.log('lichkhamhomnay', this.props.doctorInfo.id, lichkhamhomnay,)
+                // console.log('cục data goi api lich kham', {
+                //     clinicID: this.props.clinicInfo.id,
+                //     dr_or_pk: 1,
+                //     dr_or_pk_ID: this.props.doctorInfo.id,
+                //     date: stringDate
+                // })
                 this.setState({ listClockTime: lichkhamhomnay.all_schedule })
             }
             this.setState({ render: 0 })
-
         }
     }
 
@@ -117,28 +121,31 @@ class BacSi_TaiSuDung extends Component {
 
     render() {
         // Những bên khác muốn xài component con này đều phải đặt tên biến là doctorInfo và clinicInfo
+        // Để tránh bất đồng bộ, phải làm như này
+        let img = ''; if (this.props.doctorInfo.image) { img = this.props.doctorInfo.image }
+
         let listClockTime = []
         for (let i = 0; i < this.state.listClockTime.length; i++) {
             listClockTime[i] = this.state.listClockTime[i].clockTime
         }
         listClockTime = listClockTime.sort()
+
         return (
             <div className='taisudung'>
                 <div className='left'>
                     <div className='intro-doctor'>
-                        {this.props.doctorInfo.image ?
-                            <div className='content-left'>Để sau</div>
-                            :
+                        <div className='text-center'>
                             <div
                                 className='content-left'
-                                style={{ backgroundImage: `url(${this.props.doctorInfo.image})` }}
-                            >Để sau</div>
-                        }
+                                style={{ backgroundImage: `url(${img})` }}
+                            ></div>
+                            <a target='_blank' href={`../detail-doctor/${this.props.clinicInfo.id}&${this.props.doctorInfo.id}`}>Xem thêm</a>
+                        </div>
 
                         <div className='content-right'>
                             <div className='up'>
-                                <h6>{this.props.doctorInfo.position}</h6>
-                                <h3>{this.props.doctorInfo.name}</h3>
+                                <h5>{this.props.doctorInfo.position}</h5>
+                                <h1>{this.props.doctorInfo.name}</h1>
                             </div>
                             <div className='down'>
                                 <textarea
@@ -171,7 +178,7 @@ class BacSi_TaiSuDung extends Component {
                         </select>
                         &emsp;&emsp;
                         <div className='animation'>
-                            chỗ này là animation, nhưng ở đây có nhiều, không đặt id được
+
                         </div>
 
                     </div>
@@ -179,12 +186,10 @@ class BacSi_TaiSuDung extends Component {
                         <p><i className='fas fa-calendar-alt'></i>&nbsp;LỊCH KHÁM</p>
                     </div>
                     <div className='giokham'>
-                        {/* {listClockTime.map(clockTime => {
-                            return (
-                                <button>{clockTime}</button>
-                            )
-                        })} */}
-                        Đây là giờ khám
+                        {listClockTime.length === 0 ?
+                            <h5>Không có lịch hẹn trong ngày này</h5> : <></>
+                        }
+                        {listClockTime.map(clockTime => { return (<button>{clockTime}</button>) })}
                     </div>
                     <div className='book-free'>
                         <span>
@@ -223,7 +228,7 @@ class BacSi_TaiSuDung extends Component {
                                 disabled
                             ></textarea>
                             :
-                            <textarea style={{ height: '116px' }}
+                            <textarea style={{ height: '236px' }}
                                 value={this.props.doctorInfo.thongtinkham}
                                 disabled
                             ></textarea>}
