@@ -30,10 +30,13 @@ class DetailDoctor extends Component {
             doctorID: this.props.match.params.doctorID,
             clinicID: this.props.match.params.clinicID
         })
-        this.setState({ doctorData: res.doctorData })
+        if (res && res.errCode === 0) {
+            this.setState({ doctorData: res.doctorData })
+            document.title = `${this.state.doctorData.position} ${this.state.doctorData.name} | musMedi`
+        }
 
         let clinic = await getAllDetailClinicById(this.props.match.params.clinicID)
-        this.setState({ clinic: clinic.data })
+        if (res && res.errCode === 0) this.setState({ clinic: clinic.data })
 
         // Tạo list 7 ngày
         let d = new Date().getDate()
@@ -107,7 +110,7 @@ class DetailDoctor extends Component {
     }
 
     handleOnChangeSelect = async (event) => {
-        console.log('event.target.value', event.target.value) //đã lấy được stringDate
+        // console.log('event.target.value', event.target.value) //đã lấy được stringDate
         let res = await getScheduleForUser({
             clinicID: this.props.match.params.clinicID,
             dr_or_pk: 1,
@@ -117,8 +120,8 @@ class DetailDoctor extends Component {
         if (res && res.errCode === 0) {
             document.getElementById('animation').innerHTML = `<i class="far fa-check-circle"></i>`
             setTimeout(() => { document.getElementById('animation').innerHTML = '' }, 1500)
+            this.setState({ listClockTime: res.all_schedule })
         }
-        this.setState({ listClockTime: res.all_schedule })
 
     }
 

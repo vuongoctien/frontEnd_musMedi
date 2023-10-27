@@ -6,9 +6,10 @@ import HomeHeader from "../../HomePage/HomeHeader"
 import DoctorExtrainfor from "../../../containers/Patient/Doctor/DoctorExtrainfor"
 import ProfileDoctor from "../../../containers/Patient/Doctor/ProfileDoctor"
 import DoctorSchedule from '../../../containers/Patient/Doctor/DoctorSchedule';
-import { getAllDetailClinicById, getAllcodeService } from '../../../services/userService';
+import { getAllDetailClinicById, getAllDoctorByClinicId } from '../../../services/userService';
 import _ from 'lodash';
 import { LANGUAGES } from '../../../utils';
+import BacSi_TaiSuDung from '../../Patient/Doctor/BacSi_TaiSuDung';
 
 
 class DetailClinic extends Component {
@@ -16,7 +17,8 @@ class DetailClinic extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            clinic: {}
+            clinic: {},
+            all_doctor_of_clinic: []
         }
     }
 
@@ -24,6 +26,12 @@ class DetailClinic extends Component {
         let res = await getAllDetailClinicById(this.props.match.params.id)
         if (res && res.errCode === 0) {
             this.setState({ clinic: res.data })
+            document.title = `${this.state.clinic.name} | musMedi`
+        }
+
+        let res2 = await getAllDoctorByClinicId(this.props.match.params.id)
+        if (res2 && res2.errCode === 0) {
+            this.setState({ all_doctor_of_clinic: res2.all_doctor_of_clinic })
         }
     }
 
@@ -65,7 +73,15 @@ class DetailClinic extends Component {
                     <div dangerouslySetInnerHTML={{ __html: this.state.clinic.descriptionHTML }} className='gioithieu'>
 
                     </div>
-
+                </div>
+                <div className='list'>
+                    {this.state.all_doctor_of_clinic && this.state.all_doctor_of_clinic.map((item, index) => {
+                        return (<BacSi_TaiSuDung
+                            // thử truyền cả cục data xem:
+                            doctorInfo={item}
+                            clinicInfo={this.state.clinic}
+                        />)
+                    })}
                 </div>
             </div>
         )
