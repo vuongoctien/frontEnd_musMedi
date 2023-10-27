@@ -70,9 +70,13 @@ class DetailClinic extends Component {
                             <i className="far fa-paper-plane"></i>
                         </div>
                     </div>
-                    <div dangerouslySetInnerHTML={{ __html: this.state.clinic.descriptionHTML }} className='gioithieu'>
-
-                    </div>
+                </div>
+                <hr />
+                <div className='row'>
+                    <div className='col-1'></div>
+                    <div
+                        dangerouslySetInnerHTML={{ __html: this.state.clinic.descriptionHTML }}
+                        className='gioithieu col-10'></div>
                 </div>
                 <div id='danhsachbacsi' className='list'>
                     <div className='titlelistdoctor'>

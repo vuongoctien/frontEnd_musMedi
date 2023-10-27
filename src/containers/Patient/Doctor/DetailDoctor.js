@@ -187,7 +187,7 @@ class DetailDoctor extends Component {
                             </div>
                             <div className='giokham'>
                                 {listClockTime.length === 0 ?
-                                    <h5 style={{ color: '#ff00a1' }}>Không có lịch hẹn trong ngày này</h5> : <></>
+                                    <h5>Không có lịch hẹn trong ngày này</h5> : <></>
                                 }
                                 {listClockTime.map(clockTime => { return (<button>{clockTime}</button>) })}
                             </div>
@@ -234,14 +234,18 @@ class DetailDoctor extends Component {
                     <div className='text-center'>
                         <label>
                             <i class="fas fa-level-down-alt fa-flip-horizontal"></i>
-                            &nbsp;Tiểu sử của&nbsp;
+                            &nbsp;Thông tin về&nbsp;
                             {this.state.doctorData.position}&nbsp;
                             {this.state.doctorData.name}&nbsp;
                             <i class="fas fa-level-down-alt"></i>
                         </label>
                     </div>
-                    <div className='detail-info-doctor'>
-                        <div dangerouslySetInnerHTML={{ __html: this.state.doctorData.descriptionHTML }} />
+                    <hr />
+                    <div className='row'>
+                        <div className='col-1'></div>
+                        <div
+                            dangerouslySetInnerHTML={{ __html: this.state.doctorData.descriptionHTML }}
+                            className='detail-info-doctor col-10'></div>
                     </div>
                     <div className='comment-doctor'>
 

@@ -83,8 +83,16 @@
             }
         }
 
-        .gioithieu {
-            min-height: 200px;
+
+    }
+
+    .gioithieu {
+        min-height: 200px;
+
+        img {
+            max-width  : 40vw;
+            max-height : 90vh;
+            margin-left: 19vw;
         }
     }
 

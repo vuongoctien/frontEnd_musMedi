@@ -31,7 +31,7 @@ class MedicalFacility extends Component {
                 <div className='section-share section-medical-facility' >
                     <div className='section-container'>
                         <div className='section-header'>
-                            <span className='title-section'>Cơ sở y tế nổi bật</span>
+                            <span className='title-section'>Cơ sở y tế uy tín</span>
                             <button className='btn-section'>XEM THÊM</button>
                         </div>
 
