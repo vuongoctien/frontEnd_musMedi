@@ -37,7 +37,7 @@ class Handbook extends Component {
                                 && this.state.allMediPackage.map((item, index) => {
                                     return (
                                         <div className='section-customize clinic-child' key={index} >
-                                            <a href={`detail-clinic/${item.id}`}>
+                                            <a href={`detail-medipackage/${item.clinicID}&${item.id}`}>
                                                 <div className='bg-image' style={{ backgroundImage: `url(${new Buffer(item.image, 'base64').toString('binary')})` }}></div>
                                             </a>
                                             <div className='clinic-name'>{item.name}</div>

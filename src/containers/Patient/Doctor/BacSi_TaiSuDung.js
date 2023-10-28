@@ -46,7 +46,7 @@ class BacSi_TaiSuDung extends Component {
             let stringDate = date.getFullYear() + '-' + getMonthThemSo_0(date) + '-' + getDateThemSo_0(date)
 
             let object = {}
-            object.label = `${getDateThemSo_0(date)}/${+getMonthThemSo_0(date) + 1} - ${this.getDaytoString(date.getDay())}`
+            object.label = `${getDateThemSo_0(date)}/${+getMonthThemSo_0(date)} - ${this.getDaytoString(date.getDay())}`
             object.value = stringDate
             this.state.listDate.push(object)
             if (i === 0) {

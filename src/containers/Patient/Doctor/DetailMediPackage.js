@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HomeHeader from '../../HomePage/HomeHeader';
-import './DetailDoctor.scss'
-import { getAllDetailClinicById, getDoctorByIdClinicAndIdDoctor, getScheduleForUser } from '../../../services/userService';
+import './DetailMediPackage.scss'
+import { getAllDetailClinicById, getMediPkByIdClinicAndIdDoctor, getScheduleForUser } from '../../../services/userService';
 import { LANGUAGES } from '../../../utils';
 import DoctorSchedule from './DoctorSchedule';
 import DoctorExtrainfor from './DoctorExtrainfor';
 import Select from 'react-select'
 import HomeFooter from '../../HomePage/Section/HomeFooter';
 
-class DetailDoctor extends Component {
+class DetailMediPackage extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
             render: 0,
-            doctorData: {},
+            medi_packageData: {},
             clinic: {},
 
             listDate: [],
@@ -27,13 +27,13 @@ class DetailDoctor extends Component {
     }
 
     async componentDidMount() {
-        let res = await getDoctorByIdClinicAndIdDoctor({
-            doctorID: this.props.match.params.doctorID,
+        let res = await getMediPkByIdClinicAndIdDoctor({
+            medi_packageID: this.props.match.params.medipackageID,
             clinicID: this.props.match.params.clinicID
         })
         if (res && res.errCode === 0) {
-            this.setState({ doctorData: res.doctorData })
-            document.title = `${this.state.doctorData.position} ${this.state.doctorData.name} | musMedi`
+            this.setState({ medi_packageData: res.medi_packageData })
+            document.title = `${this.state.medi_packageData.name} | musMedi`
         }
 
         let clinic = await getAllDetailClinicById(this.props.match.params.clinicID)
@@ -65,8 +65,8 @@ class DetailDoctor extends Component {
                 this.setState({ selectedDate: object })
                 let lichkhamhomnay = await getScheduleForUser({
                     clinicID: this.props.match.params.clinicID,
-                    dr_or_pk: 1,
-                    dr_or_pk_ID: this.props.match.params.doctorID,
+                    dr_or_pk: 0,
+                    dr_or_pk_ID: this.props.match.params.medipackageID,
                     date: stringDate
                 })
                 this.setState({ listClockTime: lichkhamhomnay.all_schedule })
@@ -114,8 +114,8 @@ class DetailDoctor extends Component {
         // console.log('event.target.value', event.target.value) //đã lấy được stringDate
         let res = await getScheduleForUser({
             clinicID: this.props.match.params.clinicID,
-            dr_or_pk: 1,
-            dr_or_pk_ID: this.props.match.params.doctorID,
+            dr_or_pk: 0,
+            dr_or_pk_ID: this.props.match.params.medipackageID,
             date: event.target.value
         })
         if (res && res.errCode === 0) {
@@ -138,30 +138,29 @@ class DetailDoctor extends Component {
         return (
             <>
                 <HomeHeader isShowBaner={false} />
-                <div className='doctor-detail-container'>
-                    <div className='intro-doctor'>
-                        <div className='content-left' style={{ backgroundImage: `url(${this.state.doctorData.image})` }}>
+                <div className='medipackage-detail-container'>
+                    <div className='intro-medipackage'>
+                        <div className='content-left' style={{ backgroundImage: `url(${this.state.medi_packageData.image})` }}>
 
                         </div>
                         <div className='content-right'>
                             <div className='up'>
-                                <h5>{this.state.doctorData.position}</h5>
-                                <h1>{this.state.doctorData.name}</h1>
+                                <h1>{this.state.medi_packageData.name}</h1>
                             </div>
                             <div className='down'>
                                 <textarea
                                     cols='80'
-                                    value={this.state.doctorData.intro}
+                                    value={this.state.medi_packageData.intro}
                                     disabled
                                     readOnly
-                                    rows="5"
+                                    rows="6"
                                 ></textarea>
 
                             </div>
                         </div>
 
                     </div>
-                    <div className='schedule-doctor'>
+                    <div className='schedule-medipackage'>
                         <div className='content-left'>
                             <div style={{ display: 'flex' }}>
                                 <select onChange={(event) => this.handleOnChangeSelect(event)}>
@@ -220,12 +219,12 @@ class DetailDoctor extends Component {
                             </label>
                             {this.state.showmore === true ?
                                 <textarea style={{ height: '400px' }}
-                                    value={this.state.doctorData.thongtinkham}
+                                    value={this.state.medi_packageData.thongtinkham}
                                     disabled
                                 ></textarea>
                                 :
                                 <textarea style={{ height: '116px' }}
-                                    value={this.state.doctorData.thongtinkham}
+                                    value={this.state.medi_packageData.thongtinkham}
                                     disabled
                                 ></textarea>}
 
@@ -236,8 +235,7 @@ class DetailDoctor extends Component {
                         <label>
                             <i class="fas fa-level-down-alt fa-flip-horizontal"></i>
                             &nbsp;Thông tin về&nbsp;
-                            {this.state.doctorData.position}&nbsp;
-                            {this.state.doctorData.name}&nbsp;
+                            {this.state.medi_packageData.name}&nbsp;
                             <i class="fas fa-level-down-alt"></i>
                         </label>
                     </div>
@@ -245,10 +243,10 @@ class DetailDoctor extends Component {
                     <div className='row'>
                         <div className='col-1'></div>
                         <div
-                            dangerouslySetInnerHTML={{ __html: this.state.doctorData.descriptionHTML }}
-                            className='detail-info-doctor col-10'></div>
+                            dangerouslySetInnerHTML={{ __html: this.state.medi_packageData.descriptionHTML }}
+                            className='detail-info-medipackage col-10'></div>
                     </div>
-                    <div className='comment-doctor'>
+                    <div className='comment-medipackage'>
 
                     </div>
                 </div>
@@ -271,4 +269,4 @@ const mapDispatchToProps = dispatch => {
     // };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailDoctor);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailMediPackage);
