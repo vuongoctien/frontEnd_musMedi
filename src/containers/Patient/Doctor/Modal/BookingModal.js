@@ -15,233 +15,148 @@ import moment from 'moment';
 
 class BookingModal extends Component {
 
+    /**prop nạp vào cần phải có dạng
+     * 
+                
+     */
+
     constructor(props) {
         super(props)
         this.state = {
-            // fullName: '',
-            // phoneNumber: '',
-            // email: '',
-            // address: '',
-            // reason: '',
-            // birthday: '',
-            // selectedGender: '',
-            // doctorId: '',
-            // genders: '',
-            // timeType: ''
+            forwho: false,
+            gender: false
         }
     }
 
     async componentDidMount() {
-        // this.props.getGenders()
+
     }
 
-    // buildDataGender = (data) => {
-    //     let result = []
-    //     let language = this.props.language
-    //     if (data && data.length > 0) {
-    //         data.map(item => {
-    //             let object = {}
-    //             object.label = language === LANGUAGES.VI ? item.valueVi : item.valueEn
-    //             object.value = item.keyMap
-    //             result.push(object)
-    //         })
-    //     }
-    //     return result
-    // }
-
-
-    // async componentDidUpdate(prevProps, prevState, snapshot) {  // à prevProps trức là props trước đó
-    //     if (prevProps.language !== this.props.language) {
-    //         this.setState({
-    //             genders: this.buildDataGender(this.props.genders)
-    //         })
-    //     }
-    //     if (prevProps.genders !== this.props.genders) {
-    //         this.setState({
-    //             genders: this.buildDataGender(this.props.genders)
-    //         })
-    //     }
-    //     if (prevProps.dataTime !== this.props.dataTime) {
-    //         if (this.props.dataTime && !_.isEmpty(this.props.dataTime)) {
-    //             let doctorId = this.props.dataTime.doctorId
-    //             let timeType = this.props.dataTime.timeType
-    //             this.setState({
-    //                 doctorId: doctorId,
-    //                 timeType: timeType
-    //             })
-    //         }
-    //     }
-    // }
-
-    // handleOnChangeInput = (event, id) => {
-    //     let valueInput = event.target.value
-    //     let stateCopy = { ...this.state }
-    //     stateCopy[id] = valueInput
-    //     this.setState({
-    //         ...stateCopy
-    //     })
-    // }
-
-    // handleOnChangeDatePicker = (date) => {
-    //     this.setState({
-    //         birthday: date[0]
-    //     })
-    // }
-
-    // hangleChangSelect = (selectedOption) => {
-    //     this.setState({
-    //         selectedGender: selectedOption
-    //     })
-    // }
-
-    // buileTimeBooking = (dataTime) => {
-    //     let { language } = this.props
-    //     if (dataTime && !_.isEmpty(dataTime)) {
-    //         let time = language === LANGUAGES.VI ?
-    //             dataTime.timeTypeData.valueVi : dataTime.timeTypeData.valueEn
-    //         let date = language === LANGUAGES.VI ?
-    //             moment.unix(+dataTime.date / 1000).format('dddd - DD/MM/YYYY')
-    //             :
-    //             moment.unix(+dataTime.date / 1000).locale('en').format('dddd - DD/MM/YYYY')
-    //         return `${time} - ${date}`
-    //     }
-    //     return ''
-    // }
-
-    // buildDoctorName = (dataTime) => {
-    //     let { language } = this.props
-    //     if (dataTime && !_.isEmpty(dataTime)) {
-    //         let name = language === LANGUAGES.VI ?
-    //             `${dataTime.doctorData.lastName} ${dataTime.doctorData.firstName}`
-    //             :
-    //             `${dataTime.doctorData.lastName} ${dataTime.doctorData.firstName}`
-    //         return name
-    //     }
-    //     return ''
-    // }
-
-    // handleConfirmBooking = async () => {
-    //     document.getElementById('waiting').innerHTML = "Chú em đợi tí"
-    //     // việc làm ngày 05/10: kiểm tra xem phía FrontEnd đã xài được api này chưa
-    //     let date = new Date(this.state.birthday).getTime()
-    //     let timeString = this.buileTimeBooking(this.props.dataTime)
-    //     let doctorName = this.buildDoctorName(this.props.dataTime)
-
-    //     let res = await postPatientBookAppointment({
-    //         fullName: this.state.fullName,
-    //         phoneNumber: this.state.phoneNumber,
-    //         email: this.state.email,
-    //         address: this.state.address,
-    //         reason: this.state.reason,
-    //         date: date,
-    //         selectedGender: this.state.selectedGender.value,
-    //         doctorId: this.state.doctorId,
-    //         timeType: this.state.timeType,
-    //         language: this.props.language,
-    //         timeString: timeString,
-    //         doctorName: doctorName
-    //     })
-    //     // console.log(res)
-    //     if (res && res.errCode === 0) {
-    //         toast.success('Booking a new appointment succeed')
-    //         this.props.closeBookingClose()
-    //     } else {
-    //         toast.error('Booking a new appointment error')
-    //     }
-    // }
+    handleOnChangeDatePicker = (date) => {
+        console.log('date[0]', date[0])
+    }
 
     render() {
-        let { isOpenModal, closeBookingClose, dataTime } = this.props
-        // let doctorId = ''
-        // if (dataTime && !_.isEmpty(dataTime)) {
-        //     doctorId = dataTime.doctorId
-        // }
-        // // console.log('đã lấy đc dataTime', dataTime) // đã lấy đc dataTime
+        console.log('this.props', this.props)
         return (
             <Modal
-                isOpen={isOpenModal}
+                isOpen={this.props.isOpen}
                 className={'booking-modal-container'}
                 size='lg'
                 centered
             >
                 <div className='booking-modal-content'>
                     <div className='booking-modal-header'>
-                        <span className='left'>đây là title</span>
-                        <span className='right' onClick={closeBookingClose}>
-                            <i className='fas fa-times'></i>
+                        <span className='left'>Đặt lịch khám bệnh</span>
+                        <span className='right' onClick={this.props.closeModal}>
+                            <i className="fas fa-window-close fa-lg"></i>
                         </span>
                     </div>
                     <div className='booking-modal-body'>
-                        <div className='doctor-info'>
-                            info doctor
+                        <div className='doctor-medipk-info'>
+                            <div className='img-doctor'
+                                style={{ backgroundImage: `url()` }}></div>
+                            <div className='info-doctor'>
+                                <h5>PSG Tien si Bac si </h5>
+                                <h4><b>Vuong Ngoc Tien</b></h4>
+                                <br />
+                                <h6>10:00 - 10:30 Thứ Bảy 28/10/2023</h6>
+                            </div>
                         </div>
-                        <div className='row'>
-                            <div className='col-6 form-group'>
-                                <label><FormattedMessage id="patient.booking-modal.phoneNumber" /></label>
-                                <input
-                                    className='form-control'
-                                // value={this.state.phoneNumber}
-                                // onChange={(event) => this.handleOnChangeInput(event, 'phoneNumber')}
-                                />
-                            </div>
-                            <div className='col-6 form-group'>
-                                <label><FormattedMessage id="patient.booking-modal.fullName" /></label>
-                                <input
-                                    className='form-control'
-                                // value={this.state.fullName}
-                                // onChange={(event) => this.handleOnChangeInput(event, 'fullName')}
-                                />
-                            </div>
-                            <div className='col-6 form-group'>
-                                <label><FormattedMessage id="patient.booking-modal.email" /></label>
-                                <input
-                                    className='form-control'
-                                // value={this.state.email}
-                                // onChange={(event) => this.handleOnChangeInput(event, 'email')}
-                                />
-                            </div>
-                            <div className='col-6 form-group'>
-                                <label><FormattedMessage id="patient.booking-modal.reason" /></label>
-                                <input
-                                    className='form-control'
-                                // value={this.state.reason}
-                                // onChange={(event) => this.handleOnChangeInput(event, 'reason')}
-                                />
-                            </div>
-                            <div className='col-12 form-group'>
-                                <label><FormattedMessage id="patient.booking-modal.address" /></label>
-                                <input
-                                    className='form-control'
-                                // value={this.state.address}
-                                // onChange={(event) => this.handleOnChangeInput(event, 'address')}
-                                />
-                            </div>
-                            <div className='col-6 form-group'>
-                                <label><FormattedMessage id="patient.booking-modal.birthday" /></label>
-                                <DatePicker
-                                    className='form-control'
-                                // value={this.state.birthday}
-                                // onChange={this.handleOnChangeDatePicker}
-                                />
-                            </div>
-                            <div className='col-6 form-group'>
-                                <label><FormattedMessage id="patient.booking-modal.gender" /></label>
-                                <Select
-                                // value={this.state.selectedGender}
-                                // onChange={this.hangleChangSelect}
-                                // options={this.state.genders}
-                                />
-                            </div>
+                        <div className='formdien'>
+                            <table>
+                                <tr><td><u><i><b>Thông tin người đặt lịch: </b></i></u></td></tr>
+                                <tr>
+                                    <td className='td1'>Số điện thoại: &ensp;</td>
+                                    <td className='td2'><input type="tel" placeholder='Số điện thoại giúp cơ sở y tế liên hệ với bạn khi cần thiết' className='form-control' /></td>
+                                </tr>
+                                <tr>
+                                    <td className='td1'>Gmail (điền cả đuôi @gmail.com): &ensp;</td>
+                                    <td className='td2'><input type="email" placeholder='Trạng thái lịch hẹn sẽ được cập nhật qua gmail' className='form-control' /></td>
+                                </tr>
+                                <tr>
+                                    <td className='td1'>Đặt cho mình hay cho người thân? &ensp;</td>
+                                    <td className='td2'>
+                                        <div className='forwho'>
+                                            {this.state.forwho === true ?
+                                                <>
+
+                                                    <div onClick={() => this.setState({ forwho: true })} className='who'>
+                                                        Đặt cho mình <i className="fas fa-thumbs-up"></i>
+                                                    </div>
+
+                                                    <div onClick={() => this.setState({ forwho: false })} className='who no'>
+                                                        Đặt cho người thân
+                                                    </div>
+                                                </>
+                                                :
+                                                <>
+                                                    <div onClick={() => this.setState({ forwho: true })} className='who no'>
+                                                        Đặt cho mình
+                                                    </div>
+                                                    <div onClick={() => this.setState({ forwho: false })} className='who'>
+                                                        Đặt cho người thân <i className="fas fa-thumbs-up"></i>
+                                                    </div>
+                                                </>}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr><td><u><i><b>Thông tin bệnh nhân: </b></i></u></td></tr>
+                                <tr>
+                                    <td className='td1'>Họ và tên: &ensp;</td>
+                                    <td className='td2'><input type="text" placeholder='Họ và tên bệnh nhân' className='form-control' /></td>
+                                </tr>
+                                <tr>
+                                    <td className='td1'>Ngày/tháng/năm sinh: &ensp;</td>
+                                    <td className='td2'>
+                                        <DatePicker
+                                            onChange={this.handleOnChangeDatePicker}
+                                            className='form-control'
+                                            placeholder='Ngày / Tháng / Năm'
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className='td1'>Giới tính: &ensp;</td>
+                                    <td className='td2'>
+                                        <div className='forwho'>
+                                            {this.state.gender === true ?
+                                                <>
+
+                                                    <div onClick={() => this.setState({ gender: true })} className='who'>
+                                                        Nam <i className="fas fa-mars"></i>
+                                                    </div>
+
+                                                    <div onClick={() => this.setState({ gender: false })} className='who no'>
+                                                        Nữ
+                                                    </div>
+                                                </>
+                                                :
+                                                <>
+                                                    <div onClick={() => this.setState({ gender: true })} className='who no'>
+                                                        Nam
+                                                    </div>
+                                                    <div onClick={() => this.setState({ gender: false })} className='who'>
+                                                        Nữ <i className="fas fa-venus"></i>
+                                                    </div>
+                                                </>}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr><td><u><i><b>Lý do khám: </b></i></u></td></tr>
+                            </table>
+                            <textarea
+                                cols='90'
+                                rows="4"
+                                placeholder='Nêu ngắn gọn lý do khám'
+                            ></textarea>
+
                         </div>
                     </div>
                     <div className='booking-modal-footer'>
                         <h2 id='waiting'></h2>
-                        <button className='button-booking-confirm' onClick={() => this.handleConfirmBooking()}>
-                            <FormattedMessage id="patient.booking-modal.buttonConfirm" />
-                        </button>
-                        <button className='button-booking-cancel' onClick={closeBookingClose}>
-                            <FormattedMessage id="patient.booking-modal.buttonCancel" />
-                        </button>
+                        <button type="button" class="btn btn-success">Xác nhận đặt lịch</button>
+                        <button type="button" class="btn btn-danger">Hủy</button>
                     </div>
                 </div>
             </Modal>

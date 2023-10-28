@@ -4,13 +4,14 @@
         flex-direction: column;
 
         .booking-modal-header {
-            padding      : 10px;
-            border-bottom: 1px solid #ccc;
+            padding         : 10px;
+            border-bottom   : 1px solid #ccc;
+            background-color: #7fffd454;
 
             .left {
                 font-size  : 15px;
                 font-weight: 600;
-                color      : #333;
+                color      : #000000;
             }
 
             .right {
@@ -22,6 +23,66 @@
         .booking-modal-body {
             padding: 15px;
             height : 100%;
+
+            .doctor-medipk-info {
+                display         : flex;
+                background-color: #00ffff21;
+                border-radius   : 5px;
+
+
+                .img-doctor {
+                    height         : 100px;
+                    width          : 100px;
+                    border         : 1px solid #ccc;
+                    background     : center center no-repeat;
+                    background-size: contain;
+                    border-radius  : 50%;
+                }
+
+                .info-doctor {
+                    margin-left : 20px;
+                    padding-left: 15px;
+                    border-left : 1px solid gainsboro;
+                }
+            }
+
+            .formdien {
+                margin-top: 20px;
+
+                .forwho {
+                    display: flex;
+                    padding: 7px 0px;
+
+                    .no {
+                        color          : gray;
+                        text-decoration: line-through;
+
+                    }
+
+                    .who {
+                        cursor     : pointer;
+                        margin-left: 20px;
+                    }
+
+                }
+
+                table {
+                    font-size: 15px;
+
+                    .td1 {
+                        text-align: right;
+                        width     : 270px;
+                    }
+
+                    .td2 {
+                        input {
+                            width: 450px;
+                        }
+                    }
+
+                }
+
+            }
         }
 
         textarea:disabled {
@@ -29,11 +90,12 @@
         }
 
         .booking-modal-footer {
-            border-top     : 1px solid #ccc;
-            padding        : 10px;
-            display        : flex;
-            justify-content: flex-end;
-            gap            : 15px;
+            background-color: #7fffd454;
+            border-top      : 1px solid #ccc;
+            padding         : 10px;
+            display         : flex;
+            justify-content : flex-end;
+            gap             : 15px;
 
         }
     }
@@ -67,5 +129,3 @@
     justify-content: center;
     align-items    : center;
 }
-
-#old-img-edit {}
