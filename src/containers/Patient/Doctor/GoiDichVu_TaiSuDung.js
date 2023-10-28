@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './BacSi_TaiSuDung.scss'
+import './GoiDichVu_TaiSuDung.scss'
 import moment from 'moment';
 import localization from 'moment/locale/vi'
 import { LANGUAGES } from '../../../utils';
@@ -9,13 +9,13 @@ import { FormattedMessage } from 'react-intl';
 import BookingModal from './Modal/BookingModal';
 import { times } from 'lodash';
 
-class BacSi_TaiSuDung extends Component {
+class GoiDichVu_TaiSuDung extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
             render: 0,
-            // doctorData: {},// có rồi this.props.doctorInfo
+            // doctorData: {},// có rồi this.props.medipackageInfo
             // clinic: {}, có nốt this.props.clinicInfo
 
             listDate: [],
@@ -53,14 +53,14 @@ class BacSi_TaiSuDung extends Component {
                 this.setState({ selectedDate: object })
                 let lichkhamhomnay = await getScheduleForUser({
                     clinicID: this.props.clinicInfo.id,
-                    dr_or_pk: 1,
-                    dr_or_pk_ID: this.props.doctorInfo.id,
+                    dr_or_pk: 0,
+                    dr_or_pk_ID: this.props.medipackageInfo.id,
                     date: stringDate
                 })
                 // console.log('cục data goi api lich kham', {
                 //     clinicID: this.props.clinicInfo.id,
-                //     dr_or_pk: 1,
-                //     dr_or_pk_ID: this.props.doctorInfo.id,
+                //     dr_or_pk: 0,
+                //     dr_or_pk_ID: this.props.medipackageInfo.id,
                 //     date: stringDate
                 // })
                 this.setState({ listClockTime: lichkhamhomnay.all_schedule })
@@ -105,8 +105,8 @@ class BacSi_TaiSuDung extends Component {
         console.log('event.target.value', event.target.value) //đã lấy được stringDate
         let res = await getScheduleForUser({
             clinicID: this.props.clinicInfo.id,
-            dr_or_pk: 1,
-            dr_or_pk_ID: this.props.doctorInfo.id,
+            dr_or_pk: 0,
+            dr_or_pk_ID: this.props.medipackageInfo.id,
             date: event.target.value
         })
         if (res && res.errCode === 0) {
@@ -120,9 +120,9 @@ class BacSi_TaiSuDung extends Component {
 
 
     render() {
-        // Những bên khác muốn xài component con này đều phải đặt tên biến là doctorInfo và clinicInfo
+        // Những bên khác muốn xài component con này đều phải đặt tên biến là medipackageInfo và clinicInfo
         // Để tránh bất đồng bộ, phải làm như này
-        let img = ''; if (this.props.doctorInfo.image) { img = this.props.doctorInfo.image }
+        let img = ''; if (this.props.medipackageInfo.image) { img = this.props.medipackageInfo.image }
 
         let listClockTime = []
         for (let i = 0; i < this.state.listClockTime.length; i++) {
@@ -139,21 +139,20 @@ class BacSi_TaiSuDung extends Component {
                                 className='content-left'
                                 style={{ backgroundImage: `url(${img})` }}
                             ></div>
-                            <a target='_blank' href={`../detail-doctor/${this.props.clinicInfo.id}&${this.props.doctorInfo.id}`}>Xem thêm</a>
+                            <a target='_blank' href={`../detail-doctor/${this.props.clinicInfo.id}&${this.props.medipackageInfo.id}`}>Xem thêm</a>
                         </div>
 
                         <div className='content-right'>
                             <div className='up'>
-                                <h5>{this.props.doctorInfo.position}</h5>
-                                <h1>{this.props.doctorInfo.name}</h1>
+                                <h1>{this.props.medipackageInfo.name}</h1>
                             </div>
                             <div className='down'>
                                 <textarea
                                     cols='49'
-                                    value={this.props.doctorInfo.intro}
+                                    value={this.props.medipackageInfo.intro}
                                     disabled
                                     readOnly
-                                    rows="5"
+                                    rows="9"
                                 ></textarea>
 
                             </div>
@@ -224,12 +223,12 @@ class BacSi_TaiSuDung extends Component {
                     {
                         this.state.showmore === true ?
                             <textarea style={{ height: '400px' }}
-                                value={this.props.doctorInfo.thongtinkham}
+                                value={this.props.medipackageInfo.thongtinkham}
                                 disabled
                             ></textarea>
                             :
                             <textarea style={{ height: '236px' }}
-                                value={this.props.doctorInfo.thongtinkham}
+                                value={this.props.medipackageInfo.thongtinkham}
                                 disabled
                             ></textarea>}
 
@@ -252,4 +251,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(BacSi_TaiSuDung);
+export default connect(mapStateToProps, mapDispatchToProps)(GoiDichVu_TaiSuDung);
