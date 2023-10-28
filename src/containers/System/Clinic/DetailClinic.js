@@ -10,6 +10,7 @@ import { getAllDetailClinicById, getAllDoctorByClinicId } from '../../../service
 import _ from 'lodash';
 import { LANGUAGES } from '../../../utils';
 import BacSi_TaiSuDung from '../../Patient/Doctor/BacSi_TaiSuDung';
+import HomeFooter from '../../HomePage/Section/HomeFooter';
 
 
 class DetailClinic extends Component {
@@ -104,6 +105,7 @@ class DetailClinic extends Component {
                         </div>
                     </div>
                 </div>
+                <HomeFooter />
             </div>
         )
     }

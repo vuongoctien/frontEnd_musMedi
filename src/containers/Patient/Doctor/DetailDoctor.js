@@ -7,6 +7,7 @@ import { LANGUAGES } from '../../../utils';
 import DoctorSchedule from './DoctorSchedule';
 import DoctorExtrainfor from './DoctorExtrainfor';
 import Select from 'react-select'
+import HomeFooter from '../../HomePage/Section/HomeFooter';
 
 class DetailDoctor extends Component {
 
@@ -251,6 +252,7 @@ class DetailDoctor extends Component {
 
                     </div>
                 </div>
+                <HomeFooter />
             </>
         );
     }

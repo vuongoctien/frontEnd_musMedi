@@ -1,8 +1,10 @@
 .section-child {
     cursor: pointer;
 
-    .section-name {
-        padding: 10px 0;
+    .specialty-name {
+        font-size : 15px;
+        text-align: center;
+        padding   : 4px 15px;
 
         &:hover {
             color: #45cd32;

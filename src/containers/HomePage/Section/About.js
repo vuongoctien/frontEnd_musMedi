@@ -12,7 +12,7 @@ class About extends Component {
         return (
             <div className='section-share section-about'>
                 <div className='section-about-header'>
-                    Truyền thông nói gì về bookingcare
+                    Truyền thông nói gì về musMedi
                 </div>
                 <div className='section-about-content'>
                     <div className='content-left'>

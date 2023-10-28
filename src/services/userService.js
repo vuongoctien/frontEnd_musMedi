@@ -111,7 +111,7 @@ const getTopDoctorHomeServices = (limit) => {
 }
 
 const getTopMediPackageHomeServices = (limit) => {
-    return axios.get(`/api/top-medipackage-home/api/top-doctor-home/api/top-medipackage-home?limit=${limit}`)
+    return axios.get(`/api/top-medipackage-home?limit=${limit}`)
 }
 
 const getAllDoctors = () => {

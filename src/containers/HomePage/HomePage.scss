@@ -157,12 +157,52 @@
 }
 
 .home-footer {
-    text-align : center;
-    padding-top: 8px;
+    padding-top     : 20px;
+    background-color: #00ffe02b;
 
-    a {
-        text-decoration: unset;
+    .musMedi {
+        height           : 50px;
+        background-image : url(../../assets/musMedifooter.png);
+        background-repeat: no-repeat;
+        background-size  : contain;
     }
+
+    .bocongthuong {
+        height           : 30px;
+        background-image : url(../../assets/bo-cong-thuong.svg);
+        background-repeat: no-repeat;
+        background-size  : contain;
+        margin-top       : 10px;
+        margin-bottom    : 10px;
+    }
+
+    .doitacbaotronoidung {
+        height           : 200px;
+        background-image : url(../../assets/doitacbaotronoidung.png);
+        background-repeat: no-repeat;
+        background-size  : contain;
+        margin-top       : 10px;
+        margin-bottom    : 10px;
+    }
+
+    .b {
+        padding-top   : 24px;
+        padding-bottom: 15px;
+        font-size     : 12px;
+    }
+
+    .a {
+        padding-top: 7px;
+    }
+
+    .copyright {
+        text-align: center;
+
+        a {
+            text-decoration: unset;
+        }
+    }
+
 }
 
 .section-about {
