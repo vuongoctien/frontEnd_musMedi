@@ -39,8 +39,8 @@ class Handbook extends Component {
                                         <div className='section-customize clinic-child' key={index} >
                                             <a href={`detail-medipackage/${item.clinicID}&${item.id}`}>
                                                 <div className='bg-image' style={{ backgroundImage: `url(${new Buffer(item.image, 'base64').toString('binary')})` }}></div>
+                                                <div className='clinic-name'>{item.name}</div>
                                             </a>
-                                            <div className='clinic-name'>{item.name}</div>
                                         </div>
                                     )
                                 })}

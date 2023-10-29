@@ -2,15 +2,15 @@
     min-width : 1200px;
     min-height: 400px;
     display   : flex;
+    margin-top: 80px;
 
 
 
     .left,
     .right {
         width        : 48%;
-        border-right : 1px solid black;
-        border-bottom: 1px solid black;
-        margin-top   : 20px;
+        border-right : 2px solid orange;
+        border-bottom: 2px solid orange;
     }
 
     .left {
@@ -161,7 +161,7 @@
             font-weight     : 100;
             font-size       : 16px;
             margin-left     : 10px;
-            width           : 560px;
+            width           : 555px;
         }
     }
 }

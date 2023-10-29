@@ -154,7 +154,7 @@ class DetailMediPackage extends Component {
                     isOpen={this.state.isOpen} // đóng hay mở?
                     closeModal={this.closeModal} // hàm đóng
                     clinic={this.state.clinic} // clinic
-                    dr_or_pk={0}            // bác sĩ hay gói dịch vụ?
+                    dr_or_pk={'0'} //vãi thật, phải nhét 0 vào '' mới gọi API không bị miss para // bác sĩ hay gói dịch vụ?
                     Dr_Pk={this.state.medi_packageData} // bsi/goidvu đó
                     date={this.state.selectedDate} // ngày
                     clockTime={this.state.clockTime} // giờ

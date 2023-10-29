@@ -64,6 +64,11 @@
             .formdien {
                 margin-top: 20px;
 
+                input,
+                textarea {
+                    color: blue;
+                }
+
                 .forwho {
                     display: flex;
                     padding: 7px 0px;
@@ -71,7 +76,10 @@
                     .no {
                         color          : gray;
                         text-decoration: line-through;
+                    }
 
+                    .yes {
+                        color: blue;
                     }
 
                     .who {
@@ -143,4 +151,8 @@
     display        : flex;
     justify-content: center;
     align-items    : center;
+}
+
+.thongbaodatlichthanhcong {
+    padding: 20px;
 }

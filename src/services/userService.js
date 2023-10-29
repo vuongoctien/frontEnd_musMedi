@@ -96,7 +96,10 @@ const getMediPkByIdClinicAndIdDoctor = (query) => { //ok
 const getScheduleForUser = (query) => { //ok
     return axios.get(`/api/get-schedule-for-user?clinicID=${query.clinicID}&dr_or_pk=${query.dr_or_pk}&dr_or_pk_ID=${query.dr_or_pk_ID}&date=${query.date}`)
 }
-
+// viết gộp booking vào đây
+const createOrder = (data) => { //ok
+    return axios.post(`/api/create-order`, data)
+}
 
 
 /*********************************************************** */
@@ -250,5 +253,6 @@ export {
     getDoctorByIdClinicAndIdDoctor,
     getMediPkByIdClinicAndIdDoctor,
     getScheduleForUser,
+    createOrder,
 
 }

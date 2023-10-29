@@ -69,12 +69,11 @@ class OutstandingDoctor extends Component {
                                                         <div className='outer-bg'>
                                                             <div className='bg-image section-outstanding-doctor' style={{ backgroundImage: `url(${imageBase64})` }}></div>
                                                         </div>
+                                                        <div className='position text-center'>
+                                                            <h6>{item.position}</h6>
+                                                            <h5>{item.name}</h5>
+                                                        </div>
                                                     </a>
-                                                    <div className='position text-center'>
-                                                        <h6>{item.position}</h6>
-                                                        <h5>{item.name}</h5>
-
-                                                    </div>
                                                 </div>
                                             </div>
                                         )
