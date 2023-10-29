@@ -60,6 +60,7 @@ class DetailDoctor extends Component {
             let object = {}
             object.label = `${getDateThemSo_0(date)}/${+getMonthThemSo_0(date)} - ${this.getDaytoString(date.getDay())}`
             object.value = stringDate
+            object.data = date
             this.state.listDate.push(object)
             if (i === 0) {
                 this.setState({ selectedDate: object })
@@ -112,6 +113,9 @@ class DetailDoctor extends Component {
 
     handleOnChangeSelect = async (event) => {
         // console.log('event.target.value', event.target.value) //đã lấy được stringDate
+        this.state.listDate.map(item => {
+            if (item.value === event.target.value) { this.setState({ selectedDate: item }) }
+        })
         let res = await getScheduleForUser({
             clinicID: this.props.match.params.clinicID,
             dr_or_pk: 1,

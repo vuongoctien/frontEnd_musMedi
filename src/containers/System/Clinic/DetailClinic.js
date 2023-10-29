@@ -12,7 +12,6 @@ import { LANGUAGES } from '../../../utils';
 import BacSi_TaiSuDung from '../../Patient/Doctor/BacSi_TaiSuDung';
 import GoiDichVu_TaiSuDung from '../../Patient/Doctor/GoiDichVu_TaiSuDung';
 import HomeFooter from '../../HomePage/Section/HomeFooter';
-import BookingModal from '../../Patient/Doctor/Modal/BookingModal';
 
 
 class DetailClinic extends Component {
@@ -23,13 +22,6 @@ class DetailClinic extends Component {
             clinic: {},
             all_doctor_of_clinic: [],
             all_mediPackage_of_clinic: [],
-
-            // to Modal
-            isOpen: true,
-            Dr_Pk: {},
-            date: '',
-            clockTime: ''
-
         }
     }
 
@@ -51,12 +43,6 @@ class DetailClinic extends Component {
         }
     }
 
-    closeModal = () => {
-        this.setState({
-            isOpen: false
-        })
-    }
-
 
     render() {
         /**Một bài học lớn
@@ -70,14 +56,6 @@ class DetailClinic extends Component {
 
         return (
             <div className='detail-clinic-container'>
-                <BookingModal
-                    isOpen={this.state.isOpen}
-                    closeModal={this.closeModal}
-                    clinic={this.state.clinic}
-                    Dr_Pk={this.state.Dr_Pk}
-                    date={this.state.date}
-                    clockTime={this.state.clockTime}
-                />
                 <HomeHeader />
                 <div className='detail-clinic-body'>
                     <div className='description-clinic'>
@@ -85,13 +63,13 @@ class DetailClinic extends Component {
 
                         </div>
                         <div className='ten-diachi'>
-                            <h2>&nbsp;&nbsp;{this.state.clinic.name}</h2>
+                            <h2>{this.state.clinic.name}</h2>
                             <h5>
-                                &nbsp;&nbsp;<i className="fas fa-map-marker-alt"></i>&nbsp;
+                                <i className="fas fa-map-marker-alt"></i>&nbsp;
                                 {this.state.clinic.address}
                             </h5>
                             <h5>
-                                &nbsp;&nbsp;<i className="fas fa-location-arrow"></i>&nbsp;
+                                <i className="fas fa-location-arrow"></i>&nbsp;
                                 {this.state.clinic.province}
                             </h5>
                         </div>
