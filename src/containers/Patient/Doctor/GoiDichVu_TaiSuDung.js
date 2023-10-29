@@ -19,10 +19,13 @@ class GoiDichVu_TaiSuDung extends Component {
             // clinic: {}, có nốt this.props.clinicInfo
 
             listDate: [],
-            selectedDate: {},
+            selectedDate: {}, // to Modal
 
             listClockTime: [],
-            showmore: false
+            showmore: false,
+
+            isOpen: false, // to Modal
+            clockTime: '' // to Modal
         }
     }
 
@@ -122,6 +125,11 @@ class GoiDichVu_TaiSuDung extends Component {
 
     }
 
+    closeModal = () => { // to Modal
+        this.setState({
+            isOpen: false
+        })
+    }
 
     render() {
         // Những bên khác muốn xài component con này đều phải đặt tên biến là medipackageInfo và clinicInfo
@@ -136,6 +144,15 @@ class GoiDichVu_TaiSuDung extends Component {
 
         return (
             <div className='taisudung'>
+                <BookingModal
+                    isOpen={this.state.isOpen} // đóng hay mở?
+                    closeModal={this.closeModal} // hàm đóng
+                    clinic={this.props.clinicInfo} // clinic
+                    dr_or_pk={0}            // bác sĩ hay gói dịch vụ?
+                    Dr_Pk={this.props.medipackageInfo} // bsi/goidvu đó
+                    date={this.state.selectedDate} // ngày
+                    clockTime={this.state.clockTime} // giờ
+                />
                 <div className='left'>
                     <div className='intro-doctor'>
                         <div className='text-center'>
@@ -192,7 +209,15 @@ class GoiDichVu_TaiSuDung extends Component {
                         {listClockTime.length === 0 ?
                             <h5>Không có lịch hẹn trong ngày này</h5> : <></>
                         }
-                        {listClockTime.map(clockTime => { return (<button>{clockTime}</button>) })}
+                        {listClockTime.map(clockTime => {
+                            return (<button
+                                onClick={() => {
+                                    this.setState({
+                                        isOpen: true,
+                                        clockTime: clockTime
+                                    })
+                                }}>{clockTime}</button>)
+                        })}
                     </div>
                     <div className='book-free'>
                         <span>

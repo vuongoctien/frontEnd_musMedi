@@ -8,6 +8,7 @@ import DoctorSchedule from './DoctorSchedule';
 import DoctorExtrainfor from './DoctorExtrainfor';
 import Select from 'react-select'
 import HomeFooter from '../../HomePage/Section/HomeFooter';
+import BookingModal from './Modal/BookingModal';
 
 class DetailMediPackage extends Component {
 
@@ -15,14 +16,17 @@ class DetailMediPackage extends Component {
         super(props)
         this.state = {
             render: 0,
-            medi_packageData: {},
-            clinic: {},
+            medi_packageData: {}, // to Modal
+            clinic: {}, // to Modal
 
             listDate: [],
-            selectedDate: {},
+            selectedDate: {}, // to Modal
 
             listClockTime: [],
-            showmore: false
+            showmore: false,
+
+            isOpen: false, // to Modal
+            clockTime: '' // to Modal
         }
     }
 
@@ -130,9 +134,14 @@ class DetailMediPackage extends Component {
 
     }
 
+    closeModal = () => { // to Modal
+        this.setState({
+            isOpen: false
+        })
+    }
 
     render() {
-        console.log('this.state', this.state)
+        // console.log('this.state', this.state)
         let listClockTime = []
         for (let i = 0; i < this.state.listClockTime.length; i++) {
             listClockTime[i] = this.state.listClockTime[i].clockTime
@@ -141,6 +150,15 @@ class DetailMediPackage extends Component {
 
         return (
             <>
+                <BookingModal
+                    isOpen={this.state.isOpen} // đóng hay mở?
+                    closeModal={this.closeModal} // hàm đóng
+                    clinic={this.state.clinic} // clinic
+                    dr_or_pk={0}            // bác sĩ hay gói dịch vụ?
+                    Dr_Pk={this.state.medi_packageData} // bsi/goidvu đó
+                    date={this.state.selectedDate} // ngày
+                    clockTime={this.state.clockTime} // giờ
+                />
                 <HomeHeader isShowBaner={false} />
                 <div className='medipackage-detail-container'>
                     <div className='intro-medipackage'>
@@ -193,7 +211,15 @@ class DetailMediPackage extends Component {
                                 {listClockTime.length === 0 ?
                                     <h5>Không có lịch hẹn trong ngày này</h5> : <></>
                                 }
-                                {listClockTime.map(clockTime => { return (<button>{clockTime}</button>) })}
+                                {listClockTime.map(clockTime => {
+                                    return (<button
+                                        onClick={() => {
+                                            this.setState({
+                                                isOpen: true,
+                                                clockTime: clockTime
+                                            })
+                                        }}>{clockTime}</button>)
+                                })}
                             </div>
                             <div className='book-free'>
                                 <span>

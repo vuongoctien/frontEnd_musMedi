@@ -15,9 +15,15 @@ import moment from 'moment';
 
 class BookingModal extends Component {
 
-    /**prop nạp vào cần phải có dạng
-     * 
-                
+    /**Modal này chỉ quan tâm những tham số truyền vào:
+     *              isOpen={this.state.isOpen} // đóng hay mở?
+                    closeModal={this.closeModal} // hàm đóng
+                    clinic={this.state.clinic} // clinic
+                    dr_or_pk={}    // 0 hoặc 1  bác sĩ hay gói dịch vụ?
+                    Dr_Pk={this.state.doctorData} // bsi/goidvu đó
+                    date={this.state.selectedDate} // ngày
+                    clockTime={this.state.clockTime} // giờ
+        Còn việc truyền như nào thì ở từng component cha sẽ xử lý
      */
 
     constructor(props) {
@@ -34,6 +40,34 @@ class BookingModal extends Component {
 
     handleOnChangeDatePicker = (date) => {
         console.log('date[0]', date[0])
+    }
+
+    getDaytoString = (number) => {
+        switch (number) {
+            case 0:
+                return 'Chủ Nhật'
+                break;
+            case 1:
+                return 'Thứ Hai'
+                break
+            case 2:
+                return 'Thứ Ba'
+                break
+            case 3:
+                return 'Thứ Tư'
+                break
+            case 4:
+                return 'Thứ Năm'
+                break
+            case 5:
+                return 'Thứ Sáu'
+                break
+            case 6:
+                return 'Thứ Bảy'
+                break
+            default:
+                break;
+        }
     }
 
     render() {
@@ -54,25 +88,43 @@ class BookingModal extends Component {
                     </div>
                     <div className='booking-modal-body'>
                         <div className='doctor-medipk-info'>
-                            <div className='img-doctor'
-                                style={{ backgroundImage: `url()` }}></div>
-                            <div className='info-doctor'>
-                                <h5>PSG Tien si Bac si </h5>
-                                <h4><b>Vuong Ngoc Tien</b></h4>
-                                <br />
-                                <h6>10:00 - 10:30 Thứ Bảy 28/10/2023</h6>
+                            <div className={this.props.dr_or_pk === 1 ? 'img-doctor' : 'img-medipk'}
+                                style={{ backgroundImage: `url(${this.props.Dr_Pk.image ? this.props.Dr_Pk.image : ''})` }}>
                             </div>
+                            <div className='info-doctor'>
+                                {this.props.dr_or_pk === 1 ?
+                                    <h4><b>
+                                        {this.props.Dr_Pk.position ? this.props.Dr_Pk.position : ''}&nbsp;
+                                        {this.props.Dr_Pk.name ? this.props.Dr_Pk.name : ''}
+                                    </b></h4>
+                                    :
+                                    <h4><b>{this.props.Dr_Pk.name ? this.props.Dr_Pk.name : ''}</b></h4>}
+
+                                <h5>{this.props.clinic.name ? this.props.clinic.name : ''}</h5>
+                                <br />
+                                <h6>
+                                    {this.props.clockTime ? this.props.clockTime : ''}&nbsp;
+                                    {this.props.date.data ?
+                                        this.getDaytoString(this.props.date.data.getDay()) + ' ngày ' +
+                                        this.props.date.data.getDate() + ' tháng ' +
+                                        (+this.props.date.data.getMonth() + 1) + ' năm ' +
+                                        this.props.date.data.getFullYear()
+                                        : ''}
+                                </h6>
+                            </div>
+
+
                         </div>
                         <div className='formdien'>
                             <table>
                                 <tr><td><u><i><b>Thông tin người đặt lịch: </b></i></u></td></tr>
                                 <tr>
                                     <td className='td1'>Số điện thoại: &ensp;</td>
-                                    <td className='td2'><input type="tel" placeholder='Số điện thoại giúp cơ sở y tế liên hệ với bạn khi cần thiết' className='form-control' /></td>
+                                    <td className='td2'><input type="tel" placeholder='Số điện thoại người đặt lịch' className='form-control' /></td>
                                 </tr>
                                 <tr>
-                                    <td className='td1'>Gmail (điền cả đuôi @gmail.com): &ensp;</td>
-                                    <td className='td2'><input type="email" placeholder='Trạng thái lịch hẹn sẽ được cập nhật qua gmail' className='form-control' /></td>
+                                    <td className='td1'>Email: &ensp;</td>
+                                    <td className='td2'><input type="email" placeholder='(trạng thái lịch hẹn sẽ được cập nhật qua email)' className='form-control' /></td>
                                 </tr>
                                 <tr>
                                     <td className='td1'>Đặt cho mình hay cho người thân? &ensp;</td>
