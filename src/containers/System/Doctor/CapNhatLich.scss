@@ -20,12 +20,20 @@
         display: flex;
 
         .body-left {
-            width: 80vw;
+            width: 90vw;
 
             .taokhungio {
 
                 .inputClockDOM {
-                    width: 7vw;
+                    width: 5vw;
+                }
+
+                .area {
+                    display         : flex;
+                    font-size       : 17px;
+                    background-color: #ffe8bd;
+                    border-radius   : 3px;
+                    padding         : 3px 10px;
                 }
             }
 

@@ -21,7 +21,8 @@ class LichBieu extends Component {
             getDateSelected: '',
             getMonthSelected: '',
             getFullYearSelected: '',
-            all_schedule: []
+            all_schedule: [],
+            selectedDate: new Date(this.props.match.params.yy, +this.props.match.params.mm - 1, this.props.match.params.dd)
         }
     }
 
@@ -47,8 +48,8 @@ class LichBieu extends Component {
             getDateSelected: date[0].getDate(),
             getMonthSelected: +date[0].getMonth() + 1,
             getFullYearSelected: date[0].getFullYear(),
+            selectedDate: date[0]
         })
-        console.log('this state when date picker', this.state)
     }
 
     HomNayLaThuMay = (number) => {
@@ -105,18 +106,20 @@ class LichBieu extends Component {
                             <h6>Click vào tên bác sĩ/gói dịch vụ để xem & cập nhật lịch khám</h6>
                         </div>
                         <div className='col-4'>
+                            <br />
                             <label>Xem lịch 7 ngày kể từ:</label> <br />
                             <DatePicker
                                 onChange={this.handleOnChangeDatePicker}
                                 className='form-control'
-                                minDate={new Date(new Date().setDate(new Date().getDate()))} // yesterday
+                                minDate={new Date(new Date().setDate(new Date().getDate() - 1))} // yesterday
+                                value={this.state.selectedDate}
                             />
-                            <label>(Lưu ý: để chọn lại hôm nay, vui lòng trở về trang Lịch Biểu,
+                            {/* <label>(Lưu ý: để chọn lại hôm nay, vui lòng trở về trang Lịch Biểu,
                                 rồi bấm vào tên bác sĩ/gói dịch vụ.
-                                Xin lỗi vì sự bất tiện)</label>
+                                Xin lỗi vì sự bất tiện)</label> */}
                         </div>
                         <div className='col-2'>
-                            <label><br /></label> <br />
+                            <label><br /></label> <br /><br />
                             <a href={`/system/LichBieu/${this.state.getDateSelected}&${this.state.getMonthSelected}&${this.state.getFullYearSelected}`}>
                                 <button type="button" class="btn btn-primary">Xem</button>
                             </a>

@@ -15,8 +15,16 @@
             }
 
             .right {
-                float : right;
-                cursor: pointer;
+                float: right;
+
+                i {
+                    cursor: pointer;
+
+                    &:hover {
+                        color: red;
+                    }
+                }
+
             }
         }
 
@@ -153,6 +161,45 @@
     align-items    : center;
 }
 
+.head2 {
+    display         : flex;
+    justify-content : space-between;
+    padding         : 5px 20px 5px 20px;
+    background-color: greenyellow;
+    border          : 1px solid gray;
+
+    i {
+        color : tomato;
+        cursor: pointer;
+
+        &:hover {
+            color: red;
+        }
+    }
+}
+
 .thongbaodatlichthanhcong {
-    padding: 20px;
+    padding: 10px 20px 20px 20px;
+    border : 1px solid gray;
+
+    p {
+        font-size: 15px;
+    }
+
+    table {
+        font-size: 15px;
+
+        .td1 {
+            text-align: right;
+            width     : 270px;
+        }
+
+        .td2 {
+            color: blue;
+        }
+    }
+
+    textarea {
+        color: blue;
+    }
 }

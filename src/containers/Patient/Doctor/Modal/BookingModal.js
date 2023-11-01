@@ -41,8 +41,8 @@ class BookingModal extends Component {
 
             // còn lại lấy ở prop, khỏi tạo state
 
-            open2ndModal: false
-
+            open2ndModal: false,
+            birthday2ndModal: '',
         }
     }
 
@@ -50,8 +50,23 @@ class BookingModal extends Component {
 
     }
 
-    handleOnChangeDatePicker = (date) => {
-        this.setState({ birthday: date[0] })
+    handleOnChangeDatePicker = (DatePicked) => {
+        let date = DatePicked[0]
+        let getDateThemSo_0 = (date) => {
+            let number = date.getDate()
+            if (number < 10) number = '0' + number
+            return number
+        }
+        let getMonthThemSo_0 = (date) => {
+            let number = +date.getMonth() + 1
+            if (number < 10) number = '0' + number
+            return number
+        }
+        let stringDateToUser = getDateThemSo_0(date) + '/' + getMonthThemSo_0(date) + '/' + date.getFullYear()
+        this.setState({
+            birthday: DatePicked[0],
+            birthday2ndModal: stringDateToUser
+        })
     }
 
     getDaytoString = (number) => {
@@ -112,8 +127,8 @@ class BookingModal extends Component {
             })
             if (res && res.errCode === 0) {
                 toast.success('Đặt lịch khám bệnh thành công')
-                this.props.closeModal()
                 this.setState({ open2ndModal: true })
+                console.log('this.state', this.state)
             }
             if (res && res.errCode === 1) {
                 toast.error('Vui lòng điền đầy đủ thông tin')
@@ -126,7 +141,7 @@ class BookingModal extends Component {
     }
 
     render() {
-        console.log('this.props', this.props)
+        // console.log('this.props', this.props)
         // console.log('this.state', this.state)
         return (
             <>
@@ -145,11 +160,11 @@ class BookingModal extends Component {
                         </div>
                         <div className='booking-modal-body'>
                             <div className='doctor-medipk-info'>
-                                <div className={this.props.dr_or_pk === '1' ? 'img-doctor' : 'img-medipk'}
+                                <div className={this.props.dr_or_pk === 1 ? 'img-doctor' : 'img-medipk'}
                                     style={{ backgroundImage: `url(${this.props.Dr_Pk.image ? this.props.Dr_Pk.image : ''})` }}>
                                 </div>
                                 <div className='info-doctor'>
-                                    {this.props.dr_or_pk === '1' ?
+                                    {this.props.dr_or_pk === 1 ?
                                         <h4><b>
                                             {this.props.Dr_Pk.position ? this.props.Dr_Pk.position : ''}&nbsp;
                                             {this.props.Dr_Pk.name ? this.props.Dr_Pk.name : ''}
@@ -183,7 +198,7 @@ class BookingModal extends Component {
                                     </tr>
                                     <tr>
                                         <td className='td1'>Email: &ensp;</td>
-                                        <td className='td2'><input type="email" placeholder='(trạng thái lịch hẹn sẽ được cập nhật qua email)' className='form-control'
+                                        <td className='td2'><input type="email" placeholder='Email người đặt lịch' className='form-control'
                                             onChange={(event) => this.handleOnChangeInput(event, 'email')}
                                             value={this.state.email} /></td>
                                     </tr>
@@ -263,7 +278,7 @@ class BookingModal extends Component {
                                 <textarea
                                     cols='90'
                                     rows="4"
-                                    placeholder='Nêu ngắn gọn lý do khám'
+                                    placeholder='(không bắt buộc)'
                                     onChange={(event) => this.handleOnChangeInput(event, 'reason')}
                                     value={this.state.reason}
                                 ></textarea>
@@ -279,16 +294,104 @@ class BookingModal extends Component {
 
 
 
+
                 {/* Gài thêm 1 modal thông báo luôn */}
                 <Modal
-                    // isOpen={this.state.open2ndModal}
-                    isOpen={true}
+                    isOpen={this.state.open2ndModal}
                     className={'booking-modal-container'}
                     size='lg'
                     centered
                 >
+                    <div className='head2'>
+                        &nbsp;
+                        <h1>Đặt khám thành công</h1>
+                        <div><i onClick={() => {
+                            this.setState({ open2ndModal: false })
+                            this.props.closeModal()
+                            this.setState({
+                                sdt: '', // sđt người đặt
+                                email: '', // email người đặt
+                                forwho: '0', // đặt cho ai?
+
+                                name: '', // họ tên bệnh nhân
+                                birthday: '', // ngày sinh bệnh nhân
+                                gender: '0', // giới tính?
+
+                                reason: '',
+                            })
+                        }}
+                            class="far fa-window-close fa-lg"></i></div>
+                    </div>
                     <div className='thongbaodatlichthanhcong'>
-                        Thông báo đặt lịch thành công
+                        <div className='head'>
+                            <p>Lịch hẹn của bạn đang trong trạng thái <b>"Chờ duyệt"</b>. Cơ sở y tế sẽ gọi điện thoại cho bạn nếu cần xác nhận</p>
+                            <p>Trạng thái lịch hẹn, hướng dẫn khám chi tiết sẽ được gửi qua tin nhắn điện thoại và email</p>
+                        </div>
+                        <div>
+                            <p>Thông tin đặt khám: </p>
+                            <table>
+                                <tr><td><u><i><b>Thời gian, địa điểm: </b></i></u></td></tr>
+                                <tr>
+                                    <td className='td1'>Cơ sở y tế: &ensp;</td>
+                                    <td className='td2'>{this.props.clinic.name ? this.props.clinic.name : ''}</td>
+                                </tr>
+                                <tr>
+                                    <td className='td1'>{this.props.dr_or_pk === 1 ? 'Bác sĩ' : 'Gói dịch vụ'}: &ensp;</td>
+                                    <td className='td2'>{this.props.dr_or_pk === 1 ?
+                                        <span>
+                                            {this.props.Dr_Pk.position ? this.props.Dr_Pk.position : ''}&nbsp;
+                                            {this.props.Dr_Pk.name ? this.props.Dr_Pk.name : ''}
+                                        </span>
+                                        :
+                                        <span>{this.props.Dr_Pk.name ? this.props.Dr_Pk.name : ''}</span>}</td>
+                                </tr>
+                                <tr>
+                                    <td className='td1'>Thời gian: &ensp;</td>
+                                    <td className='td2'>{this.props.clockTime ? this.props.clockTime : ''}&nbsp;
+                                        {this.props.date.data ?
+                                            this.getDaytoString(this.props.date.data.getDay()) + ' ngày ' +
+                                            this.props.date.data.getDate() + ' tháng ' +
+                                            (+this.props.date.data.getMonth() + 1) + ' năm ' +
+                                            this.props.date.data.getFullYear()
+                                            : ''}</td>
+                                </tr>
+                                <tr><td><u><i><b>Thông tin người đặt lịch: </b></i></u></td></tr>
+                                <tr>
+                                    <td className='td1'>Số điện thoại: &ensp;</td>
+                                    <td className='td2'>{this.state.sdt}</td>
+                                </tr>
+                                <tr>
+                                    <td className='td1'>Email: &ensp;</td>
+                                    <td className='td2'>{this.state.email}</td>
+                                </tr>
+                                <tr>
+                                    <td className='td1'>Đặt cho mình hay cho người thân? &ensp;</td>
+                                    <td className='td2'>{this.state.forwho === '1' ? 'Đặt cho mình' : 'Đặt cho người thân'}</td>
+                                </tr>
+                                <tr><td><u><i><b>Thông tin bệnh nhân: </b></i></u></td></tr>
+                                <tr>
+                                    <td className='td1'>Họ và tên: &ensp;</td>
+                                    <td className='td2'>{this.state.name}</td>
+                                </tr>
+                                <tr>
+                                    <td className='td1'>Ngày/tháng/năm sinh: &ensp;</td>
+                                    <td className='td2'>{this.state.birthday2ndModal}</td>
+
+                                </tr>
+                                <tr>
+                                    <td className='td1'>Giới tính: &ensp;</td>
+                                    <td className='td2'>{this.state.gender === '1' ? 'Nam' : 'Nữ'}</td>
+                                </tr>
+                                <tr><td><u><i><b>Lý do khám: </b></i></u></td></tr>
+                            </table>
+                            <textarea
+                                cols='90'
+                                rows="5"
+                                placeholder=''
+                                value={this.state.reason}
+                                readOnly
+                            ></textarea>
+                        </div>
                     </div>
                 </Modal>
             </>

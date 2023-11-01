@@ -160,7 +160,7 @@ class GoiDichVu_TaiSuDung extends Component {
                                 className='content-left'
                                 style={{ backgroundImage: `url(${img})` }}
                             ></div>
-                            <a target='_blank' href={`../detail-doctor/${this.props.clinicInfo.id}&${this.props.medipackageInfo.id}`}>Xem thêm</a>
+                            <a target='_blank' href={`../detail-medipackage/${this.props.clinicInfo.id}&${this.props.medipackageInfo.id}`}>Xem thêm</a>
                         </div>
 
                         <div className='content-right'>

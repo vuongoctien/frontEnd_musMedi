@@ -77,15 +77,15 @@ class Header extends Component {
                     {/* <div className="header-tabs-container">
                         <Navigator menus={this.state.menuApp} />
                     </div> */}
-                    <a href='/system/user-manage' title='Đơn đặt lịch'><h1><i className="fas fa-tasks"></i></h1></a>
+                    <a href='/system/user-manage' title='Đơn đặt lịch'><i className="fas fa-tasks"></i></a>
 
                     {/* <a href=''><h1></h1></a> */}
-                    <a href='/system/listDoctor' title='Bác sĩ & gói dịch vụ'><h1><i className="fas fa-stethoscope"></i></h1></a>
+                    <a href='/system/listDoctor' title='Bác sĩ & gói dịch vụ'><i className="fas fa-stethoscope"></i></a>
                     <a
                         href={`/system/LichBieu/${new Date().getDate()}&${new Date().getMonth() + 1}&${new Date().getFullYear()}`}
                         title='Lịch biểu'
                     >
-                        <h1><i className="fas fa-calendar-alt"></i></h1>
+                        <i className="fas fa-calendar-alt"></i>
                     </a>
 
                     {/* <a href='/system/ThoiGianBieu' title='Lịch biểu'>Tạm</a> */}

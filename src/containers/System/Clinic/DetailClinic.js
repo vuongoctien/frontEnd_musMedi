@@ -22,6 +22,7 @@ class DetailClinic extends Component {
             clinic: {},
             all_doctor_of_clinic: [],
             all_mediPackage_of_clinic: [],
+            showmore: false
         }
     }
 
@@ -73,18 +74,28 @@ class DetailClinic extends Component {
                                 {this.state.clinic.province}
                             </h5>
                         </div>
-                        <div className='datlich'>
+                        {/* <div className='datlich'>
                             <a href='#danhsachbacsi'><p>ĐẶT LỊCH</p></a>
                             <i className="far fa-paper-plane"></i>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <hr />
-                <div className='row'>
-                    <div className='col-1'></div>
+                <div style={{ position: 'relative', padding: '0 10vw' }}>
+                    {this.state.showmore === true ?
+                        <div className='showed'>
+                            <div style={{ height: '10px' }}></div>
+                            <h3 onClick={() => { this.setState({ showmore: false }) }}>Thu gọn</h3>
+                        </div>
+                        :
+                        <div className='hidden'>
+                            <h3 onClick={() => { this.setState({ showmore: true }) }}><br />Xem thêm ...</h3>
+                        </div>}
                     <div
                         dangerouslySetInnerHTML={{ __html: this.state.clinic.descriptionHTML }}
-                        className='gioithieu col-10'></div>
+                        className={this.state.showmore === false ? 'gioithieu gioithieu-hidden' : 'gioithieu'}
+                    ></div>
+
                 </div>
 
                 <hr />
@@ -93,9 +104,9 @@ class DetailClinic extends Component {
                         <div className='h1'>
                             <h1>Danh sách bác sĩ&nbsp;<i className="fas fa-level-down-alt"></i></h1>
                         </div>
-                        <div className='jump'>
+                        {/* <div className='jump'>
                             <p>Bấm vào <a href='#cacgoidichvu'>đây</a> để xem những gói dịch vụ y tế như khám sức khỏe, xét nghiệm, nội soi, v.v. </p>
-                        </div>
+                        </div> */}
                     </div>
                     {this.state.all_doctor_of_clinic.length === 0 ?
                         <label className='label'>Danh sách trống</label> : <></>}

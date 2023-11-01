@@ -82,17 +82,61 @@
                 }
             }
         }
+    }
 
-
+    .gioithieu-hidden {
+        height  : 150px;
+        overflow: hidden;
     }
 
     .gioithieu {
-        min-height: 200px;
+        font-size: 16px;
+
+        table {
+            transform  : translate(-50%);
+            margin-left: 40vw;
+
+            th,
+            td {
+                border: 1px solid black;
+            }
+        }
 
         img {
             max-width  : 40vw;
             max-height : 90vh;
-            margin-left: 19vw;
+            transform  : translate(-50%);
+            margin-left: 40vw;
+        }
+    }
+
+    .hidden {
+        cursor    : pointer;
+        color     : #4db2ec;
+        text-align: center;
+        width     : 100vw;
+        height    : 64px;
+        position  : absolute;
+        bottom    : 0px;
+        background: linear-gradient(to bottom, rgba(241, 243, 251, 0) 0%, #d3dcff 72%);
+        width     : 80vw;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .showed {
+        color     : #4db2ec;
+        text-align: center;
+        width     : 100vw;
+        height    : 64px;
+        cursor    : pointer;
+        background: linear-gradient(to top, rgba(241, 243, 251, 0) 0%, #d3dcff 72%);
+        width     : 80vw;
+
+        &:hover {
+            text-decoration: underline;
         }
     }
 
