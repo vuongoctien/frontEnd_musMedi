@@ -42,7 +42,8 @@ class BookingModal extends Component {
             // còn lại lấy ở prop, khỏi tạo state
 
             open2ndModal: false,
-            birthday2ndModal: '',
+            birthday2ndModal: new Date(0, 0, 0),
+            waitingModal: false
         }
     }
 
@@ -109,7 +110,18 @@ class BookingModal extends Component {
     }
 
     handleBooking = async () => {
-        if (window.confirm(`Bạn chắc chắn muốn thêm chuyên khoa "${this.state.name}" vào hệ thống?`) == true) {
+        let itemName = '';
+        if (this.props.dr_or_pk === 1) {
+            itemName = this.props.Dr_Pk.position + ' ' + this.props.Dr_Pk.name
+        } else itemName = this.props.Dr_Pk.name
+
+        let trinh = ''
+        if (this.state.birthday) {
+            trinh = this.state.birthday.getDate() + '/' + (+this.state.birthday.getMonth() + 1) + '/' + this.state.birthday.getFullYear()
+        }
+
+        if (window.confirm(`Bạn muốn đặt lịch khám bệnh?`) == true) {
+            this.setState({ waitingModal: true })
             let res = await createOrder({
                 date: this.props.date.value,
                 clockTime: this.props.clockTime,
@@ -124,17 +136,35 @@ class BookingModal extends Component {
                 patientBirthday: this.state.birthday,
                 patientGender: this.state.gender,
                 reason: this.state.reason,
+
+
+                // Còn phải gửi thêm cho email nữa, client có sẵn thì xài luôn, khỏi gọi lại
+                clinicName_forEmail: this.props.clinic.name,
+                itemName_forEmail: itemName,
+                date_forEmail: this.getDaytoString(this.props.date.data.getDay()) + ' ngày ' +
+                    this.props.date.data.getDate() + ' tháng ' +
+                    (+this.props.date.data.getMonth() + 1) + ' năm ' +
+                    this.props.date.data.getFullYear(),
+                patientBirthday_forEmail: trinh
+
             })
             if (res && res.errCode === 0) {
+                this.setState({ waitingModal: false })
                 toast.success('Đặt lịch khám bệnh thành công')
                 this.setState({ open2ndModal: true })
-                console.log('this.state', this.state)
             }
             if (res && res.errCode === 1) {
+                this.setState({ waitingModal: false })
                 toast.error('Vui lòng điền đầy đủ thông tin')
+
             }
-            if (!res || res.errCode === -1) {
+            if (res && res.errCode === -1) {
+                this.setState({ waitingModal: false })
                 toast.error('Lỗi máy chủ')
+            }
+            if (!res) {
+                alert('Lỗi không xác định. Chúng tôi sẽ tải lại trang bây giờ')
+                window.location.reload()
             }
         }
 
@@ -392,6 +422,19 @@ class BookingModal extends Component {
                                 readOnly
                             ></textarea>
                         </div>
+                    </div>
+                </Modal>
+
+
+                {/* Tiếp tục gài 1 modal waiting */}
+                <Modal
+                    isOpen={this.state.waitingModal}
+                    className={'booking-modal-container'}
+                    size='sm'
+                    centered
+                >
+                    <div className='text-center waiting'>
+                        <h1>Đang xử lý&nbsp;<i class="fas fa-spinner fa-spin"></i></h1>
                     </div>
                 </Modal>
             </>

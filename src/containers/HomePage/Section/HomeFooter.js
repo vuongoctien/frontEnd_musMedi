@@ -56,7 +56,7 @@ class HomeFooter extends Component {
                         <div className='a'><a href='bookingcare.com'>  Quy chế hoạt động</a></div>
                     </div>
                     <div className='col-3'>
-                        <b>Đối tác bảo trợ nội dung</b>
+                        <br /><br /><b>Đối tác bảo trợ nội dung</b>
                         <div className='doitacbaotronoidung'></div>
                     </div>
                 </div>

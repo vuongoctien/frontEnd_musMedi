@@ -79,7 +79,8 @@ class ManageSpecialty extends Component {
                 imageBase64: '',
                 descriptionHTML: '',
                 descriptionMarkdown: '',
-                ADD_or_EDIT: true
+                ADD_or_EDIT: true,
+                previewImgURL: '',
             })
         } else {
             let res = await getDetailSpecialtyById(selectedOption.value)
