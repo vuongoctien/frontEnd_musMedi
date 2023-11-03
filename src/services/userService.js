@@ -101,6 +101,10 @@ const createOrder = (data) => { //ok
     return axios.post(`/api/create-order`, data)
 }
 
+const sendSimpleEmail = (data) => { //ok
+    return axios.post(`/api/send-mail`, data)
+}
+
 
 /*********************************************************** */
 
@@ -254,5 +258,6 @@ export {
     getMediPkByIdClinicAndIdDoctor,
     getScheduleForUser,
     createOrder,
+    sendSimpleEmail,
 
 }

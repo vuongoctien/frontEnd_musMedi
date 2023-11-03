@@ -9,7 +9,7 @@ import DatePicker from '../../../../components/Input/DatePicker';
 import * as actions from "../../../../store/actions"
 import { LANGUAGES } from '../../../../utils';
 import Select from 'react-select';
-import { createOrder } from '../../../../services/userService';
+import { createOrder, sendSimpleEmail } from '../../../../services/userService';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 
@@ -122,7 +122,7 @@ class BookingModal extends Component {
 
         if (window.confirm(`Bạn muốn đặt lịch khám bệnh?`) == true) {
             this.setState({ waitingModal: true })
-            let res = await createOrder({
+            let res = await sendSimpleEmail({ // đầu tiên phải gọi hàm gửi mail
                 date: this.props.date.value,
                 clockTime: this.props.clockTime,
                 clinicID: this.props.clinic.id,
@@ -137,7 +137,6 @@ class BookingModal extends Component {
                 patientGender: this.state.gender,
                 reason: this.state.reason,
 
-
                 // Còn phải gửi thêm cho email nữa, client có sẵn thì xài luôn, khỏi gọi lại
                 clinicName_forEmail: this.props.clinic.name,
                 itemName_forEmail: itemName,
@@ -146,26 +145,68 @@ class BookingModal extends Component {
                     (+this.props.date.data.getMonth() + 1) + ' năm ' +
                     this.props.date.data.getFullYear(),
                 patientBirthday_forEmail: trinh
-
             })
-            if (res && res.errCode === 0) {
-                this.setState({ waitingModal: false })
-                toast.success('Đặt lịch khám bệnh thành công')
-                this.setState({ open2ndModal: true })
-            }
-            if (res && res.errCode === 1) {
-                this.setState({ waitingModal: false })
-                toast.error('Vui lòng điền đầy đủ thông tin')
-
-            }
-            if (res && res.errCode === -1) {
-                this.setState({ waitingModal: false })
-                toast.error('Lỗi máy chủ')
-            }
-            if (!res) {
+            if (!res) { // nếu không có res tức lỗi gì đó mình không biết
                 alert('Lỗi không xác định. Chúng tôi sẽ tải lại trang bây giờ')
                 window.location.reload()
             }
+            // nếu có res tức gọi thành không
+            if (res && res.errCode === -1) { //nếu lỗi chỗ Controler, khả năng là mail điền linh tinh
+                this.setState({ waitingModal: false })
+                toast.error('Có thể email không hợp lệ, vui lòng kiểm tra lại')
+            }
+            if (res && res.errCode === 2) { //nếu không điền đủ mấy trường kia
+                this.setState({ waitingModal: false })
+                toast.error('Vui lòng điền đầy đủ thông tin')
+            }
+
+            if (res && (res.errCode === 0 || res.errCode === 1)) { //nếu cái mail đó ok, hoặc không có email
+                let res2 = await createOrder({ // giờ ta mới tạo đơn
+                    date: this.props.date.value,
+                    clockTime: this.props.clockTime,
+                    clinicID: this.props.clinic.id,
+                    dr_or_pk: this.props.dr_or_pk,
+                    dr_or_pk_ID: this.props.Dr_Pk.id,
+                    //////////////////////////////////////////////////////////////
+                    forWho: this.state.forwho,
+                    phoneNumber: this.state.sdt,
+                    email: this.state.email,
+                    patientName: this.state.name,
+                    patientBirthday: this.state.birthday,
+                    patientGender: this.state.gender,
+                    reason: this.state.reason,
+
+
+                    // Còn phải gửi thêm cho email nữa, client có sẵn thì xài luôn, khỏi gọi lại
+                    clinicName_forEmail: this.props.clinic.name,
+                    itemName_forEmail: itemName,
+                    date_forEmail: this.getDaytoString(this.props.date.data.getDay()) + ' ngày ' +
+                        this.props.date.data.getDate() + ' tháng ' +
+                        (+this.props.date.data.getMonth() + 1) + ' năm ' +
+                        this.props.date.data.getFullYear(),
+                    patientBirthday_forEmail: trinh
+
+                })
+                if (res2 && res2.errCode === 0) { // nếu add DB thành công
+                    this.setState({ waitingModal: false })
+                    toast.success('Đặt lịch khám bệnh thành công')
+                    this.setState({ open2ndModal: true })
+                }
+                if (res2 && res2.errCode === 1) { // bước này có thể không cần vì check trên rồi
+                    this.setState({ waitingModal: false })
+                    toast.error('Vui lòng điền đầy đủ thông tin')
+
+                }
+                if (res2 && res2.errCode === -1) {
+                    this.setState({ waitingModal: false })
+                    toast.error('Lỗi máy chủ')
+                }
+                if (!res2) {
+                    alert('Lỗi không xác định. Chúng tôi sẽ tải lại trang bây giờ')
+                    window.location.reload()
+                }
+            }
+
         }
 
     }
@@ -227,10 +268,11 @@ class BookingModal extends Component {
                                             value={this.state.sdt} /></td>
                                     </tr>
                                     <tr>
-                                        <td className='td1'>Email: &ensp;</td>
-                                        <td className='td2'><input type="email" placeholder='Email người đặt lịch' className='form-control'
+                                        <td className='td1'>Email (không bắt buộc):  &ensp;</td>
+                                        <td className='td2'><input type="email" placeholder='Email người đặt lịch (không bắt buộc)' className='form-control'
                                             onChange={(event) => this.handleOnChangeInput(event, 'email')}
-                                            value={this.state.email} /></td>
+                                            value={this.state.email} />
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td className='td1'>Đặt cho mình hay cho người thân? &ensp;</td>
@@ -303,7 +345,7 @@ class BookingModal extends Component {
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr><td><u><i><b>Lý do khám: </b></i></u></td></tr>
+                                    <tr><td><u><i><b>Lý do khám</b></i></u> (không bắt buộc):</td></tr>
                                 </table>
                                 <textarea
                                     cols='90'
