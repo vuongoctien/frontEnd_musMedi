@@ -101,6 +101,20 @@ const createOrder = (data) => { //ok
     return axios.post(`/api/create-order`, data)
 }
 
+const getOrderByDate = (query) => { //ok
+    return axios.get(`/api/get-order-by-date?date=${query.date}&clinicID=${query.clinicID}`)
+}
+
+
+
+
+
+
+
+
+
+
+
 const sendSimpleEmail = (data) => { //ok
     return axios.post(`/api/send-mail`, data)
 }
@@ -259,5 +273,6 @@ export {
     getScheduleForUser,
     createOrder,
     sendSimpleEmail,
+    getOrderByDate,
 
 }

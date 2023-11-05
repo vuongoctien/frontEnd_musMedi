@@ -8,21 +8,41 @@ import { FormattedMessage } from 'react-intl';
 import _ from 'lodash'
 import FooterClinic from '../Footer/FooterClinic';
 import DatePicker from 'react-flatpickr';
+import { getOrderByDate, getAllDoctorByClinicId, getAllMediPackageByClinicId } from '../../services/userService';
 
 class UserManage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            datePicked: new Date()
+            datePicked: new Date(),
+            arrOrder: [],
+            listDr: [], listPk: []
         }
     }
 
 
 
 
-    componentDidMount() {
+    async componentDidMount() {
         document.title = `đơn đặt lịch | ${this.props.userInfo.name}`
         document.getElementsByClassName('fa-tasks')[0].setAttribute("style", "color:orange;")
+        this.fetchAllOrderByDate()
+        /** Khi mới Mason Mount :D, state.datePicked chính là hôm nay, dù giờ/phút/giây không phải 00:00:00
+         * nhưng nhét vào hàm fetchAllOrderByDate thì sẽ biến thành 00:00:00
+         * tóm lại mình đút đúng ngày là được, giờ/phút/giây kệ mẹ
+        */
+    }
+
+    fetchAllOrderByDate = async () => { // sẽ dùng nhiều lần nên viết thành 1 hàm rồi gọi đi gọi lại cho tiện
+        let dd = this.state.datePicked.getDate()
+        let mm = +this.state.datePicked.getMonth() + 1
+        let yy = this.state.datePicked.getFullYear()
+        let stringToday = yy + '-' + mm + '-' + dd + ' 00:00:00'
+        let res = await getOrderByDate({
+            date: stringToday,
+            clinicID: this.props.userInfo.id
+        })
+        if (res && res.errCode === 0) { this.setState({ arrOrder: res.booking_by_date }) }
     }
 
     handleOnChangeDatePicker = (datePicked) => {
@@ -31,7 +51,7 @@ class UserManage extends Component {
 
     render() {
         console.log('this.state', this.state)
-
+        console.log('this.props', this.props)
         return (
 
             <div className='dondatlich'>
@@ -90,22 +110,24 @@ class UserManage extends Component {
                         margin: '0px 40px 0px 10px'
                     }}></div>
                     <div className='list'>
-                        {[0, 1, 2, 3, 4, 5, 6].map(ok => {
+                        {this.state.arrOrder && this.state.arrOrder.map(order => {
                             return (<div className='child'>
                                 <div className='ngaygio'>
-                                    <h4>00:00 - 00:00</h4>
-                                    <h6>0000-00-00</h6>
-                                    <small>Dat luc: 9999/99/99 11:00:00</small>
+                                    <h4>{order.clockTime ? order.clockTime : ''}</h4>
+                                    <h6>9999-99-99</h6>
+                                    <small>Đặt lúc: 9999/99/99 99:99:99</small>
                                 </div>
                                 <div style={{ border: '1px solid gainsboro', margin: '10px 0px 10px 0px' }}></div>
                                 <div className='infobenhnhan'>
-                                    <h5><b>Nu - 2009 - Vuong Thi Tien</b></h5>
-                                    <h6>vuongooctien@gmail.com</h6>
-                                    <h6>12345678900 - nguoi nha dat giup</h6>
+                                    <h5><b>{order.patientName ? order.patientName : ''}</b></h5>
+                                    <h6><b>{order.patientGender === 1 ? 'Nam' : 'Nữ'} - 9999</b></h6>
+                                    <h6>{order.email ? order.email : '(không có email)'}</h6>
+                                    <h6>{order.phoneNumber ? order.phoneNumber : ''} -
+                                        {order.forWho === 1 ? ' Bệnh nhân tự đặt' : ' Người thân đặt giúp'}</h6>
                                 </div>
                                 <div style={{ border: '1px solid gainsboro', margin: '10px 0px 10px 0px' }}></div>
                                 <div className='infokham'>
-                                    <h5><b>PSG Tien Si Bac si Linh Ha Lan</b></h5>
+                                    <small><b>Việc cần làm bây giờ là xóa sổ cái MediPackage đi, gộp chung bảng với Doctor, sau đó link với bảng Booking</b></small>
                                 </div>
                             </div>)
                         })}
