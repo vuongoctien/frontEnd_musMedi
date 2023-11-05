@@ -162,7 +162,7 @@ class BookingModal extends Component {
 
             if (res && (res.errCode === 0 || res.errCode === 1)) { //nếu cái mail đó ok, hoặc không có email
                 let res2 = await createOrder({ // giờ ta mới tạo đơn
-                    date: this.props.date.value,
+                    date: this.props.date.data,
                     clockTime: this.props.clockTime,
                     clinicID: this.props.clinic.id,
                     dr_or_pk: this.props.dr_or_pk,

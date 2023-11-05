@@ -63,8 +63,6 @@
                 margin-left        : 5px; // cách ra 5 để cân
                 background-position: center center;
                 background-repeat  : no-repeat;
-                background-size    : cover;
-                background-color   : #eee;
                 border             : 1px solid gainsboro;
 
                 // &.section-specialty {
@@ -78,9 +76,14 @@
                 &.section-outstanding-doctor {
 
                     // background-image: url('../../assets/outstanding-doctor/haland.jpg');
-                    width        : 120px;
-                    height       : 120px;
-                    border-radius: 50%;
+                    width          : 120px;
+                    height         : 120px;
+                    border-radius  : 50%;
+                    background-size: contain;
+                }
+
+                &.section-medical-facility {
+                    background-size: contain;
                 }
 
                 &.section-handbook {

@@ -25,10 +25,12 @@ class UserManage extends Component {
         document.getElementsByClassName('fa-tasks')[0].setAttribute("style", "color:orange;")
     }
 
-    handleOnChangeDatePicker = () => { }
+    handleOnChangeDatePicker = (datePicked) => {
+        this.setState({ datePicked: datePicked[0] })
+    }
 
     render() {
-        console.log('this.props UserManage', this.props)
+        console.log('this.state', this.state)
 
         return (
 
