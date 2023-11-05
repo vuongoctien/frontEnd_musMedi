@@ -1,90 +1,113 @@
-#customers {
-    font-family    : Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width          : 100%;
-}
+.dondatlich {
+    margin-top : 5px;
+    display    : flex;
+    min-width  : 1250px;
+    position   : fixed;
+    top        : 7vh;
+    height     : 92vh;
+    padding-top: 2px;
+    border-top : 1px solid gray;
 
-#customers th,
-#customers td {
-    border : 1px solid #ddd;
-    padding: 1vh;
-}
+    .nofi {
+        width   : 22%;
+        overflow: scroll;
 
-// #customers tr:nth-child(even) {
-//     background-color: #f2f2f2;
-// }
+        .notification {
+            background-color: cyan;
+            color           : black;
+            text-decoration : none;
+            padding         : 22px 10px 0px;
+            position        : relative;
+            display         : inline-block;
+            border-radius   : 2px;
+            width           : 200px;
+            text-align      : center;
+            margin          : 10px;
+            cursor          : pointer;
 
-#customers tr:hover {
-    background-color: #f5f5f5;
-}
-
-#customers th {
-    padding-top     : 2vh;
-    padding-bottom  : 2vh;
-    text-align      : left;
-    background-color: #31a379;
-    color           : white;
-}
-
-.btn-edit {
-    width     : 50px;
-    border    : none;
-    outline   : none;
-    background: transparent;
-    color     : orange;
-
-    &:hover {
-        background-color: transparent !important;
-        color           : orange !important;
-    }
-}
-
-.btn-delete {
-    width     : 50px;
-    border    : none;
-    outline   : none;
-    background: transparent;
-    color     : rgb(235, 25, 12);
-
-    &:hover {
-        background-color: transparent !important;
-        color           : rgb(235, 25, 12) !important;
-    }
-}
-
-.modal-user-container {
-    .modal-content {
-        .modal-header {
-            button {
-                background-color: transparent !important;
+            .chuaxem {
+                position        : absolute;
+                top             : -10px;
+                right           : -10px;
+                padding         : 5px 12px;
+                border-radius   : 50%;
+                background-color: red;
                 color           : white;
-                border          : none;
-                font-size       : 27px;
+                font-size       : 17px;
+            }
+
+            .xemnhungchuasua {
+                position        : absolute;
+                top             : -10px;
+                right           : 40px;
+                padding         : 5px 12px;
+                border-radius   : 50%;
+                background-color: gray;
+                color           : white;
+                font-size       : 17px;
             }
         }
-    }
 
-    .modal-user-body {
-        display  : flex;
-        gap      : 15px;
-        flex-wrap: wrap;
-    }
+        .list {
 
-    .input-container {
-        display       : flex;
-        flex-direction: column;
-        width         : 49%;
+            .li {
+                display: flex;
+                border : 1px solid gainsboro;
+                padding: 1px;
+                margin : 1px;
 
-        &.max-width-input {
-            width: 100%;
+                .date {
+                    padding: 5px 5px 0px;
+                }
+
+                .num {
+                    color        : white;
+                    padding      : 8px 12px 0px;
+                    border-radius: 50%;
+                }
+            }
         }
 
-        input {
-            border-radius: 3px;
-            border       : 1px solid gray;
-            height       : 30px;
-            outline      : none;
-            padding      : 5px;
+    }
+
+    .book {
+        width   : 78%;
+        overflow: scroll;
+
+        .date {
+            display         : flex;
+            background-color: #d3ffd3;
+
+            .datepicker {
+                width  : 200px;
+                padding: 5px 10px;
+            }
+
+            .datepicked {
+                padding: 5px 10px;
+            }
+        }
+
+        .list {
+            .child {
+                display: flex;
+                border : 1px solid gainsboro;
+                margin : 3px;
+
+                .ngaygio {
+                    padding: 10px;
+                    width  : 20%;
+                }
+
+                .infobenhnhan {
+                    padding: 10px;
+                    width  : 30%;
+                }
+
+                .infokham {
+                    padding: 10px;
+                }
+            }
         }
     }
 }

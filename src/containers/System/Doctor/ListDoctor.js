@@ -77,6 +77,7 @@ class ListDoctor extends Component {
                     <div className='col-3'><a href='/system/addDoctor'><button type="button" class="btn btn-outline-success"><i className="fas fa-plus"></i> Thêm bác sĩ mới</button></a></div>
                     <div className='col-1'></div>
                     <div className="col-10 row list-doctor">
+                        {this.state.arrDoctor.length === 0 ? <h5>(Danh sách trống)</h5> : ''}
                         {this.state.arrDoctor && this.state.arrDoctor.map((item, index) => {
 
                             return (
