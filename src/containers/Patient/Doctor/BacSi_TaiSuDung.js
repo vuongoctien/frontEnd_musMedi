@@ -144,7 +144,7 @@ class BacSi_TaiSuDung extends Component {
         listClockTime = listClockTime.sort()
 
         return (
-            <div className='taisudung'>
+            <div className='bacsi-taisudung'>
                 <BookingModal
                     isOpen={this.state.isOpen} // đóng hay mở?
                     closeModal={this.closeModal} // hàm đóng

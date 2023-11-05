@@ -143,7 +143,7 @@ class GoiDichVu_TaiSuDung extends Component {
         listClockTime = listClockTime.sort()
 
         return (
-            <div className='taisudung'>
+            <div className='goidv-taisudung'>
                 <BookingModal
                     isOpen={this.state.isOpen} // đóng hay mở?
                     closeModal={this.closeModal} // hàm đóng

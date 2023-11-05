@@ -62,4 +62,11 @@ mình thử rồi mà không tự làm được, khá là khó hiểu
 Mục đích của dùng Redux là đỡ phải gọi đi gọi lại xuống DB nhiều lần (vấn đề hiệu năng)
 Nhưng trong khuôn khổ ĐỒ ÁN này, mình có thể không dùng cho đỡ phức tạp
 
-đúng là prop rất phức tạp, với chức năng login mình đã dùng mã learn_login_prop2 để đánh dấu 
+đúng là prop rất phức tạp, với chức năng login mình đã dùng mã learn_login_prop2 để đánh dấu (redux đấy)
+-------------------------------------------------------------------------------------------------
+
+phần cuối, phần khó nhất, chức năng quản lý lịch hẹn, phải note lại
+
+    Đầu tiên, cứ hoàn thành được "chọn ngày nào, hiện đơn ngày đó" cái đã
+Khi pick 1 ngày, state thay đổi, gọi truy vấn: Tìm tất cả các đơn đặt khám ngày đó
+lúc này thứ tự của nó theo DB, sẽ là từ muộn đến sớm
