@@ -101,7 +101,7 @@ class EditDoctor extends Component {
 
     handleEditMediPackage = async (new_mediPackage) => { // phải truyền cả cục data cần edit vào đây
         if (window.confirm(`Bạn chắc chắn muốn chỉnh sửa thông tin gói dịch vụ "${this.state.name}" ?`) == true) {
-            let res = await editMediPackageOfClinic(new_mediPackage)
+            let res = await editDoctorOfClinic(new_mediPackage)
             if (res && res.errCode === 0) {
                 alert('Chỉnh sửa thông tin thành công')
                 window.location.reload(false)
@@ -161,7 +161,7 @@ class EditDoctor extends Component {
         } else { // trường hợp sửa MediPackage
             if (selectedOption.value === 0) {
                 this.setState({
-                    selectedMediPackage: selectedOption,
+                    selectedDoctor: selectedOption,
                     name: '',
                     imageBase64: '',
                     intro: '',
@@ -173,22 +173,22 @@ class EditDoctor extends Component {
                     ADD_or_EDIT: true,
                 })
             } else {
-                let res = await getDetailMediPackageById(selectedOption.value)
+                let res = await getDetailInfoDoctor(selectedOption.value)
                 if (res && res.errCode === 0) {
                     this.setState({
-                        selectedMediPackage: selectedOption,
+                        selectedDoctor: selectedOption,
                         name: res.data.name,
                         imageBase64: res.data.image,
                         intro: res.data.intro,
                         thongtinkham: res.data.thongtinkham,
                         selectedPackageType: {
-                            label: res.data.packageType,
-                            value: res.data.packageType
+                            label: res.data.position,
+                            value: res.data.position
                         },
                         descriptionHTML: res.data.descriptionHTML,
                         descriptionMarkdown: res.data.descriptionMarkdown,
                         previewImgURL: res.data.image, // do đã buffer từ backend rồi nên dùng luôn
-                        ADD_or_EDIT: false,
+                        ADD_or_EDIT: false
                     })
                 }
             }
@@ -266,7 +266,7 @@ class EditDoctor extends Component {
 
     render() {
         // console.log('this.props.userInfo', this.props.userInfo)
-        // console.log('state hien tai', this.state)
+        console.log('state hien tai', this.state)
         return (
             <div className=''>
                 <div className='col-12 row'>
@@ -369,6 +369,18 @@ class EditDoctor extends Component {
                                         "value": "Xét nghiệm"
                                     },
                                     {
+                                        "label": "Nội soi",
+                                        "value": "Nội soi"
+                                    },
+                                    {
+                                        "label": "Phẫu thuật",
+                                        "value": "Phẫu thuật"
+                                    },
+                                    {
+                                        "label": "Chụp chiếu",
+                                        "value": "Chụp chiếu"
+                                    },
+                                    {
                                         "label": "Khác",
                                         "value": "Khác"
                                     }]}
@@ -444,9 +456,9 @@ class EditDoctor extends Component {
                                                 className='btn btn-info'
                                                 onClick={() => this.handleEditMediPackage({
                                                     idClinic: this.props.userInfo.id,
-                                                    idMediPackage: this.state.selectedMediPackage.value,
+                                                    idDoctor: this.state.selectedDoctor.value,
                                                     name: this.state.name,
-                                                    packageType: this.state.selectedPackageType.value,
+                                                    position: this.state.selectedPackageType.value,
                                                     image: this.state.imageBase64,
                                                     intro: this.state.intro,
                                                     thongtinkham: this.state.thongtinkham,

@@ -62,7 +62,7 @@ class DetailDoctorModal extends Component {
                                     style={{ backgroundImage: `url(${this.props.infoDoctor.image})` }}
                                 ></div>
                             </div>
-                            {this.props.infoDoctor.position ?
+                            {this.props.infoDoctor.dr_or_pk === 1 ?
                                 <div className='col-9 row'>
                                     <div className='col-6'>
                                         <div><h6>Họ và tên: </h6></div>
@@ -92,7 +92,7 @@ class DetailDoctorModal extends Component {
                                     <div className='col-12'><br /></div>
                                     <div className='col-12'>
                                         <div><h6>Loại: </h6></div>
-                                        <div><input disabled className='form-control' type="text" value={this.props.infoDoctor.packageType} /></div>
+                                        <div><input disabled className='form-control' type="text" value={this.props.infoDoctor.position} /></div>
                                     </div>
                                     <div className='col-12'><br /></div>
                                 </div>

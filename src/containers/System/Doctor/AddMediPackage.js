@@ -207,6 +207,10 @@ class AddMediPackage extends Component {
                                         "value": "Phẫu thuật"
                                     },
                                     {
+                                        "label": "Chụp chiếu",
+                                        "value": "Chụp chiếu"
+                                    },
+                                    {
                                         "label": "Khác",
                                         "value": "Khác"
                                     }]}
