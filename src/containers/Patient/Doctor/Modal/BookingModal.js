@@ -162,7 +162,7 @@ class BookingModal extends Component {
 
             if (res && (res.errCode === 0 || res.errCode === 1)) { //nếu cái mail đó ok, hoặc không có email
                 let res2 = await createOrder({ // giờ ta mới tạo đơn
-                    date: this.props.date.data,
+                    date: this.props.date.value,
                     clockTime: this.props.clockTime,
                     clinicID: this.props.clinic.id,
                     dr_or_pk: this.props.dr_or_pk,
@@ -199,7 +199,7 @@ class BookingModal extends Component {
                 }
                 if (res2 && res2.errCode === -1) {
                     this.setState({ waitingModal: false })
-                    toast.error('Lỗi máy chủ, hoặc do kích thước ảnh lớn hơn giới hạn')
+                    toast.error('Lỗi máy chủ')
                 }
                 if (!res2) {
                     alert('Lỗi không xác định. Chúng tôi sẽ tải lại trang bây giờ')
