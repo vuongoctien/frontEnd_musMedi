@@ -131,7 +131,7 @@ class ListDoctor extends Component {
                                         <div className='col-9 doctor-medipackage-info'>
                                             {/* <br /> */}
                                             <h5 style={{ fontWeight: '500' }}>{item.name}</h5>
-                                            <h6 style={{ fontStyle: 'italic', opacity: '0.8' }}>-- Loại: {item.packageType}</h6>
+                                            <h6 style={{ fontStyle: 'italic', opacity: '0.8' }}>-- Loại: {item.position}</h6>
                                             <div className="d-flex w-100 justify-content-between">
                                                 <h5 className="mb-1"></h5>
                                                 <small><h1><button title='Bấm để xem chi tiết' type="button" className="btn btn-link"

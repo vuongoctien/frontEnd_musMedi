@@ -316,6 +316,10 @@ class AddClinic extends Component {
                 password: this.state.password,
                 status: 1, // cứ đặt mặc định là 1 (có hoạt động) // Muốn chỉnh thì sang bên danh sách
             })
+            if (!res) { toast.error('Lỗi không xác định') }
+            if (res && res.errCode === -1) {
+                toast.error('Lỗi máy chủ, hoặc do kích thước ảnh lớn hơn giới hạn')
+            }
             if (res && res.errCode === 0) {
                 alert('Thêm mới CSYT thành công')
                 window.location = "/adLogin/admin/clinicRead";

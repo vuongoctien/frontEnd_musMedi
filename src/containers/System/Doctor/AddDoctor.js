@@ -71,7 +71,7 @@ class AddDoctor extends Component {
             })
             console.log('res', res)
             if (res && res.errCode === -1) {
-                toast.error('Lỗi máy chủ')
+                toast.error('Lỗi máy chủ, hoặc do kích thước ảnh lớn hơn giới hạn')
             }
             if (res && res.errCode === 0) {
                 alert('Thêm mới Bác sĩ thành công')

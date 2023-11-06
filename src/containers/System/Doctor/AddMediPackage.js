@@ -69,8 +69,8 @@ class AddMediPackage extends Component {
                 thongtinkham: this.state.thongtinkham,
                 descriptionHTML: this.state.descriptionHTML,
                 descriptionMarkdown: this.state.descriptionMarkdown,
-                nickName: 'Đồ án còn rất nhiều thiếu xót',
-                password: 'Đồ án còn rất nhiều thiếu xót',
+                nickName: 'Đồ án còn rất nhiều thiếu sót',
+                password: 'Đồ án còn rất nhiều thiếu sót',
                 ///
                 status: 1,
                 clinicID: this.props.userInfo.id,
@@ -80,7 +80,7 @@ class AddMediPackage extends Component {
             console.log('res', res)
 
             if (res && res.errCode === -1) {
-                toast.error('Lỗi máy chủ')
+                toast.error('Lỗi máy chủ, hoặc do kích thước ảnh lớn hơn giới hạn')
             }
             if (res && res.errCode === 0) {
                 alert('Thêm mới Gói dịch vụ thành công')

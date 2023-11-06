@@ -199,7 +199,7 @@ class BookingModal extends Component {
                 }
                 if (res2 && res2.errCode === -1) {
                     this.setState({ waitingModal: false })
-                    toast.error('Lỗi máy chủ')
+                    toast.error('Lỗi máy chủ, hoặc do kích thước ảnh lớn hơn giới hạn')
                 }
                 if (!res2) {
                     alert('Lỗi không xác định. Chúng tôi sẽ tải lại trang bây giờ')
