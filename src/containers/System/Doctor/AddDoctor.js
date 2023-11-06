@@ -67,6 +67,7 @@ class AddDoctor extends Component {
                 status: 1,
                 clinicID: this.props.userInfo.id,
                 priceDefault: 250,
+                dr_or_pk: 1
             })
             console.log('res', res)
             if (res && res.errCode === -1) {
@@ -192,6 +193,7 @@ class AddDoctor extends Component {
                                         type="text"
                                         onChange={(event) => this.handleOnChangeInput(event, 'nickName')}
                                         value={this.state.nickName}
+                                        disabled
                                     />
                                 </div>
                             </div>
@@ -203,6 +205,7 @@ class AddDoctor extends Component {
                                         type="password"
                                         onChange={(event) => this.handleOnChangeInput(event, 'password')}
                                         value={this.state.password}
+                                        disabled
                                     />
                                 </div>
                             </div>

@@ -10,7 +10,7 @@ import { template } from 'lodash';
 import Select from 'react-select'
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-import { createMediPackage } from '../../../services/userService'
+import { createDoctor } from '../../../services/userService'
 import { reject } from 'lodash';
 import { emitter } from '../../../utils/emitter';
 import logo from '../../../assets/musMedi.png'
@@ -49,20 +49,36 @@ class AddMediPackage extends Component {
     handleSaveNewClinic = async () => {
         if (window.confirm(`Bạn chắc chắn muốn thêm Gói dịch vụ "${this.state.name}" vào hệ thống?`) == true) {
             // thêm vào bảng Clinic
-            let res = await createMediPackage({
+            let res = await createDoctor({
+                // name: this.state.name,
+                // packageType: this.state.selectedPackageType.value,
+                // imageBase64: this.state.imageBase64,
+                // intro: this.state.intro,
+                // thongtinkham: this.state.thongtinkham,
+                // descriptionHTML: this.state.descriptionHTML,
+                // descriptionMarkdown: this.state.descriptionMarkdown,
+                // ///
+                // status: 1,
+                // clinicID: this.props.userInfo.id,
+                // priceDefault: 750,
+
                 name: this.state.name,
-                packageType: this.state.selectedPackageType.value,
+                position: this.state.selectedPackageType.value,
                 imageBase64: this.state.imageBase64,
                 intro: this.state.intro,
                 thongtinkham: this.state.thongtinkham,
                 descriptionHTML: this.state.descriptionHTML,
                 descriptionMarkdown: this.state.descriptionMarkdown,
+                nickName: 'Đồ án còn rất nhiều thiếu xót',
+                password: 'Đồ án còn rất nhiều thiếu xót',
                 ///
                 status: 1,
                 clinicID: this.props.userInfo.id,
-                priceDefault: 750,
+                priceDefault: 250,
+                dr_or_pk: 0
             })
             console.log('res', res)
+
             if (res && res.errCode === -1) {
                 toast.error('Lỗi máy chủ')
             }
@@ -77,7 +93,6 @@ class AddMediPackage extends Component {
             if (res && res.errCode === 2) {
                 toast.error('Tên đăng nhập này đã tồn tại')
             }
-
         }
     }
 
@@ -182,6 +197,14 @@ class AddMediPackage extends Component {
                                     {
                                         "label": "Xét nghiệm",
                                         "value": "Xét nghiệm"
+                                    },
+                                    {
+                                        "label": "Nội soi",
+                                        "value": "Nội soi"
+                                    },
+                                    {
+                                        "label": "Phẫu thuật",
+                                        "value": "Phẫu thuật"
                                     },
                                     {
                                         "label": "Khác",
