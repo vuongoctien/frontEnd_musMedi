@@ -9,6 +9,7 @@ import _ from 'lodash'
 import FooterClinic from '../Footer/FooterClinic';
 import DatePicker from 'react-flatpickr';
 import { getOrderByDate, getAllDoctorByClinicId, getAllMediPackageByClinicId } from '../../services/userService';
+import moment from 'moment/moment';
 
 class UserManage extends Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class UserManage extends Component {
         this.state = {
             datePicked: new Date(),
             arrOrder: [],
-            listDr: [], listPk: []
+
         }
     }
 
@@ -37,7 +38,7 @@ class UserManage extends Component {
         let dd = this.state.datePicked.getDate()
         let mm = +this.state.datePicked.getMonth() + 1
         let yy = this.state.datePicked.getFullYear()
-        let stringToday = yy + '-' + mm + '-' + dd + ' 00:00:00'
+        let stringToday = yy + '-' + mm + '-' + dd
         let res = await getOrderByDate({
             date: stringToday,
             clinicID: this.props.userInfo.id
@@ -47,6 +48,7 @@ class UserManage extends Component {
 
     handleOnChangeDatePicker = (datePicked) => {
         this.setState({ datePicked: datePicked[0] })
+        this.fetchAllOrderByDate()
     }
 
     render() {
@@ -119,15 +121,20 @@ class UserManage extends Component {
                                 </div>
                                 <div style={{ border: '1px solid gainsboro', margin: '10px 0px 10px 0px' }}></div>
                                 <div className='infobenhnhan'>
-                                    <h5><b>{order.patientName ? order.patientName : ''}</b></h5>
-                                    <h6><b>{order.patientGender === 1 ? 'Nam' : 'Nữ'} - 9999</b></h6>
-                                    <h6>{order.email ? order.email : '(không có email)'}</h6>
-                                    <h6>{order.phoneNumber ? order.phoneNumber : ''} -
-                                        {order.forWho === 1 ? ' Bệnh nhân tự đặt' : ' Người thân đặt giúp'}</h6>
+                                    <h5>{order.patientName ? order.patientName : ''}</h5>
+                                    <h6>{order.patientGender === 1 ? 'Nam' : 'Nữ'} - {moment(order.patientBirthday)._d.getFullYear()}</h6>
+                                    <h6>{order.email ? order.email : '(không có email)'} - {order.phoneNumber ? order.phoneNumber : ''}</h6>
                                 </div>
                                 <div style={{ border: '1px solid gainsboro', margin: '10px 0px 10px 0px' }}></div>
                                 <div className='infokham'>
-                                    <small><b>Việc cần làm bây giờ là xóa sổ cái MediPackage đi, gộp chung bảng với Doctor, sau đó link với bảng Booking</b></small>
+                                    <div style={{ display: 'flex' }}>
+                                        <div className={order.dr_or_pk === 1 ? 'small-ava dr' : 'small-ava pk'} style={{ backgroundImage: `url(${new Buffer(order.doctorData.image, 'base64').toString('binary')})` }}></div>
+                                        <div style={{ marginLeft: '10px' }}>
+                                            <small>{order.doctorData.position}</small>
+                                            <h5><b>{order.doctorData.name}</b></h5>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>)
                         })}
