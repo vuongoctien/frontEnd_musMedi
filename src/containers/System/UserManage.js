@@ -22,7 +22,8 @@ class UserManage extends Component {
             arrOrder: [],
             isOpenDetailPatient: false,
             thisPatient: {},
-            arrChuaxem: []
+            arrChuaxem: [],
+            arrChuaxem_Set: []
         }
     }
 
@@ -39,6 +40,8 @@ class UserManage extends Component {
         // Đầu tiên, gọi 1 lần duy nhất xuống DB, lấy tất cả các lịch "Chưa xem" + "of Clinic"
         let res = await getOrderChuaxemOfClinic({ clinicID: this.props.userInfo.id })
         this.setState({ arrChuaxem: res.chuaxem })
+        let uniqueSet = new Set(this.state.arrChuaxem.map(obj => obj.date))
+        this.setState({ arrChuaxem_Set: [...uniqueSet] })
     }
 
     fetchAllOrderByDate = async () => { // sẽ dùng nhiều lần nên viết thành 1 hàm rồi gọi đi gọi lại cho tiện
@@ -137,35 +140,30 @@ class UserManage extends Component {
 
 
                 <div className='nofi'>
-                    <div>
-                        <a class="notification">
-                            <h3>Đang chờ duyệt</h3>
-                            <span class="chuaxem">{this.state.arrChuaxem.length}</span>
-                            <span class="xemnhungchuasua">0</span>
-                        </a>
-                        <a class="notification">
-                            <h3>Chưa xử lý</h3>
-                            <span class="xemnhungchuasua">0</span>
-                        </a>
+                    <div className='view'>
+                        <div class="notification">
+                            <div className='choduyet'>Chờ duyệt</div>
+                            <span class="badge badge1">?</span>
+                        </div>
+                        <div class="notification">
+                            <span><i class="fas fa-bell"></i></span>
+                            <span class="badge badge2">{this.state.arrChuaxem.length}</span>
+                        </div>
                     </div>
-                    <div style={{
-                        border: '1px solid black',
-                        margin: '0px 40px 0px 10px'
-                    }}></div>
                     <div className='list'>
-                        <h5><br /></h5>
-                        <ul>
-                            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(item => {
-                                return (<li><div className='li'>
-                                    <div className='date'><h4>9999-99-99</h4></div>
-                                    &ensp;
-                                    <div style={{ backgroundColor: '#8e8e8e' }} className='num'><h5>0</h5></div>
-                                    &ensp;
-                                    <div style={{ backgroundColor: 'orange' }} className='num'><h5>0</h5></div>
-                                </div></li>)
+                        <label>Đơn khám mới:</label>
+                        <table>
+                            {this.state.arrChuaxem_Set.map(ngay => {
+                                return (<tr>
+                                    <td>&emsp;{ngay}&emsp;</td>
+                                    <td><div class="num badge2">
+                                        {this.state.arrChuaxem.filter(obj => obj.date === ngay).length}
+                                    </div></td>
+                                    <td>&nbsp;</td>
+                                </tr>)
                             })}
+                        </table>
 
-                        </ul>
                     </div>
                 </div>
 
@@ -197,7 +195,7 @@ class UserManage extends Component {
                                     status = 'lightgreen'
                                     break;
                                 case 'Chờ duyệt':
-                                    status = 'lightblue'
+                                    status = 'blue'
                                     break;
                                 case 'Đã khám':
                                     status = 'white'

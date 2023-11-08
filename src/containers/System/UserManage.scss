@@ -2,67 +2,89 @@
     margin-top : 5px;
     display    : flex;
     position   : fixed;
-    top        : 7vh;
+    top        : 40px;
     height     : 92vh;
     padding-top: 2px;
-    border-top : 1px solid gray;
 
     .nofi {
-        width   : 270px;
+        width   : 250px;
         overflow: scroll;
 
-        .notification {
-            background-color: cyan;
-            color           : black;
-            text-decoration : none;
-            padding         : 22px 10px 0px;
-            position        : relative;
-            display         : inline-block;
-            border-radius   : 2px;
-            width           : 200px;
-            text-align      : center;
-            margin          : 10px;
-            cursor          : pointer;
+        .view {
+            display        : flex;
+            justify-content: space-between;
+            padding        : 0px 20px;
+            border-bottom  : 1px solid black;
+        }
 
-            .chuaxem {
-                position        : absolute;
-                top             : -10px;
-                right           : -10px;
+        .badge2 {
+            background-color: red;
+            color           : white;
+        }
+
+        .badge1 {
+            background-color: gainsboro;
+            color           : blue;
+            border          : 1px solid black;
+        }
+
+        .notification {
+            margin         : 10px 5px 10px 0px;
+            text-decoration: none;
+            padding        : 0px 0px;
+            position       : relative;
+            display        : inline-block;
+            border-radius  : 2px;
+            cursor         : pointer;
+
+            .choduyet {
+                font-size       : 20px;
                 padding         : 5px 12px;
-                border-radius   : 50%;
-                background-color: orange;
-                color           : white;
-                font-size       : 17px;
+                border-radius   : 3px;
+                border          : 1px solid black;
+                background-color: lightcyan;
             }
 
-            .xemnhungchuasua {
-                position        : absolute;
-                top             : -10px;
-                right           : 40px;
-                padding         : 5px 12px;
-                border-radius   : 50%;
-                background-color: gray;
-                color           : white;
-                font-size       : 17px;
+            .fas {
+                font-size: 45px;
+                color    : #5a00ff;
+
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+
+            .badge {
+                position     : absolute;
+                top          : -10px;
+                right        : -17px;
+                padding      : 6px 9px;
+                border-radius: 50%;
+                font-size    : 17px;
             }
         }
 
+
         .list {
+            label {
+                padding        : 10px 0px 0px 20px;
+                font-size      : 16px;
+                text-decoration: underline;
+            }
 
-            .li {
-                display: flex;
-                border : 1px solid gainsboro;
-                padding: 1px;
-                margin : 1px;
+            table {
+                font-size: 18px;
+                margin   : 0px 0px 0px 20px;
 
-                .date {
-                    padding: 5px 5px 0px;
-                }
+                tr {
+                    border: 1px solid black;
 
-                .num {
-                    color        : white;
-                    padding      : 8px 12px 0px;
-                    border-radius: 50%;
+                    .num {
+                        padding      : 0px 8px;
+                        border-radius: 50%;
+                        font-weight  : 600;
+                        margin       : 2px 0px;
+                    }
                 }
             }
         }
@@ -87,9 +109,6 @@
         }
 
         .list {
-
-
-
             .child {
                 display  : flex;
                 border   : 1px solid gainsboro;
