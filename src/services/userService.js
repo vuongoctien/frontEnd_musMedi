@@ -105,6 +105,10 @@ const getOrderByDate = (query) => { //ok
     return axios.get(`/api/get-order-by-date?date=${query.date}&clinicID=${query.clinicID}`)
 }
 
+const getOrderChuaxemOfClinic = (query) => { //ok
+    return axios.get(`/api/get-order-chuaxem-of-clinic?clinicID=${query.clinicID}`)
+}
+
 
 
 
@@ -274,5 +278,6 @@ export {
     createOrder,
     sendSimpleEmail,
     getOrderByDate,
+    getOrderChuaxemOfClinic,
 
 }

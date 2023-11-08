@@ -8,23 +8,23 @@ import { FormattedMessage } from 'react-intl';
 import _ from 'lodash'
 import FooterClinic from '../Footer/FooterClinic';
 import DatePicker from 'react-flatpickr';
-import { getOrderByDate, getAllDoctorByClinicId, getAllMediPackageByClinicId } from '../../services/userService';
+import { getOrderByDate, getOrderChuaxemOfClinic } from '../../services/userService';
 import moment from 'moment/moment';
 import { Modal } from 'reactstrap';
+import Select from 'react-select'
 
 class UserManage extends Component {
     constructor(props) {
         super(props)
         this.state = {
             datePicked: new Date(),
+            qk_ht_tl: 'Hiện tại',
             arrOrder: [],
             isOpenDetailPatient: false,
-            thisPatient: {}
+            thisPatient: {},
+            arrChuaxem: []
         }
     }
-
-
-
 
     async componentDidMount() {
         document.title = `đơn đặt lịch | ${this.props.userInfo.name}`
@@ -34,18 +34,29 @@ class UserManage extends Component {
          * nhưng nhét vào hàm fetchAllOrderByDate thì sẽ biến thành 00:00:00
          * tóm lại mình đút đúng ngày là được, giờ/phút/giây kệ mẹ
         */
+
+        // Giờ mình sẽ viết hàm thông báo đơn "Chưa xem"
+        // Đầu tiên, gọi 1 lần duy nhất xuống DB, lấy tất cả các lịch "Chưa xem" + "of Clinic"
+        let res = await getOrderChuaxemOfClinic({ clinicID: this.props.userInfo.id })
+        this.setState({ arrChuaxem: res.chuaxem })
     }
 
     fetchAllOrderByDate = async () => { // sẽ dùng nhiều lần nên viết thành 1 hàm rồi gọi đi gọi lại cho tiện
-        let dd = this.state.datePicked.getDate()
-        let mm = +this.state.datePicked.getMonth() + 1
-        let yy = this.state.datePicked.getFullYear()
+        let datePicked = this.state.datePicked
+        let dd = datePicked.getDate()
+        let mm = +datePicked.getMonth() + 1
+        let yy = datePicked.getFullYear()
         let stringToday = yy + '-' + mm + '-' + dd
         let res = await getOrderByDate({
             date: stringToday,
             clinicID: this.props.userInfo.id
         })
-        if (res && res.errCode === 0) { this.setState({ arrOrder: res.booking_by_date }) }
+        if (res && res.errCode === 0) { this.setState({ arrOrder: res.booking_by_date, }) }
+        let date000000 = new Date(datePicked.getFullYear(), datePicked.getMonth(), datePicked.getDate()).getTime() // đưa giờ về 0
+        let today0000000 = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime()
+        if (date000000 < today0000000) this.setState({ qk_ht_tl: 'Quá khứ' })
+        if (date000000 === today0000000) this.setState({ qk_ht_tl: 'Hiện tại' })
+        if (date000000 > today0000000) this.setState({ qk_ht_tl: 'Tương lai' })
     }
 
     handleOnChangeDatePicker = (datePicked) => {
@@ -117,11 +128,19 @@ class UserManage extends Component {
                         </div>
                     </div>
                 </Modal>
+
+
+
+
+
+
+
+
                 <div className='nofi'>
-                    <div style={{ backgroundColor: '#d3ffd3' }}>
+                    <div>
                         <a class="notification">
                             <h3>Đang chờ duyệt</h3>
-                            <span class="chuaxem">0</span>
+                            <span class="chuaxem">{this.state.arrChuaxem.length}</span>
                             <span class="xemnhungchuasua">0</span>
                         </a>
                         <a class="notification">
@@ -130,7 +149,7 @@ class UserManage extends Component {
                         </a>
                     </div>
                     <div style={{
-                        border: '1px solid green',
+                        border: '1px solid black',
                         margin: '0px 40px 0px 10px'
                     }}></div>
                     <div className='list'>
@@ -142,7 +161,7 @@ class UserManage extends Component {
                                     &ensp;
                                     <div style={{ backgroundColor: '#8e8e8e' }} className='num'><h5>0</h5></div>
                                     &ensp;
-                                    <div style={{ backgroundColor: 'tomato' }} className='num'><h5>0</h5></div>
+                                    <div style={{ backgroundColor: 'orange' }} className='num'><h5>0</h5></div>
                                 </div></li>)
                             })}
 
@@ -167,14 +186,39 @@ class UserManage extends Component {
                                 {this.state.datePicked.getFullYear()}</h4>
                         </div>
                     </div>
-                    <div style={{
-                        border: '1px solid green',
-                        margin: '0px 40px 0px 10px'
-                    }}></div>
                     <div className='list'>
                         {this.state.arrOrder && this.state.arrOrder.map(order => {
+                            let status = ''
+                            switch (order.status) {
+                                case 'Chưa xem':
+                                    status = 'orange'
+                                    break;
+                                case 'Chấp nhận':
+                                    status = 'lightgreen'
+                                    break;
+                                case 'Chờ duyệt':
+                                    status = 'lightblue'
+                                    break;
+                                case 'Đã khám':
+                                    status = 'white'
+                                    break;
+                                case 'Không đến':
+                                    status = 'white'
+                                    break;
+                                case 'Từ chối':
+                                    status = 'white'
+                                    break;
+                                case 'Bệnh nhân hủy':
+                                    status = 'white'
+                                    break;
+
+                                default:
+                                    break;
+                            }
+
+
                             return (<div className='child'>
-                                <div className='ngaygio'>
+                                <div className={`ngaygio ${order.status === 'Từ chối' || order.status === 'Bệnh nhân hủy' ? 'gach' : ''}`}>
                                     <h4>{order.clockTime ? order.clockTime : ''}</h4>
                                     <h6>
                                         {this.themSo_0(moment(order.date)._d.getDate())}/
@@ -186,9 +230,10 @@ class UserManage extends Component {
                                         {this.themSo_0(moment(order.createdAt)._d.getDate())}/
                                         {+moment(order.createdAt)._d.getMonth() + 1}/
                                         {moment(order.createdAt)._d.getFullYear()}</small>
+                                    <h6 color='red'>{order.status}</h6>
                                 </div>
-                                <div style={{ border: '1px solid gainsboro', margin: '10px 0px 10px 0px' }}></div>
-                                <div className='infobenhnhan'>
+                                <div style={{ borderLeft: `3px solid ${status}`, margin: '10px 0px 10px 0px' }}></div>
+                                <div className={`infobenhnhan ${order.status === 'Từ chối' || order.status === 'Bệnh nhân hủy' ? 'gach' : ''}`}>
                                     <h5 onClick={() => {
                                         this.setState({
                                             isOpenDetailPatient: true,
@@ -198,19 +243,53 @@ class UserManage extends Component {
                                     <h6><b>{order.patientGender === 1 ? 'Nam' : 'Nữ'} - {moment(order.patientBirthday)._d.getFullYear()}</b></h6>
                                     <h6>{order.email ? order.email : '(không có email)'} - {order.phoneNumber ? order.phoneNumber : ''}</h6>
                                 </div>
-                                <div style={{ border: '1px solid gainsboro', margin: '10px 0px 10px 0px' }}></div>
+                                <div style={{ borderLeft: `3px solid ${status}`, margin: '10px 0px 10px 0px' }}></div>
                                 <div className='infokham'>
-                                    <div style={{ display: 'flex' }}>
+                                    <div className={`${order.status === 'Từ chối' || order.status === 'Bệnh nhân hủy' ? 'gach' : ''}`} style={{ display: 'flex' }}>
                                         <div className={order.dr_or_pk === 1 ? 'small-ava dr' : 'small-ava pk'} style={{ backgroundImage: `url(${new Buffer(order.doctorData.image, 'base64').toString('binary')})` }}></div>
                                         <div style={{ marginLeft: '10px' }}>
                                             <small>{order.doctorData.position}</small>
                                             <h5><b>{order.doctorData.name}</b></h5>
                                         </div>
-
                                     </div>
+
+                                    {order.status === 'Đã khám' ? <h5 style={{ color: 'green', marginTop: '10px' }}>Đã khám <i className="fas fa-check"></i></h5> : <></>}
+                                    {order.status === 'Không đến' ? <h5 style={{ color: 'red', marginTop: '10px' }}>Không đến <i className="fas fa-times"></i></h5> : <></>}
+                                    {order.status === 'Từ chối' ? <h5 style={{ color: 'red', marginTop: '10px' }}>Đã từ chối <i className="fas fa-times"></i></h5> : <></>}
+                                    {order.status === 'Bệnh nhân hủy' ? <h5 style={{ color: 'red', marginTop: '10px' }}>Bệnh nhân hủy <i className="fas fa-times"></i></h5> : <></>}
+
+                                    {this.state.qk_ht_tl === 'Tương lai'
+                                        && (order.status === 'Chưa xem' || order.status === 'Mới xem' || order.status === 'Chờ duyệt') ?
+                                        <div style={{ display: 'flex' }}>
+                                            <div className='choose' style={{ backgroundColor: 'lightgreen' }}>
+                                                Chấp nhận <i className="fas fa-check"></i></div>
+                                            <div className='choose' style={{ backgroundColor: 'tomato' }}>
+                                                Từ chối <i className="fas fa-times"></i></div>
+                                        </div> : <></>}
+
+                                    {this.state.qk_ht_tl === 'Tương lai'
+                                        && order.status === 'Chấp nhận' ?
+                                        <h5 style={{ color: 'green' }}>Đã chấp nhận <i className="fas fa-check"></i></h5> : <></>}
+
+                                    {(this.state.qk_ht_tl === 'Hiện tại' || this.state.qk_ht_tl === 'Quá khứ')
+                                        && order.status === 'Chấp nhận' ?
+                                        <div style={{ display: 'flex' }}>
+                                            <div className='choose' style={{ backgroundColor: 'aqua' }}>
+                                                Đã khám <i className="fas fa-check"></i></div>
+                                            <div className='choose' style={{ backgroundColor: 'gainsboro' }}>
+                                                Bệnh nhân không đến <i className="fas fa-times"></i></div>
+                                        </div> : <></>}
+
+                                    {(this.state.qk_ht_tl === 'Hiện tại' || this.state.qk_ht_tl === 'Quá khứ')
+                                        && (order.status === 'Chưa xem' || order.status === 'Vừa xem' || order.status === 'Chờ duyệt') ?
+                                        <h5 style={{ color: 'gray', marginTop: '10px' }}>Quá hạn duyệt <i className="fas fa-ban"></i></h5> : <></>}
+
+
+
                                 </div>
                             </div>)
                         })}
+                        {this.state.arrOrder.length === 0 ? <div className='text-center'><h1>(Danh sách trống)</h1></div> : <div className='text-center'><h4>--- HẾT ---</h4></div>}
                     </div>
                 </div>
             </div>

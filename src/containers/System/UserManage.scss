@@ -30,7 +30,7 @@
                 right           : -10px;
                 padding         : 5px 12px;
                 border-radius   : 50%;
-                background-color: red;
+                background-color: orange;
                 color           : white;
                 font-size       : 17px;
             }
@@ -74,8 +74,7 @@
         overflow: scroll;
 
         .date {
-            display         : flex;
-            background-color: #d3ffd3;
+            display: flex;
 
             .datepicker {
                 width  : 200px;
@@ -89,25 +88,26 @@
 
         .list {
 
+
+
             .child {
                 display  : flex;
                 border   : 1px solid gainsboro;
                 margin   : 3px;
                 min-width: 100vw;
 
+                .gach {
+                    text-decoration: line-through;
+                }
+
                 .ngaygio {
                     padding: 10px;
                     width  : 170px;
-
-                    small {
-                        background-color: beige;
-                    }
                 }
 
                 .infobenhnhan {
                     padding: 10px;
                     width  : 300px;
-                    color  : #0000a5;
 
                     h5 {
                         cursor: pointer;
@@ -137,6 +137,18 @@
                     .pk {
                         width : 70px;
                         height: 42px;
+                    }
+
+                    .choose {
+                        padding      : 2px 5px;
+                        border       : 1px solid black;
+                        border-radius: 3px;
+                        margin       : 10px 10px 0px 0px;
+                        cursor       : pointer;
+
+                        &:hover {
+                            opacity: 0.8;
+                        }
                     }
                 }
             }

@@ -103,7 +103,9 @@ class Header extends Component {
                     </div>
 
                     {/* nút logout */}
-                    <div className="btn btn-logout" onClick={processLogout} title='Đăng xuất'>
+                    <div className="btn btn-logout" onClick={() => {
+                        if (window.confirm('Bạn muốn đăng xuất?') === true) processLogout()
+                    }} title='Đăng xuất'>
                         <i className="fas fa-sign-out-alt"></i>
                         <i className="fas fa-sign-out-alt"></i>
                     </div>

@@ -44,7 +44,7 @@ class DetailDoctor extends Component {
         if (res && res.errCode === 0) this.setState({ clinic: clinic.data })
 
         // Tạo list 7 ngày
-        let d = new Date().getDate()
+        let d = +new Date().getDate() + 1
         let m = new Date().getMonth()
         let y = new Date().getFullYear()
         for (let i = 0; i < 7; i++) {

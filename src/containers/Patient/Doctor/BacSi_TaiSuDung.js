@@ -31,7 +31,7 @@ class BacSi_TaiSuDung extends Component {
 
     async componentDidMount() {
         // Tạo list 7 ngày
-        let d = new Date().getDate()
+        let d = +new Date().getDate() + 1
         let m = new Date().getMonth()
         let y = new Date().getFullYear()
         for (let i = 0; i < 7; i++) {
