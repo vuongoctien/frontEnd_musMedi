@@ -109,6 +109,10 @@ const getOrderChuaxemOfClinic = (query) => { //ok
     return axios.get(`/api/get-order-chuaxem-of-clinic?clinicID=${query.clinicID}`)
 }
 
+const danhDauDaXem = (queryObject) => { //ok
+    return axios.put(`/api/danh-dau-da-xem`, queryObject)
+}
+
 
 
 
@@ -279,5 +283,6 @@ export {
     sendSimpleEmail,
     getOrderByDate,
     getOrderChuaxemOfClinic,
+    danhDauDaXem,
 
 }

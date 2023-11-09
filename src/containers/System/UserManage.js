@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl';
 import _ from 'lodash'
 import FooterClinic from '../Footer/FooterClinic';
 import DatePicker from 'react-flatpickr';
-import { getOrderByDate, getOrderChuaxemOfClinic } from '../../services/userService';
+import { getOrderByDate, getOrderChuaxemOfClinic, danhDauDaXem } from '../../services/userService';
 import moment from 'moment/moment';
 import { Modal } from 'reactstrap';
 import Select from 'react-select'
@@ -17,25 +17,29 @@ class UserManage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            datePicked: new Date(),
+            datePicked: new Date(), // chắc chỉ có tác dụng hiển thị
             qk_ht_tl: 'Hiện tại',
             arrOrder: [],
             isOpenDetailPatient: false,
             thisPatient: {},
             arrChuaxem: [],
-            arrChuaxem_Set: []
+            arrChuaxem_Set: [],
+            isDanhDauDaXem: false
         }
     }
 
     async componentDidMount() {
         document.title = `đơn đặt lịch | ${this.props.userInfo.name}`
         document.getElementsByClassName('fa-tasks')[0].setAttribute("style", "color:orange;")
-        this.fetchAllOrderByDate()
+        this.fetchAllOrderByDate(new Date())
         /** Khi mới Mason Mount :D, state.datePicked chính là hôm nay, dù giờ/phút/giây không phải 00:00:00
          * nhưng nhét vào hàm fetchAllOrderByDate thì sẽ biến thành 00:00:00
          * tóm lại mình đút đúng ngày là được, giờ/phút/giây kệ mẹ
         */
+        this.fetchOrderChuaXem()
+    }
 
+    fetchOrderChuaXem = async () => {
         // Giờ mình sẽ viết hàm thông báo đơn "Chưa xem"
         // Đầu tiên, gọi 1 lần duy nhất xuống DB, lấy tất cả các lịch "Chưa xem" + "of Clinic"
         let res = await getOrderChuaxemOfClinic({ clinicID: this.props.userInfo.id })
@@ -44,27 +48,32 @@ class UserManage extends Component {
         this.setState({ arrChuaxem_Set: [...uniqueSet] })
     }
 
-    fetchAllOrderByDate = async () => { // sẽ dùng nhiều lần nên viết thành 1 hàm rồi gọi đi gọi lại cho tiện
-        let datePicked = this.state.datePicked
+    fetchAllOrderByDate = async (datePicked) => { // sẽ dùng nhiều lần nên viết thành 1 hàm rồi gọi đi gọi lại cho tiện
         let dd = datePicked.getDate()
         let mm = +datePicked.getMonth() + 1
         let yy = datePicked.getFullYear()
-        let stringToday = yy + '-' + mm + '-' + dd
+        let stringDate = this.themSo_0(yy) + '-' + this.themSo_0(mm) + '-' + this.themSo_0(dd)
         let res = await getOrderByDate({
-            date: stringToday,
+            date: stringDate, // ơ giờ mới để ý, không cần thêm số 0 à???
             clinicID: this.props.userInfo.id
         })
         if (res && res.errCode === 0) { this.setState({ arrOrder: res.booking_by_date, }) }
         let date000000 = new Date(datePicked.getFullYear(), datePicked.getMonth(), datePicked.getDate()).getTime() // đưa giờ về 0
         let today0000000 = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime()
-        if (date000000 < today0000000) this.setState({ qk_ht_tl: 'Quá khứ' })
+        // biết qk_ht_tl và sắp xếp luôn cái mảng đó
+        if (date000000 < today0000000) {
+            this.setState({ qk_ht_tl: 'Quá khứ' })
+
+        }
         if (date000000 === today0000000) this.setState({ qk_ht_tl: 'Hiện tại' })
         if (date000000 > today0000000) this.setState({ qk_ht_tl: 'Tương lai' })
+
+
     }
 
     handleOnChangeDatePicker = (datePicked) => {
         this.setState({ datePicked: datePicked[0] })
-        this.fetchAllOrderByDate()
+        this.fetchAllOrderByDate(datePicked[0])
     }
 
     themSo_0 = (number) => {
@@ -134,11 +143,6 @@ class UserManage extends Component {
 
 
 
-
-
-
-
-
                 <div className='nofi'>
                     <div className='view'>
                         <div class="notification">
@@ -155,8 +159,12 @@ class UserManage extends Component {
                         <table>
                             {this.state.arrChuaxem_Set.map(ngay => {
                                 return (<tr>
-                                    <td>&emsp;{ngay}&emsp;</td>
-                                    <td><div class="num badge2">
+                                    <td className='ngay' onClick={() => {
+                                        this.setState({ datePicked: moment(ngay)._d })
+                                        this.fetchAllOrderByDate(moment(ngay)._d)
+                                    }}>&emsp;{ngay}&emsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><div className="num badge2">
                                         {this.state.arrChuaxem.filter(obj => obj.date === ngay).length}
                                     </div></td>
                                     <td>&nbsp;</td>
@@ -169,27 +177,54 @@ class UserManage extends Component {
 
                 <div className='book'>
                     <div className='date'>
-                        <div style={{ padding: '10px' }}>
-                            <h6>Chọn ngày:</h6>
+                        <div style={{ display: 'flex' }}>
+                            <div style={{ padding: '10px' }}>
+                                <h6>Chọn ngày:</h6>
+                            </div>
+                            <div className='datepicker'>
+                                <DatePicker
+                                    onChange={this.handleOnChangeDatePicker}
+                                    value={this.state.datePicked}
+                                />
+                            </div>
+                            <div className='datepicked'>
+                                <h4>Ngày được chọn: {this.themSo_0(this.state.datePicked.getDate())}/
+                                    {+this.state.datePicked.getMonth() + 1}/
+                                    {this.state.datePicked.getFullYear()}</h4>
+                            </div>
                         </div>
-                        <div className='datepicker'>
-                            <DatePicker
-                                onChange={this.handleOnChangeDatePicker}
-                                value={this.state.datePicked}
-                            />
-                        </div>
-                        <div className='datepicked'>
-                            <h4>Ngày được chọn: {this.themSo_0(this.state.datePicked.getDate())}/
-                                {+this.state.datePicked.getMonth() + 1}/
-                                {this.state.datePicked.getFullYear()}</h4>
-                        </div>
+                        <div><label className='lammoi' onClick={() => {
+                            this.fetchOrderChuaXem()
+                            this.fetchAllOrderByDate(this.state.datePicked)
+                            document.getElementById("sync").setAttribute('class', "fas fa-sync-alt fa-pulse")
+                            setTimeout(() => { document.getElementById("sync").setAttribute('class', "fas fa-check-circle") }, 2000)
+                            setTimeout(() => { document.getElementById("sync").setAttribute('class', "fas fa-sync-alt") }, 3500)
+                        }} title='Cập nhật lại dữ liệu mà không load lại trang'>
+                            Làm mới toàn bộ <i id="sync" className="fas fa-sync-alt"></i></label></div>
                     </div>
+                    {this.state.arrOrder.filter(item => item.status === 'Chưa xem').length === 0 ? <></> : <div style={{ textAlign: 'right', marginBottom: '10px' }}>
+                        <div style={{ textAlign: 'right' }}><label className='danhdaudaxem' onClick={async () => {
+                            let dd = this.state.datePicked.getDate()
+                            let mm = +this.state.datePicked.getMonth() + 1
+                            let yy = this.state.datePicked.getFullYear()
+                            let stringDate = this.themSo_0(yy) + '-' + this.themSo_0(mm) + '-' + this.themSo_0(dd)
+                            await danhDauDaXem({
+                                date: stringDate, // ơ giờ mới để ý, không cần thêm số 0 à???
+                                clinicID: this.props.userInfo.id
+                            })
+                            this.fetchOrderChuaXem()
+                            this.fetchAllOrderByDate(this.state.datePicked)
+                        }}>
+                            <i className="fas fa-check"></i> Đánh dấu tất cả là "đã xem"
+                        </label></div>
+                    </div>}
                     <div className='list'>
+
                         {this.state.arrOrder && this.state.arrOrder.map(order => {
-                            let status = ''
+                            let status = ''; let backgroundColor = ''
                             switch (order.status) {
                                 case 'Chưa xem':
-                                    status = 'orange'
+                                    status = 'orange'; backgroundColor = '#ffd78f'
                                     break;
                                 case 'Chấp nhận':
                                     status = 'lightgreen'
@@ -215,7 +250,7 @@ class UserManage extends Component {
                             }
 
 
-                            return (<div className='child'>
+                            return (<div className='child' style={{ backgroundColor: backgroundColor }}>
                                 <div className={`ngaygio ${order.status === 'Từ chối' || order.status === 'Bệnh nhân hủy' ? 'gach' : ''}`}>
                                     <h4>{order.clockTime ? order.clockTime : ''}</h4>
                                     <h6>
@@ -290,7 +325,7 @@ class UserManage extends Component {
                         {this.state.arrOrder.length === 0 ? <div className='text-center'><h1>(Danh sách trống)</h1></div> : <div className='text-center'><h4>--- HẾT ---</h4></div>}
                     </div>
                 </div>
-            </div>
+            </div >
 
 
         );
@@ -315,3 +350,12 @@ const mapDispatchToProps = dispatch => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserManage);
 
+/**có 7 loại trạng thái đơn hàng
+ * Chưa xem
+ * Chờ duyệt
+ * Chấp nhận
+ * Từ chối
+ * Bệnh nhân hủy
+ * Đã khám
+ * Không đến
+ */

@@ -14,7 +14,6 @@
             display        : flex;
             justify-content: space-between;
             padding        : 0px 20px;
-            border-bottom  : 1px solid black;
         }
 
         .badge2 {
@@ -79,6 +78,16 @@
                 tr {
                     border: 1px solid black;
 
+                    .ngay {
+                        cursor          : pointer;
+                        padding         : 3px 7px;
+                        background-color: antiquewhite;
+
+                        &:hover {
+                            background-color: rgb(255, 179, 86);
+                        }
+                    }
+
                     .num {
                         padding      : 0px 8px;
                         border-radius: 50%;
@@ -96,7 +105,8 @@
         overflow: scroll;
 
         .date {
-            display: flex;
+            display        : flex;
+            justify-content: space-between;
 
             .datepicker {
                 width  : 200px;
@@ -106,14 +116,43 @@
             .datepicked {
                 padding: 5px 10px;
             }
+
+            .lammoi {
+                cursor       : pointer;
+                margin       : 3px 20px 0px 0px;
+                font-size    : 16px;
+                border       : 1px solid black;
+                padding      : 0px 6px;
+                border-radius: 16px;
+
+                &:hover {
+                    background-color: aliceblue;
+                    text-decoration : underline;
+                }
+            }
+        }
+
+        .danhdaudaxem {
+            cursor          : pointer;
+            margin          : 0 20px;
+            padding         : 2px 6px;
+            font-size       : 15px;
+            border-radius   : 5px;
+            border          : 1px solid gainsboro;
+            background-color: whitesmoke;
+
+            &:hover {
+                text-decoration: underline;
+            }
         }
 
         .list {
             .child {
-                display  : flex;
-                border   : 1px solid gainsboro;
-                margin   : 3px;
-                min-width: 100vw;
+                display      : flex;
+                border       : 2px solid gainsboro;
+                margin       : 3px;
+                min-width    : 100vw;
+                border-radius: 10px;
 
                 .gach {
                     text-decoration: line-through;
