@@ -8,10 +8,11 @@ import { FormattedMessage } from 'react-intl';
 import _ from 'lodash'
 import FooterClinic from '../Footer/FooterClinic';
 import DatePicker from 'react-flatpickr';
-import { getOrderByDate, getOrderChuaxemOfClinic, danhDauDaXem } from '../../services/userService';
+import { getOrderByDate, getOrderChuaxemOfClinic, danhDauDaXem, changeStatus } from '../../services/userService';
 import moment from 'moment/moment';
 import { Modal } from 'reactstrap';
 import Select from 'react-select'
+import { toast } from 'react-toastify';
 
 class UserManage extends Component {
     constructor(props) {
@@ -121,8 +122,21 @@ class UserManage extends Component {
         return number
     }
 
+    handleChangeStatus = async (idOrder, newStatus) => {
+        let res = await changeStatus({
+            idOrder: idOrder,
+            newStatus: newStatus
+        })
+        if (res && res.errCode === 0) {
+            toast.success(`Đã cập nhật trạng thái "${newStatus}"`)
+            this.fetchOrderChuaXem()
+            this.fetchAllOrderByDate(this.state.datePicked)
+        }
+        else toast.error('Lỗi')
+    }
+
     render() {
-        // console.log('this.state', this.state)
+        console.log('this.state', this.state)
         // console.log('this.props', this.props)
         let { createdAt, updatedAt } = this.state.thisPatient
         return (
@@ -262,7 +276,7 @@ class UserManage extends Component {
                             setTimeout(() => { document.getElementById("sync").setAttribute('class', "fas fa-check-circle") }, 2000)
                             setTimeout(() => { document.getElementById("sync").setAttribute('class', "fas fa-sync-alt") }, 3500)
                         }} title='Cập nhật lại dữ liệu mà không load lại trang'>
-                            Làm mới toàn bộ <i id="sync" className="fas fa-sync-alt"></i></label></div>
+                            Làm mới trang <i id="sync" className="fas fa-sync-alt"></i></label></div>
                     </div>
                     {this.state.arrOrder.filter(item => item.status === 'Chưa xem').length === 0 ? <></> : <div style={{ textAlign: 'right', marginBottom: '10px' }}>
                         <div style={{ textAlign: 'right' }}><label className='danhdaudaxem' onClick={async () => {
@@ -295,13 +309,13 @@ class UserManage extends Component {
                                     status = 'blue'
                                     break;
                                 case 'Đã khám':
-                                    status = 'white'
+                                    status = 'black'; backgroundColor = '#c3ffc3'
                                     break;
                                 case 'Không đến':
-                                    status = 'white'
+                                    status = 'black'; backgroundColor = '#ffd3d3'
                                     break;
                                 case 'Từ chối':
-                                    status = 'white'
+                                    status = 'black'; backgroundColor = '#ffd3d3'
                                     break;
                                 case 'Bệnh nhân hủy':
                                     status = 'white'
@@ -327,7 +341,7 @@ class UserManage extends Component {
                                         {moment(order.createdAt)._d.getFullYear()}</small>
                                     <h6 color='red'>{order.status}</h6>
                                 </div>
-                                <div style={{ borderLeft: `3px solid ${status}`, margin: '10px 0px 10px 0px' }}></div>
+                                <div style={{ borderLeft: `2px solid ${status}`, margin: '10px 0px 10px 0px' }}></div>
                                 <div className={`infobenhnhan ${order.status === 'Từ chối' || order.status === 'Bệnh nhân hủy' ? 'gach' : ''}`}>
                                     <h5 onClick={() => {
                                         this.setState({
@@ -338,13 +352,13 @@ class UserManage extends Component {
                                     <h6><b>{order.patientGender === 1 ? 'Nam' : 'Nữ'} - {moment(order.patientBirthday)._d.getFullYear()}</b></h6>
                                     <h6>{order.email ? order.email : '(không có email)'} - {order.phoneNumber ? order.phoneNumber : ''}</h6>
                                 </div>
-                                <div style={{ borderLeft: `3px solid ${status}`, margin: '10px 0px 10px 0px' }}></div>
+                                <div style={{ borderLeft: `2px solid ${status}`, margin: '10px 0px 10px 0px' }}></div>
                                 <div className='infokham'>
                                     <div className={`${order.status === 'Từ chối' || order.status === 'Bệnh nhân hủy' ? 'gach' : ''}`} style={{ display: 'flex' }}>
                                         <div className={order.dr_or_pk === 1 ? 'small-ava dr' : 'small-ava pk'} style={{ backgroundImage: `url(${new Buffer(order.doctorData.image, 'base64').toString('binary')})` }}></div>
                                         <div style={{ marginLeft: '10px' }}>
                                             <small>{order.doctorData.position}</small>
-                                            <h5><b>{order.doctorData.name}</b></h5>
+                                            <h5>{order.doctorData.name}</h5>
                                         </div>
                                     </div>
 
@@ -356,9 +370,17 @@ class UserManage extends Component {
                                     {this.state.qk_ht_tl === 'Tương lai'
                                         && (order.status === 'Chưa xem' || order.status === 'Mới xem' || order.status === 'Chờ duyệt') ?
                                         <div style={{ display: 'flex' }}>
-                                            <div className='choose' style={{ backgroundColor: 'lightgreen' }}>
+                                            <div className='choose' style={{ backgroundColor: 'lightgreen' }}
+                                                onClick={() => {
+                                                    this.handleChangeStatus(order.id, 'Chấp nhận');
+
+                                                }}>
                                                 Chấp nhận <i className="fas fa-check"></i></div>
-                                            <div className='choose' style={{ backgroundColor: 'tomato' }}>
+                                            <div className='choose' style={{ backgroundColor: 'tomato' }}
+                                                onClick={() => {
+                                                    this.handleChangeStatus(order.id, 'Từ chối');
+
+                                                }}>
                                                 Từ chối <i className="fas fa-times"></i></div>
                                         </div> : <></>}
 
@@ -369,9 +391,17 @@ class UserManage extends Component {
                                     {(this.state.qk_ht_tl === 'Hiện tại' || this.state.qk_ht_tl === 'Quá khứ')
                                         && order.status === 'Chấp nhận' ?
                                         <div style={{ display: 'flex' }}>
-                                            <div className='choose' style={{ backgroundColor: 'aqua' }}>
+                                            <div className='choose' style={{ backgroundColor: 'aqua' }}
+                                                onClick={() => {
+                                                    this.handleChangeStatus(order.id, 'Đã khám');
+
+                                                }}>
                                                 Đã khám <i className="fas fa-check"></i></div>
-                                            <div className='choose' style={{ backgroundColor: 'gainsboro' }}>
+                                            <div className='choose' style={{ backgroundColor: 'gainsboro' }}
+                                                onClick={() => {
+                                                    this.handleChangeStatus(order.id, 'Không đến');
+
+                                                }}>
                                                 Bệnh nhân không đến <i className="fas fa-times"></i></div>
                                         </div> : <></>}
 

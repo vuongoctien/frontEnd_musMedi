@@ -91,11 +91,6 @@ class Header extends Component {
                     {/* <a href='/system/ThoiGianBieu' title='Lịch biểu'>Tạm</a> */}
                 </div>
 
-                <div className='search'>
-                    <i className="fas fa-search"></i>
-                    <input type='text' placeholder='Tìm kiếm' />
-                </div>
-
                 <div className='rowLoz'>
                     <div className='welcome'>{userInfo.name}</div>
                     <div className='avatar-clinic' style={{ backgroundImage: `url(${new Buffer(this.props.userInfo.image, 'base64').toString('binary')})` }}>

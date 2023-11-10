@@ -113,6 +113,10 @@ const danhDauDaXem = (queryObject) => { //ok
     return axios.put(`/api/danh-dau-da-xem`, queryObject)
 }
 
+const changeStatus = (queryObject) => { //ok
+    return axios.put(`/api/change-status`, queryObject)
+}
+
 
 
 
@@ -284,5 +288,5 @@ export {
     getOrderByDate,
     getOrderChuaxemOfClinic,
     danhDauDaXem,
-
+    changeStatus,
 }
