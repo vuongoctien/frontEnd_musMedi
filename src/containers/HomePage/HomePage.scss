@@ -47,7 +47,7 @@
     }
 
     &.section-outstanding-doctor {
-        background-color: #f5f5f5;
+        background-color: white;
     }
 
     &.section-about {
@@ -63,6 +63,7 @@
                 margin-left        : 5px; // cách ra 5 để cân
                 background-position: center center;
                 background-repeat  : no-repeat;
+                background-size    : cover;
                 border             : 1px solid gainsboro;
 
                 // &.section-specialty {

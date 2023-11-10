@@ -57,16 +57,56 @@ class UserManage extends Component {
             date: stringDate, // ơ giờ mới để ý, không cần thêm số 0 à???
             clinicID: this.props.userInfo.id
         })
-        if (res && res.errCode === 0) { this.setState({ arrOrder: res.booking_by_date, }) }
         let date000000 = new Date(datePicked.getFullYear(), datePicked.getMonth(), datePicked.getDate()).getTime() // đưa giờ về 0
         let today0000000 = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime()
+
         // biết qk_ht_tl và sắp xếp luôn cái mảng đó
-        if (date000000 < today0000000) {
-            this.setState({ qk_ht_tl: 'Quá khứ' })
+
+        if (res && res.errCode === 0) {
 
         }
-        if (date000000 === today0000000) this.setState({ qk_ht_tl: 'Hiện tại' })
-        if (date000000 > today0000000) this.setState({ qk_ht_tl: 'Tương lai' })
+        if (date000000 < today0000000 || date000000 === today0000000) {
+            this.setState({ qk_ht_tl: 'Quá khứ' })
+            let tg = res.booking_by_date
+            for (let i = 0; i < tg.length; i++) {
+                switch (tg[i].status) {
+                    case 'Chấp nhận': tg[i].level = 1; break;
+                    case 'Đã khám': tg[i].level = 2; break;
+                    case 'Không đến': tg[i].level = 3; break;
+                    case 'Bệnh nhân hủy': tg[i].level = 4; break;
+                    case 'Từ chối': tg[i].level = 5; break;
+                    case 'Chờ duyệt': tg[i].level = 6; break;
+                    case 'Chưa xem': tg[i].level = 7; break;
+                    default: break;
+                }
+            }
+            for (let i = 0; i < tg.length; i++) {
+                for (let j = 0; j < tg.length; j++) {
+                    if (tg[i].level < tg[j].level) [tg[i], tg[j]] = [tg[j], tg[i]]
+                }
+            }
+            this.setState({ arrOrder: tg })
+        }
+        if (date000000 > today0000000) {
+            this.setState({ qk_ht_tl: 'Tương lai' })
+            let tg = res.booking_by_date
+            for (let i = 0; i < tg.length; i++) {
+                switch (tg[i].status) {
+                    case 'Chưa xem': tg[i].level = 1; break;
+                    case 'Chờ duyệt': tg[i].level = 2; break;
+                    case 'Chấp nhận': tg[i].level = 3; break;
+                    case 'Bệnh nhân hủy': tg[i].level = 4; break;
+                    case 'Từ chối': tg[i].level = 5; break;
+                    default: break;
+                }
+            }
+            for (let i = 0; i < tg.length; i++) {
+                for (let j = 0; j < tg.length; j++) {
+                    if (tg[i].level < tg[j].level) [tg[i], tg[j]] = [tg[j], tg[i]]
+                }
+            }
+            this.setState({ arrOrder: tg })
+        }
 
 
     }
@@ -82,8 +122,9 @@ class UserManage extends Component {
     }
 
     render() {
-        console.log('this.state', this.state)
-        console.log('this.props', this.props)
+        // console.log('this.state', this.state)
+        // console.log('this.props', this.props)
+        let { createdAt, updatedAt } = this.state.thisPatient
         return (
 
             <div className='dondatlich'>
@@ -133,6 +174,27 @@ class UserManage extends Component {
                                 <tr>
                                     <td className='td1'>Giới tính: &ensp;</td>
                                     <td className='td2'>{this.state.thisPatient.patientGender === '1' ? 'Nam' : 'Nữ'}</td>
+                                </tr>
+                                <tr><td><u><i><b>Thông tin khác: </b></i></u></td></tr>
+                                <tr>
+                                    <td className='td1'>Đặt lúc: &ensp;</td>
+                                    <td className='td2'>{this.themSo_0(moment(createdAt)._d.getHours())}:
+                                        {this.themSo_0(moment(createdAt)._d.getMinutes())}&nbsp;
+                                        {this.themSo_0(moment(createdAt)._d.getDate())}/
+                                        {this.themSo_0(+moment(createdAt)._d.getMonth() + 1)}/
+                                        {moment(createdAt)._d.getFullYear()}</td>
+                                </tr>
+                                <tr>
+                                    <td className='td1'>Trạng thái: &ensp;</td>
+                                    <td className='td2'>{this.state.thisPatient.status}</td>
+                                </tr>
+                                <tr>
+                                    <td className='td1'>Cập nhật lần cuối: &ensp;</td>
+                                    <td className='td2'>{this.themSo_0(moment(updatedAt)._d.getHours())}:
+                                        {this.themSo_0(moment(updatedAt)._d.getMinutes())}&nbsp;
+                                        {this.themSo_0(moment(updatedAt)._d.getDate())}/
+                                        {this.themSo_0(+moment(updatedAt)._d.getMonth() + 1)}/
+                                        {moment(updatedAt)._d.getFullYear()}</td>
                                 </tr>
                                 <tr><td><u><i><b>Lý do khám: </b></i></u></td></tr>
                             </table>
