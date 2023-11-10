@@ -28,7 +28,7 @@ class LichBieu extends Component {
 
     async componentDidMount() {
         document.title = `lịch biểu | ${this.props.userInfo.name}`
-        document.getElementsByClassName('fa-calendar-alt')[0].setAttribute("style", "color:orange;")
+        document.getElementsByClassName('fa-calendar-alt')[0].setAttribute("style", "color:brown;")
         let res1 = await getAllDoctorByClinicId(this.props.userInfo.id)
         this.setState({ listDoctor: res1.all_doctor_of_clinic })
         let res2 = await getAllMediPackageByClinicId(this.props.userInfo.id)

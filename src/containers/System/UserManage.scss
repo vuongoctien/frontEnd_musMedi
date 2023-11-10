@@ -10,14 +10,33 @@
         width   : 250px;
         overflow: scroll;
 
+        .lammoi {
+            cursor          : pointer;
+            font-size       : 16px;
+            border          : 1px solid black;
+            padding         : 0px 6px;
+            border-radius   : 16px;
+            background-color: white;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
         .view {
             display        : flex;
             justify-content: space-between;
             padding        : 0px 20px;
         }
 
+        .badge3 {
+            background-color: linen;
+            color           : black;
+            border          : 1px solid black;
+        }
+
         .badge2 {
-            background-color: red;
+            background-color: orange;
             color           : white;
         }
 
@@ -28,7 +47,7 @@
         }
 
         .notification {
-            margin         : 10px 5px 10px 0px;
+            margin         : 15px 5px 0px 0px;
             text-decoration: none;
             padding        : 0px 0px;
             position       : relative;
@@ -37,11 +56,14 @@
             cursor         : pointer;
 
             .choduyet {
-                font-size       : 20px;
-                padding         : 5px 12px;
-                border-radius   : 3px;
-                border          : 1px solid black;
-                background-color: lightcyan;
+                font-size    : 20px;
+                padding      : 5px 12px;
+                border-radius: 3px;
+                border       : 1px solid black;
+
+                &:hover {
+                    background-color: lightcyan;
+                }
             }
 
             .fas {
@@ -79,12 +101,12 @@
                     border: 1px solid black;
 
                     .ngay {
-                        cursor          : pointer;
-                        padding         : 3px 7px;
-                        background-color: antiquewhite;
+                        cursor : pointer;
+                        padding: 3px 17px;
 
                         &:hover {
                             background-color: rgb(255, 179, 86);
+                            text-decoration : underline;
                         }
                     }
 
@@ -115,20 +137,6 @@
 
             .datepicked {
                 padding: 5px 10px;
-            }
-
-            .lammoi {
-                cursor       : pointer;
-                margin       : 3px 20px 0px 0px;
-                font-size    : 16px;
-                border       : 1px solid black;
-                padding      : 0px 6px;
-                border-radius: 16px;
-
-                &:hover {
-                    background-color: aliceblue;
-                    text-decoration : underline;
-                }
             }
         }
 

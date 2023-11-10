@@ -12,6 +12,7 @@ import ManageSchedule from '../containers/System/Doctor/ManageSchedule';
 // import ThoiGianBieu from '../containers/System/Doctor/ThoiGianBieu';
 import LichBieu from '../containers/System/Doctor/LichBieu';
 import CapNhatLich from '../containers/System/Doctor/CapNhatLich';
+import Setting from '../containers/System/Setting';
 class System extends Component {
     render() {
         const { systemMenuPath, isLoggedIn } = this.props;
@@ -32,6 +33,7 @@ class System extends Component {
                             {/* <Route path="/system/ThoiGianBieu" component={ThoiGianBieu} /> */}
                             <Route path="/system/LichBieu/:dd&:mm&:yy" component={LichBieu} />
                             <Route path="/system/CapNhatLich/:dd&:mm&:yy&:dr_or_pk_ID&:dr_or_pk" component={CapNhatLich} />
+                            <Route path="/system/setting" component={Setting} />
 
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                         </Switch>

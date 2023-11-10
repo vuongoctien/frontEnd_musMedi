@@ -44,16 +44,16 @@ class HomeFooter extends Component {
 
                     </div>
                     <div className='col-3' style={{ paddingTop: '30px' }}>
-                        <div className='a'><a href='bookingcare.com'>    Liên hệ hợp tác</a></div>
-                        <div className='a'><a href='bookingcare.com'>    Danh bạ y tế</a></div>
-                        <div className='a'><a href='bookingcare.com'>  Sức khỏe doanh nghiệp</a></div>
-                        <div className='a'><a href='bookingcare.com'>  Gói chuyển đổi số doanh nghiệp</a></div>
-                        <div className='a'><a href='bookingcare.com'>  Tuyển dụng</a></div>
-                        <div className='a'><a href='bookingcare.com'>  Câu hỏi thường gặp</a></div>
-                        <div className='a'><a href='bookingcare.com'>  Điều khoản sử dụng</a></div>
-                        <div className='a'><a href='bookingcare.com'>  Chính sách Bảo mật</a></div>
-                        <div className='a'><a href='bookingcare.com'>  Quy trình hỗ trợ giải quyết khiếu nại</a></div>
-                        <div className='a'><a href='bookingcare.com'>  Quy chế hoạt động</a></div>
+                        <div className='a'><a href='https://bookingcare.vn/'>    Liên hệ hợp tác</a></div>
+                        <div className='a'><a href='https://bookingcare.vn/'>    Danh bạ y tế</a></div>
+                        <div className='a'><a href='https://bookingcare.vn/'>  Sức khỏe doanh nghiệp</a></div>
+                        <div className='a'><a href='https://bookingcare.vn/'>  Gói chuyển đổi số doanh nghiệp</a></div>
+                        <div className='a'><a href='https://bookingcare.vn/'>  Tuyển dụng</a></div>
+                        <div className='a'><a href='https://bookingcare.vn/'>  Câu hỏi thường gặp</a></div>
+                        <div className='a'><a href='https://bookingcare.vn/'>  Điều khoản sử dụng</a></div>
+                        <div className='a'><a href='https://bookingcare.vn/'>  Chính sách Bảo mật</a></div>
+                        <div className='a'><a href='https://bookingcare.vn/'>  Quy trình hỗ trợ giải quyết khiếu nại</a></div>
+                        <div className='a'><a href='https://bookingcare.vn/'>  Quy chế hoạt động</a></div>
                     </div>
                     <div className='col-3'>
                         <br /><br /><b>Đối tác bảo trợ nội dung</b>

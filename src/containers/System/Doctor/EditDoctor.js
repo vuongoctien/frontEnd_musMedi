@@ -61,7 +61,7 @@ class EditDoctor extends Component {
 
     async componentDidMount() {
         document.title = `Chỉnh sửa thông tin | ${this.props.userInfo.name}`
-        document.getElementsByClassName('fa-stethoscope')[0].setAttribute("style", "color:orange;")
+        document.getElementsByClassName('fa-stethoscope')[0].setAttribute("style", "color:brown;")
         let res = await getAllDoctorByClinicId(this.props.userInfo.id)
         if (res && res.errCode === 0) {
             this.setState({

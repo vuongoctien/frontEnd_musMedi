@@ -46,7 +46,7 @@ class AddDoctor extends Component {
 
     async componentDidMount() {
         document.title = `thêm bác sĩ mới | ${this.props.userInfo.name}`
-        document.getElementsByClassName('fa-stethoscope')[0].setAttribute("style", "color:orange;")
+        document.getElementsByClassName('fa-stethoscope')[0].setAttribute("style", "color:brown;")
 
     }
 

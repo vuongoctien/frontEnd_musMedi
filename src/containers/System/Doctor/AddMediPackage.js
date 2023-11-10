@@ -43,7 +43,7 @@ class AddMediPackage extends Component {
 
     async componentDidMount() {
         document.title = `thêm gói dịch vụ mới | ${this.props.userInfo.name}`
-        document.getElementsByClassName('fa-stethoscope')[0].setAttribute("style", "color:orange;")
+        document.getElementsByClassName('fa-stethoscope')[0].setAttribute("style", "color:brown;")
     }
 
     handleSaveNewClinic = async () => {

@@ -5,10 +5,10 @@ import Navigator from '../../components/Navigator';
 import './UserManage.scss';
 import { LANGUAGES, USER_ROLE } from '../../utils';
 import { FormattedMessage } from 'react-intl';
-import _ from 'lodash'
+import _, { filter, iteratee } from 'lodash'
 import FooterClinic from '../Footer/FooterClinic';
 import DatePicker from 'react-flatpickr';
-import { getOrderByDate, getOrderChuaxemOfClinic, danhDauDaXem, changeStatus } from '../../services/userService';
+import { getOrderByDate, getOrderByStatusOfClinic, danhDauDaXem, changeStatus } from '../../services/userService';
 import moment from 'moment/moment';
 import { Modal } from 'reactstrap';
 import Select from 'react-select'
@@ -23,15 +23,24 @@ class UserManage extends Component {
             arrOrder: [],
             isOpenDetailPatient: false,
             thisPatient: {},
+
             arrChuaxem: [],
             arrChuaxem_Set: [],
-            isDanhDauDaXem: false
+
+            arrChoduyetTuongLai: [],
+            arrChoduyetTuongLai_Set: [],
+
+            arrChapnhanQuakhu: [],
+            arrChapnhanQuakhu_Set: [],
+
+            isDanhDauDaXem: false,
+            what: 'Đơn khám mới'
         }
     }
 
     async componentDidMount() {
         document.title = `đơn đặt lịch | ${this.props.userInfo.name}`
-        document.getElementsByClassName('fa-tasks')[0].setAttribute("style", "color:orange;")
+        document.getElementsByClassName('fa-tasks')[0].setAttribute("style", "color:brown;")
         this.fetchAllOrderByDate(new Date())
         /** Khi mới Mason Mount :D, state.datePicked chính là hôm nay, dù giờ/phút/giây không phải 00:00:00
          * nhưng nhét vào hàm fetchAllOrderByDate thì sẽ biến thành 00:00:00
@@ -43,10 +52,35 @@ class UserManage extends Component {
     fetchOrderChuaXem = async () => {
         // Giờ mình sẽ viết hàm thông báo đơn "Chưa xem"
         // Đầu tiên, gọi 1 lần duy nhất xuống DB, lấy tất cả các lịch "Chưa xem" + "of Clinic"
-        let res = await getOrderChuaxemOfClinic({ clinicID: this.props.userInfo.id })
-        this.setState({ arrChuaxem: res.chuaxem })
+        let res = await getOrderByStatusOfClinic({
+            clinicID: this.props.userInfo.id,
+            status: 'Chưa xem'
+        })
+        if (res && res.errCode === 0) this.setState({ arrChuaxem: res.lichdaget })
         let uniqueSet = new Set(this.state.arrChuaxem.map(obj => obj.date))
         this.setState({ arrChuaxem_Set: [...uniqueSet] })
+
+        // Viết hết vào đây
+        let res2 = await getOrderByStatusOfClinic({
+            clinicID: this.props.userInfo.id,
+            status: 'Chờ duyệt'
+        })
+        if (res2 && res2.errCode === 0) this.setState({ arrChoduyetTuongLai: res2.lichdaget.filter(item => moment(item.date)._d.getTime() > new Date().getTime()) })
+        let uniqueSet2 = new Set(this.state.arrChoduyetTuongLai.map(obj => obj.date))
+        this.setState({ arrChoduyetTuongLai_Set: [...uniqueSet2] })
+
+        // đây nữa
+        let res3 = await getOrderByStatusOfClinic({
+            clinicID: this.props.userInfo.id,
+            status: 'Chấp nhận'
+        })
+        if (res3 && res3.errCode === 0) this.setState({
+            arrChapnhanQuakhu: res3.lichdaget.filter(
+                item => moment(item.date)._d.getTime() < (+new Date().getTime() - 86400000)
+            )
+        })
+        let uniqueSet3 = new Set(this.state.arrChapnhanQuakhu.map(obj => obj.date))
+        this.setState({ arrChapnhanQuakhu_Set: [...uniqueSet3] })
     }
 
     fetchAllOrderByDate = async (datePicked) => { // sẽ dùng nhiều lần nên viết thành 1 hàm rồi gọi đi gọi lại cho tiện
@@ -64,50 +98,50 @@ class UserManage extends Component {
         // biết qk_ht_tl và sắp xếp luôn cái mảng đó
 
         if (res && res.errCode === 0) {
+            if (date000000 < today0000000 || date000000 === today0000000) {
+                this.setState({ qk_ht_tl: 'Quá khứ' })
+                let tg = res.booking_by_date
+                for (let i = 0; i < tg.length; i++) {
+                    switch (tg[i].status) {
+                        case 'Chấp nhận': tg[i].level = 1; break;
+                        case 'Đã khám': tg[i].level = 2; break;
+                        case 'Không đến': tg[i].level = 3; break;
+                        case 'Bệnh nhân hủy': tg[i].level = 4; break;
+                        case 'Từ chối': tg[i].level = 5; break;
+                        case 'Chờ duyệt': tg[i].level = 6; break;
+                        case 'Chưa xem': tg[i].level = 7; break;
+                        default: break;
+                    }
+                }
+                for (let i = 0; i < tg.length; i++) {
+                    for (let j = 0; j < tg.length; j++) {
+                        if (tg[i].level < tg[j].level) [tg[i], tg[j]] = [tg[j], tg[i]]
+                    }
+                }
+                this.setState({ arrOrder: tg })
+            }
+            if (date000000 > today0000000) {
+                this.setState({ qk_ht_tl: 'Tương lai' })
+                let tg = res.booking_by_date
+                for (let i = 0; i < tg.length; i++) {
+                    switch (tg[i].status) {
+                        case 'Chưa xem': tg[i].level = 1; break;
+                        case 'Chờ duyệt': tg[i].level = 2; break;
+                        case 'Chấp nhận': tg[i].level = 3; break;
+                        case 'Bệnh nhân hủy': tg[i].level = 4; break;
+                        case 'Từ chối': tg[i].level = 5; break;
+                        default: break;
+                    }
+                }
+                for (let i = 0; i < tg.length; i++) {
+                    for (let j = 0; j < tg.length; j++) {
+                        if (tg[i].level < tg[j].level) [tg[i], tg[j]] = [tg[j], tg[i]]
+                    }
+                }
+                this.setState({ arrOrder: tg })
+            }
+        }
 
-        }
-        if (date000000 < today0000000 || date000000 === today0000000) {
-            this.setState({ qk_ht_tl: 'Quá khứ' })
-            let tg = res.booking_by_date
-            for (let i = 0; i < tg.length; i++) {
-                switch (tg[i].status) {
-                    case 'Chấp nhận': tg[i].level = 1; break;
-                    case 'Đã khám': tg[i].level = 2; break;
-                    case 'Không đến': tg[i].level = 3; break;
-                    case 'Bệnh nhân hủy': tg[i].level = 4; break;
-                    case 'Từ chối': tg[i].level = 5; break;
-                    case 'Chờ duyệt': tg[i].level = 6; break;
-                    case 'Chưa xem': tg[i].level = 7; break;
-                    default: break;
-                }
-            }
-            for (let i = 0; i < tg.length; i++) {
-                for (let j = 0; j < tg.length; j++) {
-                    if (tg[i].level < tg[j].level) [tg[i], tg[j]] = [tg[j], tg[i]]
-                }
-            }
-            this.setState({ arrOrder: tg })
-        }
-        if (date000000 > today0000000) {
-            this.setState({ qk_ht_tl: 'Tương lai' })
-            let tg = res.booking_by_date
-            for (let i = 0; i < tg.length; i++) {
-                switch (tg[i].status) {
-                    case 'Chưa xem': tg[i].level = 1; break;
-                    case 'Chờ duyệt': tg[i].level = 2; break;
-                    case 'Chấp nhận': tg[i].level = 3; break;
-                    case 'Bệnh nhân hủy': tg[i].level = 4; break;
-                    case 'Từ chối': tg[i].level = 5; break;
-                    default: break;
-                }
-            }
-            for (let i = 0; i < tg.length; i++) {
-                for (let j = 0; j < tg.length; j++) {
-                    if (tg[i].level < tg[j].level) [tg[i], tg[j]] = [tg[j], tg[i]]
-                }
-            }
-            this.setState({ arrOrder: tg })
-        }
 
 
     }
@@ -220,32 +254,80 @@ class UserManage extends Component {
 
 
                 <div className='nofi'>
-                    <div className='view'>
-                        <div class="notification">
-                            <div className='choduyet'>Chờ duyệt</div>
-                            <span class="badge badge1">?</span>
+                    <div style={{ backgroundColor: '#FFFFE0', padding: '10px 0px', borderBottom: '1px solid black' }}>
+                        <div className='text-center'><label className='lammoi' onClick={() => {
+                            this.fetchOrderChuaXem()
+                            this.fetchAllOrderByDate(this.state.datePicked)
+                            document.getElementById("sync").setAttribute('class', "fas fa-sync-alt fa-pulse")
+                            setTimeout(() => { document.getElementById("sync").setAttribute('class', "fas fa-check-circle") }, 2000)
+                            setTimeout(() => { document.getElementById("sync").setAttribute('class', "fas fa-sync-alt") }, 3500)
+                        }} title='Cập nhật lại dữ liệu mà không load lại trang'>
+                            Làm mới trang <i id="sync" className="fas fa-sync-alt"></i></label></div>
+                        <div className='view'>
+                            <div class="notification">
+                                <div className='choduyet' style={{ backgroundColor: '#d4ebff' }}
+                                    onClick={() => this.setState({ what: 'Chờ duyệt' })}>Chờ duyệt</div>
+                                <span class="badge badge1">{this.state.arrChoduyetTuongLai.length}</span>
+                            </div>
+                            <div class="notification">
+                                <span onClick={() => this.setState({ what: 'Đơn khám mới' })}><i class="fas fa-bell"></i></span>
+                                <span class="badge badge2">{this.state.arrChuaxem.length}</span>
+                            </div>
                         </div>
-                        <div class="notification">
-                            <span><i class="fas fa-bell"></i></span>
-                            <span class="badge badge2">{this.state.arrChuaxem.length}</span>
+                        <div class="notification" style={{ marginLeft: '20px' }}>
+                            <div className='choduyet' style={{ backgroundColor: '#efef1c' }}
+                                onClick={() => this.setState({ what: 'Chưa xử lý' })}>Chưa xử lý</div>
+                            <span class="badge badge3">{this.state.arrChapnhanQuakhu.length}</span>
                         </div>
                     </div>
                     <div className='list'>
-                        <label>Đơn khám mới:</label>
+                        <label>
+                            {this.state.what === 'Đơn khám mới' ? 'Đơn khám mới' : ''}
+                            {this.state.what === 'Chờ duyệt' ? 'Chờ duyệt' : ''}
+                            {this.state.what === 'Chưa xử lý' ? 'Chưa xử lý' : ''}
+                        </label>
                         <table>
-                            {this.state.arrChuaxem_Set.map(ngay => {
+                            {this.state.what === 'Đơn khám mới' ? <>{this.state.arrChuaxem_Set.sort().map(ngay => {
                                 return (<tr>
-                                    <td className='ngay' onClick={() => {
+                                    <td className='ngay' style={{ backgroundColor: 'antiquewhite' }} onClick={() => {
                                         this.setState({ datePicked: moment(ngay)._d })
                                         this.fetchAllOrderByDate(moment(ngay)._d)
-                                    }}>&emsp;{ngay}&emsp;</td>
+                                    }}>{ngay};</td>
                                     <td>&nbsp;</td>
                                     <td><div className="num badge2">
                                         {this.state.arrChuaxem.filter(obj => obj.date === ngay).length}
                                     </div></td>
                                     <td>&nbsp;</td>
                                 </tr>)
-                            })}
+                            })}</> : <></>}
+                            {/* *********************************** */}
+                            {this.state.what === 'Chờ duyệt' ? <>{this.state.arrChoduyetTuongLai_Set.sort().map(ngay => {
+                                return (<tr>
+                                    <td className='ngay' style={{ backgroundColor: '#d4ebff' }} onClick={() => {
+                                        this.setState({ datePicked: moment(ngay)._d })
+                                        this.fetchAllOrderByDate(moment(ngay)._d)
+                                    }}>{ngay}</td>
+                                    <td>&nbsp;</td>
+                                    <td><div className="num badge1">
+                                        {this.state.arrChoduyetTuongLai.filter(obj => obj.date === ngay).length}
+                                    </div></td>
+                                    <td>&nbsp;</td>
+                                </tr>)
+                            })}</> : <></>}
+                            {/* *********************************** */}
+                            {this.state.what === 'Chưa xử lý' ? <>{this.state.arrChapnhanQuakhu_Set.sort().map(ngay => {
+                                return (<tr>
+                                    <td className='ngay' style={{ backgroundColor: '#efef1c' }} onClick={() => {
+                                        this.setState({ datePicked: moment(ngay)._d })
+                                        this.fetchAllOrderByDate(moment(ngay)._d)
+                                    }}>&emsp;{ngay}&emsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><div className="num badge3">
+                                        {this.state.arrChapnhanQuakhu.filter(obj => obj.date === ngay).length}
+                                    </div></td>
+                                    <td>&nbsp;</td>
+                                </tr>)
+                            })}</> : <></>}
                         </table>
 
                     </div>
@@ -269,14 +351,6 @@ class UserManage extends Component {
                                     {this.state.datePicked.getFullYear()}</h4>
                             </div>
                         </div>
-                        <div><label className='lammoi' onClick={() => {
-                            this.fetchOrderChuaXem()
-                            this.fetchAllOrderByDate(this.state.datePicked)
-                            document.getElementById("sync").setAttribute('class', "fas fa-sync-alt fa-pulse")
-                            setTimeout(() => { document.getElementById("sync").setAttribute('class', "fas fa-check-circle") }, 2000)
-                            setTimeout(() => { document.getElementById("sync").setAttribute('class', "fas fa-sync-alt") }, 3500)
-                        }} title='Cập nhật lại dữ liệu mà không load lại trang'>
-                            Làm mới trang <i id="sync" className="fas fa-sync-alt"></i></label></div>
                     </div>
                     {this.state.arrOrder.filter(item => item.status === 'Chưa xem').length === 0 ? <></> : <div style={{ textAlign: 'right', marginBottom: '10px' }}>
                         <div style={{ textAlign: 'right' }}><label className='danhdaudaxem' onClick={async () => {
@@ -339,7 +413,7 @@ class UserManage extends Component {
                                         {this.themSo_0(moment(order.createdAt)._d.getDate())}/
                                         {+moment(order.createdAt)._d.getMonth() + 1}/
                                         {moment(order.createdAt)._d.getFullYear()}</small>
-                                    <h6 color='red'>{order.status}</h6>
+                                    {/* <h6 color='red'>{order.status}</h6> */}
                                 </div>
                                 <div style={{ borderLeft: `2px solid ${status}`, margin: '10px 0px 10px 0px' }}></div>
                                 <div className={`infobenhnhan ${order.status === 'Từ chối' || order.status === 'Bệnh nhân hủy' ? 'gach' : ''}`}>

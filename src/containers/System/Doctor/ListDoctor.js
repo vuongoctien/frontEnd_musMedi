@@ -38,7 +38,7 @@ class ListDoctor extends Component {
 
     async componentDidMount() {
         document.title = `danh sách bác sĩ | ${this.props.userInfo.name}`
-        document.getElementsByClassName('fa-stethoscope')[0].setAttribute("style", "color:orange;")
+        document.getElementsByClassName('fa-stethoscope')[0].setAttribute("style", "color:brown;")
         let res = await getAllDoctorByClinicId(this.props.userInfo.id)
         this.setState({ arrDoctor: res.all_doctor_of_clinic })
 
