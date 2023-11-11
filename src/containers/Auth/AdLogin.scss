@@ -67,3 +67,63 @@ hr {
     clear  : both;
     display: table;
 }
+
+
+
+
+
+
+
+
+
+.body {
+    .menu {
+        padding  : 0px 70px;
+        font-size: 20px;
+
+        ul {
+            padding   : 0;
+            list-style: none;
+            background: lightgreen;
+        }
+
+        ul li {
+            display    : inline-block;
+            position   : relative;
+            line-height: 21px;
+            text-align : left;
+        }
+
+        ul li a {
+            display        : block;
+            padding        : 8px 25px;
+            color          : #333;
+            text-decoration: none;
+            border         : 1px solid #333;
+        }
+
+        ul li a:hover {
+            color     : #fff;
+            background: #939393;
+        }
+
+        ul li ul.dropdown {
+            min-width : 100%;
+            /* Set width of the dropdown */
+            background: lightgreen;
+            display   : none;
+            position  : absolute;
+            z-index   : 999;
+            left      : 0;
+        }
+
+        ul li:hover ul.dropdown {
+            display: block;
+            /* Display the dropdown */
+        }
+
+        ul li ul.dropdown li {
+            display: block;
+        }
+    }
+}

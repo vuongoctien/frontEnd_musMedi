@@ -57,25 +57,21 @@ function Admin() {
                 <button type="button" class="btn btn-info" onClick={logOUT}>Đăng xuất</button>
             </div>
         </div>
-        <hr />
 
-        <div className='row'>
-            <div className="col-2 vertical-menu">
-                <a className="active">Cơ sở y tế</a>
-                <a href="/adLogin/admin/clinicRead" className="none-active">
-                    -- Danh sách CSYT
-                </a>
-                {/* <a href="/adLogin/admin/clinicAdd" className="none-active">
-                    -- Thêm mới CSYT
-                </a> */}
-                <a href="/adLogin/admin/clinicEditDelete" className="none-active">
-                    -- Cập nhật & xóa CSYT
-                </a>
-                <a className="active">Chuyên khoa</a>
-                <a href="/adLogin/admin/specialty" className="none-active">
-                    -- Chuyên khoa
-                </a>
+        <div className='body'>
 
+            <div className="menu">
+                <ul>
+                    <li>
+                        <a>Cơ sở Y tế ▾</a>
+                        <ul class="dropdown">
+                            <li><a href="/adLogin/admin">Danh sách</a></li>
+                            <li><a href="/adLogin/admin/clinicAdd">Thêm</a></li>
+                            <li><a href="/adLogin/admin/clinicEditDelete">Chỉnh sửa</a></li>
+                        </ul>
+                    </li>
+                    <li><a>Số liệu ▾</a></li>
+                </ul>
             </div>
             <div id="" className='col-10'>
                 <AdminCRUD />

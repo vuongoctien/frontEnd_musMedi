@@ -44,11 +44,11 @@ class ManageClinic_2 extends Component {
         return (
             <div className="clinic-container row mt-5 mx-4">
                 <div className='col-6'>
-                    <a href='/adLogin/admin/clinicAdd'>
+                    {/* <a href='/adLogin/admin/clinicAdd'>
                         <button className='btn btn-primary'>
                             <i className="fas fa-plus"></i>  Thêm CSYT mới
                         </button>
-                    </a>
+                    </a> */}
                 </div>
                 <div className='col-6'>
                     <br></br>
