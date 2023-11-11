@@ -157,16 +157,19 @@ class UserManage extends Component {
     }
 
     handleChangeStatus = async (idOrder, newStatus) => {
-        let res = await changeStatus({
-            idOrder: idOrder,
-            newStatus: newStatus
-        })
-        if (res && res.errCode === 0) {
-            toast.success(`Đã cập nhật trạng thái "${newStatus}"`)
-            this.fetchOrderChuaXem()
-            this.fetchAllOrderByDate(this.state.datePicked)
+        if (window.confirm(`Cập nhật trạng thái đơn khám thành "${newStatus}" ?`) === true) {
+            let res = await changeStatus({
+                idOrder: idOrder,
+                newStatus: newStatus
+            })
+            if (res && res.errCode === 0) {
+                toast.success(`Đã cập nhật trạng thái "${newStatus}"`)
+                this.fetchOrderChuaXem()
+                this.fetchAllOrderByDate(this.state.datePicked)
+            }
+            else toast.error('Lỗi')
         }
-        else toast.error('Lỗi')
+
     }
 
     render() {

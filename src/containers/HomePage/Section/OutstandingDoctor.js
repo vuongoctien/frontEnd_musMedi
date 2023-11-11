@@ -46,7 +46,7 @@ class OutstandingDoctor extends Component {
                 <div className='section-share section-outstanding-doctor' >
                     <div className='section-container'>
                         <div className='section-header'>
-                            <span className='title-section'><FormattedMessage id="homepage.outstanding-doctor" /></span>
+                            <span className='title-section'>Bác sĩ</span>
                             <button className='btn-section'>XEM THÊM</button>
                         </div>
 
@@ -69,7 +69,7 @@ class OutstandingDoctor extends Component {
                                                         <div className='outer-bg'>
                                                             <div className='bg-image section-outstanding-doctor' style={{ backgroundImage: `url(${imageBase64})` }}></div>
                                                         </div>
-                                                        <div className='position text-center'>
+                                                        <div style={{ color: 'black' }} className='position text-center'>
                                                             <h6>{item.position}</h6>
                                                             <h5>{item.name}</h5>
                                                         </div>

@@ -36,7 +36,7 @@ class Specialty extends Component {
             <div className='section-share section-specialty' >
                 <div className='section-container'>
                     <div className='section-header'>
-                        <span className='title-section'><FormattedMessage id="homepage.specialty-popular" /></span>
+                        <span className='title-section'>Chuyên khoa</span>
                         <button className='btn-section'>XEM THÊM</button>
                     </div>
 
