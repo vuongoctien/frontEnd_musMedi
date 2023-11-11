@@ -1,0 +1,80 @@
+.searchclinic-container {
+
+    .searchclinic-content {
+        padding: 20px 90px;
+        width  : 1240px;
+
+        .css-yk16xz-control {
+            border: 1px solid black;
+        }
+
+        .animation {
+            animation-name           : example;
+            animation-duration       : 0.2s;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes example {
+            0% {
+                background-color: gray;
+            }
+
+            50% {
+                background-color: white;
+            }
+
+            100% {
+                background-color: gray;
+            }
+        }
+
+        #search {
+            width          : fit-content;
+            display        : flex;
+            justify-content: center;
+            align-items    : center;
+            margin         : 0 auto;
+            padding        : 3px 15px;
+            border-radius  : 30px;
+            border         : 1px solid black;
+
+            i {
+                margin: 0 5px;
+                cursor: pointer;
+            }
+
+            input {
+                height    : 30px;
+                width     : 100%;
+                background: transparent;
+                border    : none;
+                outline   : none;
+            }
+        }
+
+        .clinic {
+            padding: 20px 10px;
+
+            .clinic-avatar {
+                width              : 250px;
+                height             : 150px;
+                background-image   : url(../../assets/handbook/justtoonit.jpg);
+                background-repeat  : no-repeat;
+                background-size    : contain;
+                background-position: center;
+            }
+
+            .clinic-name {
+                text-align: center;
+                margin-top: 6px;
+
+                a {
+                    font-size  : 17px;
+                    color      : black;
+                    font-weight: 600;
+                    font-family: math;
+                }
+            }
+        }
+    }
+}

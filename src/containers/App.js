@@ -19,6 +19,7 @@ import Doctor from '../routes/Doctor'
 import VerifiEmail from './Patient/VerifiEmail' // và nhớ import vào
 import DetailSpeciatly from './Patient/Specialty/DetailSpeciatly';
 import DetailClinic from './System/Clinic/DetailClinic';
+import SearchClinic from './Search/SearchClinic.js';
 
 class App extends Component {
 
@@ -59,6 +60,8 @@ class App extends Component {
                                     <Route path={path.VERIFY_EMAIL_BOOKING} component={VerifiEmail} />
                                     <Route path={path.DETAIL_SPECIATLY} component={DetailSpeciatly} />
                                     <Route path={path.DETAIL_CLINIC} component={DetailClinic} />
+
+                                    <Route path={'/search-clinic'} component={SearchClinic} />
 
                                     <Route path={'/adLogin'} component={AdLogin} />
                                     {/* Đây là component tổ tiên*/}

@@ -292,7 +292,7 @@ class UserManage extends Component {
                                     <td className='ngay' style={{ backgroundColor: 'antiquewhite' }} onClick={() => {
                                         this.setState({ datePicked: moment(ngay)._d })
                                         this.fetchAllOrderByDate(moment(ngay)._d)
-                                    }}>{ngay};</td>
+                                    }}>{ngay}</td>
                                     <td>&nbsp;</td>
                                     <td><div className="num badge2">
                                         {this.state.arrChuaxem.filter(obj => obj.date === ngay).length}
@@ -346,9 +346,7 @@ class UserManage extends Component {
                                 />
                             </div>
                             <div className='datepicked'>
-                                <h4>Ngày được chọn: {this.themSo_0(this.state.datePicked.getDate())}/
-                                    {+this.state.datePicked.getMonth() + 1}/
-                                    {this.state.datePicked.getFullYear()}</h4>
+                                <h4>Ngày {this.themSo_0(this.state.datePicked.getDate())} tháng {+this.state.datePicked.getMonth() + 1} năm {this.state.datePicked.getFullYear()}</h4>
                             </div>
                         </div>
                     </div>

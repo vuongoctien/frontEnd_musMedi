@@ -46,6 +46,13 @@
                     font-weight: 400;
                     font-size  : 12px;
                 }
+
+                cursor: pointer;
+                color : black;
+
+                &:hover {
+                    text-decoration: underline;
+                }
             }
         }
 
