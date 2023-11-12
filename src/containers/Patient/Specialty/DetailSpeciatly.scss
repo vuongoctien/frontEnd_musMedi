@@ -1,71 +1,68 @@
 .detail-speciatly-container {
-    .description-speciatly {
-        background-color: white !important;
-        padding         : 10px;
-        margin          : 15px 0;
-        height          : 200px;
-        // chỗ này cũng cần phải sửa, chắc những video cuối anh ấy sẽ làm
 
-        // h1,
-        // h2,
-        // h3 {
-        //     font-size  : 16px;
-        //     font-weight: 600;
-        // }
-    }
+    .detail-speciatly-head {
+        padding: 20px 70px;
+        display: flex;
 
-    .search-sp-doctor {
-        select {
-            height       : 30px;
-            padding      : 5px 8px;
-            border       : none;
-            outline      : none;
-            border-radius: 3px;
-            cursor       : pointer;
-        }
-    }
 
-    .detail-speciatly-body {
-        padding         : 0 100px;
-        background-color: #eee;
-        display         : flex;
-        flex-direction  : column;
-    }
-
-    .each-doctor {
-        display         : flex;
-        width           : 100%;
-        min-height      : 300px;
-        margin          : 15px 0;
-        padding         : 10px;
-        background-color: #fff;
-        box-shadow      : 0 1px 6px #20122447;
-        border-radius   : 8px;
-
-        .dt-content-left {
-            width        : 50%;
-            border-right : 1px solid #ddd;
-            padding-right: 10px;
+        .speciatly-img {
+            height         : 150px;
+            width          : 200px;
+            background     : center center no-repeat;
+            background-size: contain;
         }
 
-        .dt-content-right {
-            width  : 50%;
-            padding: 10px;
+        .speciatly-info {
+            padding: 0 20px;
 
-            .doctor-schedule {
-                .doctor-schedule-container {
-                    border-right: unset !important;
-                }
+            .descriptionHTML {
+                overflow        : hidden;
+                background-color: #ecffff;
+                padding         : 5px 20px;
+                border-radius   : 10px;
             }
 
-            .doctor-extra-info {
-                border-top : 1px solid #ddd;
-                margin-top : 10px;
-                padding-top: 10px;
+            .more {
+                cursor: pointer;
+                color : blue;
+                margin: 0 10px;
 
-                .doctor-extra-info-container {
-                    padding-left: 0 !important;
+                &:hover {
+                    text-decoration: underline;
                 }
+            }
+        }
+    }
+
+    .detail-speciatly-boby {
+        min-height: 100vh;
+
+        .list {
+            margin-left: 60px;
+            min-height : 50vh;
+
+            .label {
+                font-size       : 19px;
+                background-color: #ffa50066;
+                padding         : 4px 19px;
+                border-radius   : 7px;
+                margin-top      : 13px;
+                margin-left     : 10px;
+            }
+
+            .titlelistdoctor {
+                margin-top      : 20px;
+                background-color: #dcffc5;
+
+                .h1 {
+                    border          : 1px outset gainsboro;
+                    color           : #395e3f;
+                    background-color: #00ffef33;
+                }
+
+                width          : 1100px;
+                display        : flex;
+                justify-content: space-between;
             }
         }
     }

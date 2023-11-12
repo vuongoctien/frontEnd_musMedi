@@ -3,12 +3,12 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './DetailSpeciatly.scss';
 import HomeHeader from "../../HomePage/HomeHeader"
-import DoctorExtrainfor from "../Doctor/DoctorExtrainfor"
-import ProfileDoctor from "../Doctor/ProfileDoctor"
-import DoctorSchedule from '../Doctor/DoctorSchedule';
-import { getDetailSpecialtyById, getAllcodeService } from '../../../services/userService';
+import { getSpecDr, getDetailSpecialtyById } from '../../../services/userService';
 import _ from 'lodash';
 import { LANGUAGES } from '../../../utils';
+import HomeFooter from '../../HomePage/Section/HomeFooter';
+import BacSi_TaiSuDung from '../Doctor/BacSi_TaiSuDung';
+import GoiDichVu_TaiSuDung from '../Doctor/GoiDichVu_TaiSuDung';
 
 
 class DetailSpeciatly extends Component {
@@ -16,142 +16,88 @@ class DetailSpeciatly extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            arrDoctorId: [],
-            dataDetailSpeciatly: {},
-            listProvince: []
+            thisSpeciatly: {},
+            listDr: [],
+            showAll: false
         }
     }
 
     async componentDidMount() {
-        if (this.props.match && this.props.match.params && this.props.match.params.id) {
-            let id = this.props.match.params.id
-            let res = await getDetailSpecialtyById({
-                id: id,
-                location: 'ALL'
-            })
+        let res = await getDetailSpecialtyById(this.props.match.params.id)
+        if (res && res.errCode === 0) {
+            this.setState({ thisSpeciatly: res.data })
+        }
 
-            let resProvince = await getAllcodeService('PROVINCE')
-
-            if (res && res.errCode === 0 && resProvince && resProvince.errCode === 0) {
-                let data = res.data
-                let arrDoctorId = []
-                if (data && !_.isEmpty(data)) {
-                    let arr = data.doctorSpeciatly
-                    if (arr && arr.length > 0) {
-                        arr.map(item => {
-                            arrDoctorId.push(item.doctorId)
-                        })
-                    }
-                }
-
-                // let dataProvince = resProvince.data
-                // if (dataProvince & dataProvince.length > 0) {
-                //     dataProvince.unshift({
-                //         createAt: null,
-                //         keyMap: 'ALL',
-                //         type: 'PROVINCE',
-                //         valueEn: 'ALL',
-                //         valueVi: 'Toan quoc'
-                //     })
-                // } // 
-
-                this.setState({
-                    dataDetailSpeciatly: res.data,
-                    arrDoctorId: arrDoctorId,
-                    listProvince: resProvince.data
-                    // listProvince: dataProvince ? dataProvince : []
-                })
-            }
+        let res2 = await getSpecDr({
+            specialtyID: this.props.match.params.id,
+            dr_or_pk_ID: ''
+        })
+        if (res2 && res2.errCode === 0) {
+            this.setState({ listDr: res2.data })
         }
     }
 
-    async componentDidUpdate(prevProps, prevState, snapshot) {  // à prevProps trức là props trước đó
-
-    }
-
-    handleOnChangeSelect = async (event) => { // thôi khỏi, thích thì mình tự làm sau
-        // if (this.props.match && this.props.match.params && this.props.match.params.id) {
-        //     let id = this.props.match.params.id
-        //     let location = event.target.value
-        //     let res = await getDetailSpecialtyById({
-        //         id: id,
-        //         location: location
-        //     })
-
-        //     if (res && res.errCode === 0) {
-        //         let data = res.data
-        //         let arrDoctorId = []
-        //         if (data && !_.isEmpty(data)) {
-        //             let arr = data.doctorSpeciatly
-        //             if (arr && arr.length > 0) {
-        //                 arr.map(item => {
-        //                     arrDoctorId.push(item.doctorId)
-        //                 })
-        //             }
-        //         }
-
-        //         this.setState({
-        //             dataDetailSpeciatly: res.data,
-        //             arrDoctorId: arrDoctorId
-        //         })
-        //     }
-        // }
-    }
-
     render() {
-        let { arrDoctorId, dataDetailSpeciatly, listProvince } = this.state
-        let { language } = this.props
         console.log('this.state', this.state)
-        return (
+        let batdongbo = ''
+        if (this.state.thisSpeciatly.image) batdongbo = new Buffer(this.state.thisSpeciatly.image, 'base64').toString('binary')
+        return (<><HomeHeader />
             <div className='detail-speciatly-container'>
-                <HomeHeader />
-                <div className='detail-speciatly-body'>
-                    <div className='description-speciatly'>
-                        {dataDetailSpeciatly && !_.isEmpty(dataDetailSpeciatly)
-                            && <div dangerouslySetInnerHTML={{ __html: dataDetailSpeciatly.descriptionHTML }}></div>}
+                <div className='detail-speciatly-head'>
+                    <div className='speciatly-img'
+                        style={{ backgroundImage: `url(${batdongbo})` }}></div>
+                    <div className='speciatly-info'>
+                        <h1>{this.state.thisSpeciatly.name}</h1>
+                        <div style={{ display: 'flex' }}>
+                            <div><label className='more'
+                                onClick={() => { this.setState({ showAll: !this.state.showAll }) }}
+                                dangerouslySetInnerHTML={{ __html: this.state.showAll === false ? 'Xem<br/>thêm' : 'Ẩn<br/>bớt' }}>
+                            </label></div>
+                            <div className='descriptionHTML' style={{
+                                height: `${this.state.showAll === false ? '100px' : 'auto'}`,
+                                color: `${this.state.showAll === false ? 'gainsboro' : 'black'}`
+                            }}
+                                dangerouslySetInnerHTML={{ __html: this.state.thisSpeciatly.descriptionHTML }}></div>
+                        </div>
                     </div>
-                    <div className='search-sp-doctor'>
-                        <select onChange={(event) => this.handleOnChangeSelect(event)}>
-                            {listProvince && listProvince.length > 0
-                                && listProvince.map((item, index) => {
-                                    return (
-                                        <option key={index} value={item.keyMap}>
-                                            {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
-                                        </option>
-                                    )
-                                })}
-                        </select>
-                    </div>
-                    {arrDoctorId && arrDoctorId.length > 0 && arrDoctorId.map((item, index) => {
-                        return (
-                            <div className='each-doctor'>
-                                <div className='dt-content-left'>
-                                    <div className='profile-doctor'>
-                                        <ProfileDoctor
-                                            doctorId={item}
-                                            isShowDescriptionDoctor={true}
-                                            isShowLinkDetail={true}
-                                            isShowPrice={false}
-                                        />
-                                    </div>
-                                </div>
-                                <div className='dt-content-right'>
-                                    <div className='doctor-schedule'>
-                                        <DoctorSchedule
-                                            doctorIdFromParent={item}
-                                        />
-                                    </div>
-                                    <div className='doctor-extra-info'>
-                                        <DoctorExtrainfor
-                                            doctorIdFromParent={item}
-                                        />
-                                    </div>
-                                </div>
+                </div>
+                <div className='detail-speciatly-boby'>
+                    <div className='list'>
+                        <div className='titlelistdoctor'>
+                            <div className='h1'>
+                                <h1>Danh sách bác sĩ&nbsp;<i className="fas fa-level-down-alt"></i></h1>
                             </div>
-                        )
-                    })}
+
+                        </div>
+                        {this.state.listDr.length === 0 ?
+                            <label className='label'>Danh sách trống</label> : <></>}
+                        {this.state.listDr && this.state.listDr.filter(bs => bs.doctorData2.dr_or_pk === 1).map((item, index) => {
+                            return (<BacSi_TaiSuDung
+                                // thử truyền cả cục data xem:
+                                doctorInfo={item.doctorData2}
+                                clinicInfo={item.doctorData2.clinicData}
+                            />)
+                        })}
+                    </div>
+                    <div className='list'>
+                        <div className='titlelistdoctor'>
+                            <div className='h1'>
+                                <h1>Các gói dịch vụ&nbsp;<i className="fas fa-level-down-alt"></i></h1>
+                            </div>
+                        </div>
+                        {this.state.listDr.length === 0 ?
+                            <label className='label'>Danh sách trống</label> : <></>}
+                        {this.state.listDr && this.state.listDr.filter(bs => bs.doctorData2.dr_or_pk !== 1).map((item, index) => {
+                            return (<GoiDichVu_TaiSuDung
+                                // thử truyền cả cục data xem:
+                                medipackageInfo={item.doctorData2}
+                                clinicInfo={item.doctorData2.clinicData}
+                            />)
+                        })}
+                    </div>
                 </div>
             </div>
+            <HomeFooter /></>
         )
     }
 

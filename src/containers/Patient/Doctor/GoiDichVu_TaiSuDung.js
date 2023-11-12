@@ -134,7 +134,14 @@ class GoiDichVu_TaiSuDung extends Component {
     render() {
         // Những bên khác muốn xài component con này đều phải đặt tên biến là medipackageInfo và clinicInfo
         // Để tránh bất đồng bộ, phải làm như này
-        let img = ''; if (this.props.medipackageInfo.image) { img = this.props.medipackageInfo.image }
+        let img = ''
+        if (this.props.medipackageInfo.image) {
+            if (this.props.medipackageInfo.image.type === "Buffer") {
+                img = new Buffer(this.props.medipackageInfo.image, 'base64').toString('binary')
+            } else {
+                img = this.props.medipackageInfo.image
+            }
+        }
 
         let listClockTime = []
         for (let i = 0; i < this.state.listClockTime.length; i++) {

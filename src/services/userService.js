@@ -211,6 +211,10 @@ const deleteSpecialty = (deleteData) => { //ok
         }
     })
 }
+
+const getSpecDr = (query) => { //ok
+    return axios.get(`/api/get-specdr?specialtyID=${query.specialtyID}&dr_or_pk_ID=${query.dr_or_pk_ID}`)
+}
 /********************************************************************************************** */
 
 /*********CLINIC *****************************************************************************/
@@ -289,4 +293,5 @@ export {
     getOrderByStatusOfClinic,
     danhDauDaXem,
     changeStatus,
+    getSpecDr,
 }

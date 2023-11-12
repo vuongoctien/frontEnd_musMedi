@@ -135,7 +135,14 @@ class BacSi_TaiSuDung extends Component {
     render() {
         // Những bên khác muốn xài component con này đều phải đặt tên biến là doctorInfo và clinicInfo
         // Để tránh bất đồng bộ, phải làm như này
-        let img = ''; if (this.props.doctorInfo.image) { img = this.props.doctorInfo.image }
+        let img = ''
+        if (this.props.doctorInfo.image) {
+            if (this.props.doctorInfo.image.type === "Buffer") {
+                img = new Buffer(this.props.doctorInfo.image, 'base64').toString('binary')
+            } else {
+                img = this.props.doctorInfo.image
+            }
+        }
 
         let listClockTime = []
         for (let i = 0; i < this.state.listClockTime.length; i++) {
