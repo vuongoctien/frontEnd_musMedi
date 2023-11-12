@@ -70,10 +70,16 @@ function Admin() {
                             <li><a href="/adLogin/admin/clinicEditDelete">Chỉnh sửa</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a>Chuyên khoa ▾</a>
+                        <ul class="dropdown">
+                            <li><a href="/adLogin/admin/specialty">Quản lý chuyên khoa</a></li>
+                        </ul>
+                    </li>
                     <li><a>Số liệu ▾</a></li>
                 </ul>
             </div>
-            <div id="" className='col-10'>
+            <div>
                 <AdminCRUD />
             </div>
         </div>

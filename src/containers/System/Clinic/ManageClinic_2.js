@@ -42,20 +42,12 @@ class ManageClinic_2 extends Component {
         console.log('arrClinic', arrClinic)
 
         return (
-            <div className="clinic-container row mt-5 mx-4">
-                <div className='col-6'>
-                    {/* <a href='/adLogin/admin/clinicAdd'>
-                        <button className='btn btn-primary'>
-                            <i className="fas fa-plus"></i>  Thêm CSYT mới
-                        </button>
-                    </a> */}
-                </div>
-                <div className='col-6'>
-                    <br></br>
+            <div className="clinic-container">
+                <div className='text-center'>
                     <h3>Danh sách CSYT</h3>
                 </div>
-                <div className='col-12 mt-2'>
-                    <table id="customers">
+                <div style={{ padding: '0 170px' }}>
+                    <table>
                         <tbody>
                             <tr>
                                 <th>id</th>
