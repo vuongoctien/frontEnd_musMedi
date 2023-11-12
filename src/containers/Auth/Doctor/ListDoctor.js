@@ -37,12 +37,12 @@ class ListDoctor extends Component {
     }
 
     async componentDidMount() {
-        document.title = `danh sách bác sĩ | ${this.props.userInfo.name}`
-        document.getElementsByClassName('fa-stethoscope')[0].setAttribute("style", "color:brown;")
-        let res = await getAllDoctorByClinicId(this.props.userInfo.id)
+        document.title = this.props.match.params.clinicName
+        // document.getElementsByClassName('fa-stethoscope')[0].setAttribute("style", "color:brown;")
+        let res = await getAllDoctorByClinicId(this.props.match.params.clinicID)
         this.setState({ arrDoctor: res.all_doctor_of_clinic })
 
-        let res2 = await getAllMediPackageByClinicId(this.props.userInfo.id)
+        let res2 = await getAllMediPackageByClinicId(this.props.match.params.clinicID)
         this.setState({ arrMediPackage: res2.all_mediPackage_of_clinic })
     }
 
@@ -66,7 +66,7 @@ class ListDoctor extends Component {
                 <div className='row'>
                     <div className='col-12'><br /></div>
                     <div className='col-10 text-center'><h1>Danh sách bác sĩ & gói dịch vụ</h1></div>
-                    <div className='col-2'><h1><a href='/system/editDoctor'>
+                    <div className='col-2'><h1><a href={`/adLogin/admin/editDoctor/${this.props.match.params.clinicID}&${this.props.match.params.clinicName}`}>
                         <i className="fas fa-user-edit"></i>
                     </a></h1></div>
                 </div>
@@ -74,7 +74,13 @@ class ListDoctor extends Component {
                     <div className='col-12'><hr /></div>
                     <div className='col-1'></div>
                     <div className='col-8'><h2>Bác sĩ</h2></div>
-                    <div className='col-3'><a href='/system/addDoctor'><button type="button" class="btn btn-outline-success"><i className="fas fa-plus"></i> Thêm bác sĩ mới</button></a></div>
+                    <div className='col-3'>
+                        <a href={`/adLogin/admin/addDoctor/${this.props.match.params.clinicID}&${this.props.match.params.clinicName}`}>
+                            <button type="button" class="btn btn-outline-success">
+                                <i className="fas fa-plus"></i> Thêm bác sĩ mới
+                            </button>
+                        </a>
+                    </div>
                     <div className='col-1'></div>
                     <div className="col-10 row list-doctor">
                         {this.state.arrDoctor.length === 0 ? <h5>(Danh sách trống)</h5> : ''}
@@ -119,7 +125,13 @@ class ListDoctor extends Component {
                     <div className='col-12'><hr /></div>
                     <div className='col-1'></div>
                     <div className='col-8'><h2>Gói dịch vụ</h2></div>
-                    <div className='col-3'><a href='/system/addMediPackage'><button type="button" class="btn btn-outline-success"><i className="fas fa-plus"></i> Thêm gói dịch vụ mới</button></a></div>
+                    <div className='col-3'>
+                        <a href={`/adLogin/admin/addMediPackage/${this.props.match.params.clinicID}&${this.props.match.params.clinicName}`}>
+                            <button type="button" class="btn btn-outline-success">
+                                <i className="fas fa-plus"></i> Thêm gói dịch vụ mới
+                            </button>
+                        </a>
+                    </div>
                     <div className='col-1'></div>
                     <div className="col-10 row list-doctor">
                         {this.state.arrMediPackage && this.state.arrMediPackage.map((item, index) => {

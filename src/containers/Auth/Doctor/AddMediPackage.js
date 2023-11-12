@@ -42,8 +42,8 @@ class AddMediPackage extends Component {
     }
 
     async componentDidMount() {
-        document.title = `thêm gói dịch vụ mới | ${this.props.userInfo.name}`
-        document.getElementsByClassName('fa-stethoscope')[0].setAttribute("style", "color:brown;")
+        document.title = `thêm gói dịch vụ mới | ${this.props.match.params.clinicName}`
+        // document.getElementsByClassName('fa-stethoscope')[0].setAttribute("style", "color:brown;")
     }
 
     handleSaveNewClinic = async () => {
@@ -73,7 +73,7 @@ class AddMediPackage extends Component {
                 password: 'Đồ án còn rất nhiều thiếu sót',
                 ///
                 status: 1,
-                clinicID: this.props.userInfo.id,
+                clinicID: this.props.match.params.clinicID,
                 priceDefault: 250,
                 dr_or_pk: 0
             })
@@ -84,7 +84,7 @@ class AddMediPackage extends Component {
             }
             if (res && res.errCode === 0) {
                 alert('Thêm mới Gói dịch vụ thành công')
-                window.location = "/system/listDoctor";
+                window.location = `/adLogin/admin/listDoctor/${this.props.match.params.clinicID}&${this.props.match.params.clinicName}`;
                 toast.success('Thêm mới Gói dịch vụ thành công')// hàm này không thể chạy vì load lại trang rồi
             }
             if (res && res.errCode === 1) {
@@ -151,7 +151,7 @@ class AddMediPackage extends Component {
                 <div className='col-8'>
                     <div className='col-12 mb-5 text-center'>
                         <br></br>
-                        <h1>Thêm Gói dịch vụ mới vào {this.props.userInfo.name}</h1>
+                        <h1>Thêm Gói dịch vụ mới vào {this.props.match.params.clinicName}</h1>
                     </div>
                 </div>
                 <div className='col-12 mx-3 row'>

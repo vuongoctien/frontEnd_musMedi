@@ -45,8 +45,8 @@ class AddDoctor extends Component {
     }
 
     async componentDidMount() {
-        document.title = `thêm bác sĩ mới | ${this.props.userInfo.name}`
-        document.getElementsByClassName('fa-stethoscope')[0].setAttribute("style", "color:brown;")
+        document.title = `thêm bác sĩ mới | ${this.props.match.params.clinicName}`
+        // document.getElementsByClassName('fa-stethoscope')[0].setAttribute("style", "color:brown;")
 
     }
 
@@ -65,7 +65,7 @@ class AddDoctor extends Component {
                 password: this.state.password,
                 ///
                 status: 1,
-                clinicID: this.props.userInfo.id,
+                clinicID: this.props.match.params.clinicID,
                 priceDefault: 250,
                 dr_or_pk: 1
             })
@@ -75,7 +75,7 @@ class AddDoctor extends Component {
             }
             if (res && res.errCode === 0) {
                 alert('Thêm mới Bác sĩ thành công')
-                window.location = "/system/listDoctor";
+                window.location = `/adLogin/admin/listDoctor/${this.props.match.params.clinicID}&${this.props.match.params.clinicName}`;
                 toast.success('Thêm mới Bác sĩ thành công')// hàm này không thể chạy vì load lại trang rồi
             }
             if (res && res.errCode === 1) {
@@ -138,7 +138,7 @@ class AddDoctor extends Component {
                 <div className='col-8'>
                     <div className='col-12 mb-5 text-center'>
                         <br></br>
-                        <h1>Thêm Bác sĩ mới vào {this.props.userInfo.name}</h1>
+                        <h1>Thêm Bác sĩ mới vào {this.props.match.params.clinicName}</h1>
                     </div>
                 </div>
                 <div className='col-12 mx-3 row'>

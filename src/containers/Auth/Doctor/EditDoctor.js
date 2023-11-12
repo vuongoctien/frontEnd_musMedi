@@ -60,15 +60,15 @@ class EditDoctor extends Component {
     }
 
     async componentDidMount() {
-        document.title = `Chỉnh sửa thông tin | ${this.props.userInfo.name}`
-        document.getElementsByClassName('fa-stethoscope')[0].setAttribute("style", "color:brown;")
-        let res = await getAllDoctorByClinicId(this.props.userInfo.id)
+        document.title = `Chỉnh sửa thông tin | ${this.props.match.params.clinicName}`
+        // document.getElementsByClassName('fa-stethoscope')[0].setAttribute("style", "color:brown;")
+        let res = await getAllDoctorByClinicId(this.props.match.params.clinicID)
         if (res && res.errCode === 0) {
             this.setState({
                 listDoctor: this.buildDataInputSelect(res.all_doctor_of_clinic)
             })
         }
-        let res2 = await getAllMediPackageByClinicId(this.props.userInfo.id)
+        let res2 = await getAllMediPackageByClinicId(this.props.match.params.clinicID)
         if (res2 && res2.errCode === 0) {
             this.setState({
                 listMediPackage: this.buildDataInputSelect(res2.all_mediPackage_of_clinic)
@@ -265,7 +265,7 @@ class EditDoctor extends Component {
     }
 
     render() {
-        // console.log('this.props.userInfo', this.props.userInfo)
+        // console.log('this.props.match.params', this.props.match.params)
         console.log('state hien tai', this.state)
         return (
             <div className=''>
@@ -438,7 +438,7 @@ class EditDoctor extends Component {
                                             <button
                                                 className='btn btn-info'
                                                 onClick={() => this.handleEditDoctor({
-                                                    idClinic: this.props.userInfo.id,
+                                                    idClinic: this.props.match.params.clinicID,
                                                     idDoctor: this.state.selectedDoctor.value,
                                                     name: this.state.name,
                                                     position: this.state.position,
@@ -455,7 +455,7 @@ class EditDoctor extends Component {
                                             <button
                                                 className='btn btn-info'
                                                 onClick={() => this.handleEditMediPackage({
-                                                    idClinic: this.props.userInfo.id,
+                                                    idClinic: this.props.match.params.clinicID,
                                                     idDoctor: this.state.selectedDoctor.value,
                                                     name: this.state.name,
                                                     position: this.state.selectedPackageType.value,
