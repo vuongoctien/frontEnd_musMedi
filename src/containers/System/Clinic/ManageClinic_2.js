@@ -42,7 +42,7 @@ class ManageClinic_2 extends Component {
         console.log('arrClinic', arrClinic)
 
         return (
-            <div className="clinic-container">
+            <div className="manageclinic2">
                 <div className='text-center'>
                     <h3>Danh sách CSYT</h3>
                 </div>

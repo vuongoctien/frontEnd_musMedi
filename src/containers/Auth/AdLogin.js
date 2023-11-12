@@ -65,7 +65,7 @@ function Admin() {
                     <li>
                         <a>Cơ sở Y tế ▾</a>
                         <ul class="dropdown">
-                            <li><a href="/adLogin/admin">Danh sách</a></li>
+                            <li><a href="/adLogin/admin/listClinic">Danh sách</a></li>
                             <li><a href="/adLogin/admin/clinicAdd">Thêm</a></li>
                             <li><a href="/adLogin/admin/clinicEditDelete">Chỉnh sửa</a></li>
                         </ul>

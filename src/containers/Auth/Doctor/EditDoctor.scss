@@ -1,0 +1,13 @@
+.fa-exchange-alt {
+    cursor: pointer;
+    color : rgb(12, 183, 0);
+
+    &:hover {
+        color: green;
+    }
+}
+
+.fa-user-md,
+.fa-notes-medical {
+    color: blue;
+}
