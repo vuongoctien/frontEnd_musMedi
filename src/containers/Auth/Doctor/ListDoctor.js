@@ -160,7 +160,6 @@ class ListDoctor extends Component {
 
                     </div>
                 </div>
-                <FooterClinic />
             </div>
         );
     }

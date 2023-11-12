@@ -491,7 +491,7 @@ class EditDoctor extends Component {
                     }
                 </div>
 
-                <FooterClinic />
+
             </div>
         )
     }

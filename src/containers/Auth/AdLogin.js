@@ -5,6 +5,7 @@ import './AdLogin.scss'
 import logo from '../../assets/musMedi.png'
 import { handleLoginApi } from "../../services/userService";
 import AdminCRUD from "./AdminCRUD";
+import FooterClinic from "../Footer/FooterClinic";
 
 export default function AdLogin() {
     /** Đã hiểu. Bên file App, mình đặt đường dẫn (bên file App) để nó mở component AdLogin này
@@ -67,21 +68,22 @@ function Admin() {
                         <ul class="dropdown">
                             <li><a href="/adLogin/admin/listClinic">Danh sách</a></li>
                             <li><a href="/adLogin/admin/clinicAdd">Thêm</a></li>
-                            <li><a href="/adLogin/admin/clinicEditDelete">Chỉnh sửa</a></li>
+                            <li><a href="/adLogin/admin/clinicEditDelete">Sửa</a></li>
                         </ul>
                     </li>
                     <li>
                         <a>Chuyên khoa ▾</a>
                         <ul class="dropdown">
-                            <li><a href="/adLogin/admin/specialty">Quản lý chuyên khoa</a></li>
+                            <li><a href="/adLogin/admin/specialty">Thêm & sửa</a></li>
                         </ul>
                     </li>
                     <li><a>Số liệu ▾</a></li>
                 </ul>
             </div>
-            <div>
+            <div style={{ minHeight: '100vh' }}>
                 <AdminCRUD />
             </div>
+            <FooterClinic />
         </div>
     </>
 }

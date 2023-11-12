@@ -226,7 +226,7 @@ class LichBieu extends Component {
                         </table>
                     </div>
                 </div>
-                <FooterClinic />
+
             </div>
 
         );

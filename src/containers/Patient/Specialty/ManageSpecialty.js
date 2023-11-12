@@ -167,17 +167,16 @@ class ManageSpecialty extends Component {
     }
 
     handleDeleteSpeciatly = async (idSpecialtyDelete) => {
-        // if (window.confirm(`Bạn chắc chắn muốn xóa chuyên khoa "${this.state.name}" khỏi hệ thống?`) == true) {
-        //     let res = await deleteSpecialty(idSpecialtyDelete)
-        //     if (res && res.errCode === 0) {
-        //         alert('Xóa thành công')
-        //         window.location.reload(false)
-        //         toast.success('Xóa thành công') // hàm này không thể chạy vì load lại trang rồi
-        //     } else {
-        //         toast.error('Lỗi! Có thể chuyên khoa đã bị xóa ở 1 tab khác')
-        //     }
-        // }
-        alert('Mình chưa ràng buộc những dữ liệu liên quan, tạm thời phong ấn chức năng xóa. Thích xóa thì check ràng buộc cho kỹ, rồi tự vào DB mà xóa')
+        if (window.confirm(`Bạn chắc chắn muốn xóa chuyên khoa "${this.state.name}" khỏi hệ thống?`) == true) {
+            let res = await deleteSpecialty(idSpecialtyDelete)
+            if (res && res.errCode === 0) {
+                alert('Xóa thành công')
+                window.location.reload(false)
+                toast.success('Xóa thành công') // hàm này không thể chạy vì load lại trang rồi
+            } else {
+                toast.error('Lỗi! Có thể chuyên khoa đã bị xóa ở 1 tab khác')
+            }
+        }
     }
 
 

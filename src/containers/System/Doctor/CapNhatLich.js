@@ -449,7 +449,7 @@ class CapNhatLich extends Component {
                         })}
                     </div>
                 </div>
-                <FooterClinic />
+
             </div>
         );
     }
