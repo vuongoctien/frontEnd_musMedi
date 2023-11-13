@@ -40,12 +40,13 @@
 
 
                 .img-doctor {
-                    height         : 100px;
-                    width          : 100px;
-                    border         : 1px solid #ccc;
-                    background     : center center no-repeat;
-                    background-size: cover;
-                    border-radius  : 50%;
+                    height          : 100px;
+                    width           : 100px;
+                    border          : 1px solid #ccc;
+                    background      : center center no-repeat;
+                    background-size : contain;
+                    border-radius   : 50%;
+                    background-color: white;
                 }
 
                 .img-medipk {

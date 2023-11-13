@@ -13,22 +13,23 @@ import ManageSchedule from '../containers/System/Doctor/ManageSchedule';
 import LichBieu from '../containers/System/Doctor/LichBieu';
 import CapNhatLich from '../containers/System/Doctor/CapNhatLich';
 import Setting from '../containers/System/Setting';
+import FooterClinic from '../containers/Footer/FooterClinic';
 class System extends Component {
     render() {
         const { systemMenuPath, isLoggedIn } = this.props;
         return (
             <React.Fragment>
                 {isLoggedIn && <Header />}
-                < div className="system-container" >
+                < div className="system-container" style={{ minHeight: '100vh' }}>
                     <div className="system-list">
                         <Switch>
                             <Route path="/system/user-manage" component={UserManage} />
                             {/* <Route path="/system/user-redux" component={UserRedux} /> */}
 
-                            <Route path="/system/addDoctor" component={AddDoctor} />
+                            {/* <Route path="/system/addDoctor" component={AddDoctor} />
                             <Route path="/system/addMediPackage" component={AddMediPackage} />
                             <Route path="/system/listDoctor" component={ListDoctor} />
-                            <Route path="/system/editDoctor" component={EditDoctor} />
+                            <Route path="/system/editDoctor" component={EditDoctor} /> */}
                             <Route path="/system/editScheduleDoctor" component={ManageSchedule} />
                             {/* <Route path="/system/ThoiGianBieu" component={ThoiGianBieu} /> */}
                             <Route path="/system/LichBieu/:dd&:mm&:yy" component={LichBieu} />
@@ -39,6 +40,7 @@ class System extends Component {
                         </Switch>
                     </div>
                 </div >
+                {isLoggedIn && <FooterClinic />}
             </React.Fragment>
         );
     }

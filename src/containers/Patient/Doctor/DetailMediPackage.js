@@ -47,7 +47,7 @@ class DetailMediPackage extends Component {
         let d = +new Date().getDate() + 1
         let m = new Date().getMonth()
         let y = new Date().getFullYear()
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < this.state.clinic.quantity_date; i++) {
             let date = new Date(y, m, +d + i)
             let getDateThemSo_0 = (date) => {
                 let number = date.getDate()
@@ -140,6 +140,10 @@ class DetailMediPackage extends Component {
         })
     }
 
+    handleShowOrder = async () => {
+        alert('ok Viết hàm đi')
+    }
+
     render() {
         // console.log('this.state', this.state)
         let listClockTime = []
@@ -206,10 +210,14 @@ class DetailMediPackage extends Component {
                             </div>
                             <div className='text-calendar'>
                                 <p><i className='fas fa-calendar-alt'></i>&nbsp;LỊCH KHÁM</p>
+                                {listClockTime.length === 0 ? <></> :
+                                    <label onClick={this.handleShowOrder}>Xem số lượng đã đặt</label>}
                             </div>
                             <div className='giokham'>
                                 {listClockTime.length === 0 ?
-                                    <h5>Không có lịch hẹn trong ngày này</h5> : <></>
+                                    <h5>Không có lịch hẹn trong ngày này</h5>
+                                    :
+                                    <></>
                                 }
                                 {listClockTime.map(clockTime => {
                                     return (<button
