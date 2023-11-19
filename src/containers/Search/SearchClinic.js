@@ -115,7 +115,7 @@ class SearchClinic extends Component {
                                 <div className='clinic-avatar'
                                     style={{ backgroundImage: `url(${clinic.image ? clinic.image : ''})` }}></div>
                                 <div className='clinic-name'>
-                                    <a href={`../detail-clinic/${clinic.id}`}>{clinic.image ? clinic.image : ''}</a>
+                                    <a href={`../detail-clinic/${clinic.id}`}>{clinic.name}</a>
                                 </div>
                             </div>)
                         })}
