@@ -28,7 +28,7 @@ class HomeHeader extends Component {
                             <a href='/home'><img className='header-logo' src={logo} /></a>
                         </div>
                         <div className='center-content'>
-                            <a className='child-content'>
+                            <a className='child-content' href='/list-specialty'>
                                 <div><b><FormattedMessage id="home-header.speciality" /></b></div>
                                 <div className='subs-title'><FormattedMessage id="home-header.search-doctor" /></div>
                             </a>

@@ -38,7 +38,7 @@ class Specialty extends Component {
                 <div className='section-container'>
                     <div className='section-header'>
                         <span className='title-section'>Chuyên khoa</span>
-                        <button className='btn-section'>XEM THÊM</button>
+                        <a href='/list-specialty'><button className='btn-section'>XEM THÊM</button></a>
                     </div>
 
 
