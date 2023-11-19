@@ -144,7 +144,7 @@ class LichBieu extends Component {
                                 return (
                                     <tr>
                                         <td style={{ backgroundColor: '#f7f7f7' }}>
-                                            <a href={`/system/CapNhatLich/${dd}&${mm}&${yy}&${doctor.id}&${1}`} target="_blank">
+                                            <a href={`/system/CapNhatLich/${+dd + 1}&${mm}&${yy}&${doctor.id}&${1}`} target="_blank">
                                                 {doctor.name}
                                             </a>
                                         </td>
@@ -186,7 +186,7 @@ class LichBieu extends Component {
                                 return (
                                     <tr>
                                         <td style={{ backgroundColor: '#f7f7f7' }}>
-                                            <a href={`/system/CapNhatLich/${dd}&${mm}&${yy}&${medi_package.id}&${0}`}>
+                                            <a href={`/system/CapNhatLich/${+dd + 1}&${mm}&${yy}&${medi_package.id}&${0}`}>
                                                 {medi_package.name}
                                             </a>
                                         </td>

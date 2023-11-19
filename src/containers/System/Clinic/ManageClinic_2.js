@@ -74,7 +74,7 @@ class ManageClinic_2 extends Component {
                                             {item.status === 1 ?
                                                 <button className='btn btn-outline-success btn-lg' onClick={async () => {
                                                     if (window.confirm(`Hành động này sẽ ẩn '${item.name}' khỏi hệ thống. Bạn chắc chắn với lựa chọn của mình chứ?`) == true) {
-                                                        item.status = 0
+                                                        item.status = '0'
                                                         let res = await editClinic(item)
                                                         if (res && res.errCode === 0) {
                                                             // alert('Cập nhật trạng thái thành công')

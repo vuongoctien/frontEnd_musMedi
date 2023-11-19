@@ -301,7 +301,8 @@ class CapNhatLich extends Component {
                                 onChange={this.handleOnChangeDatePicker}
                                 className='form-control'
                                 // placeholder={`${this.props.match.params.dd}/${this.props.match.params.mm}/${this.props.match.params.yy}`}
-                                minDate={new Date(new Date().setDate(new Date().getDate() - 1))} // yesterday
+                                // minDate={new Date(new Date().setDate(new Date().getDate() - 1))} // yesterday
+                                minDate={new Date()}
                                 value={this.state.selectedDate}
                             />
                             {/* <label>(Lưu ý: để chọn lại hôm nay, vui lòng trở về trang Lịch Biểu,

@@ -5,6 +5,7 @@ import './MedicalFacility.scss'
 import { getAllClinic } from '../../../services/userService'
 import { withRouter } from 'react-router';
 import Slider from "react-slick"
+import { tronmangngaunhien } from '../../Search/bodauTiengViet';
 
 class MedicalFacility extends Component {
     constructor(props) {
@@ -39,7 +40,7 @@ class MedicalFacility extends Component {
                         <div className='section-body'>
                             <Slider {...this.props.settings}>
                                 {dataClinics && dataClinics.length > 0
-                                    && dataClinics.map((item, index) => {
+                                    && tronmangngaunhien(dataClinics).map((item, index) => {
                                         return (
                                             <div className='section-customize clinic-child' key={index} >
                                                 <a href={`detail-clinic/${item.id}`}>

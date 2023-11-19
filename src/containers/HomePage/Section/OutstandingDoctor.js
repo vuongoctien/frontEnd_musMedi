@@ -5,6 +5,7 @@ import Slider from "react-slick"
 import * as actions from "../../../store/actions"
 import { LANGUAGES } from '../../../utils';
 import { withRouter } from 'react-router';
+import { tronmangngaunhien } from '../../Search/bodauTiengViet';
 
 class OutstandingDoctor extends Component {
 
@@ -55,7 +56,7 @@ class OutstandingDoctor extends Component {
                             <Slider {...this.props.settings}>
 
                                 {arrDoctors && arrDoctors.length > 0
-                                    && arrDoctors.map((item, index) => {
+                                    && tronmangngaunhien(arrDoctors).map((item, index) => {
                                         let imageBase64 = ''
                                         if (item.image) {
                                             imageBase64 = new Buffer(item.image, 'base64').toString('binary')

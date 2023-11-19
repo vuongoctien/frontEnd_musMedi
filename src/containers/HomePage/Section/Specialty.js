@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import Slider from "react-slick"
 import { getAllSpecialty } from '../../../services/userService';
 import { withRouter } from 'react-router';
+import { tronmangngaunhien } from '../../Search/bodauTiengViet';
 
 class Specialty extends Component {
     constructor(props) {
@@ -44,7 +45,7 @@ class Specialty extends Component {
                     <div className='section-body'>
                         <Slider {...this.props.settings}>
                             {dataSpecialty && dataSpecialty.length > 0
-                                && dataSpecialty.map((item, index) => {
+                                && tronmangngaunhien(dataSpecialty).map((item, index) => {
                                     return (
                                         <div className='section-customize section-child' key={index}>
                                             <a href={`/detail-speciatly/${item.id}`}>

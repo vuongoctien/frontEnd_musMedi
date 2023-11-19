@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { getTopMediPackageHomeServices } from '../../../services/userService';
 import Slider from "react-slick"
+import { tronmangngaunhien } from '../../Search/bodauTiengViet';
 
 
 
@@ -34,7 +35,7 @@ class Handbook extends Component {
                     <div className='section-body'>
                         <Slider {...this.props.settings}>
                             {this.state.allMediPackage && this.state.allMediPackage.length > 0
-                                && this.state.allMediPackage.map((item, index) => {
+                                && tronmangngaunhien(this.state.allMediPackage).map((item, index) => {
                                     return (
                                         <div className='section-customize clinic-child' key={index} >
                                             <a href={`detail-medipackage/${item.clinicID}&${item.id}`}>
