@@ -36,11 +36,11 @@ class HomeHeader extends Component {
                                 <div><b><FormattedMessage id="home-header.health-facility" /></b></div>
                                 <div className='subs-title'><FormattedMessage id="home-header.select-room" /></div>
                             </a>
-                            <a className='child-content'>
+                            <a className='child-content' href='/search-doctor'>
                                 <div><b><FormattedMessage id="home-header.doctor" /></b></div>
                                 <div className='subs-title'><FormattedMessage id="home-header.select-doctor" /></div>
                             </a>
-                            <a className='child-content'>
+                            <a className='child-content' href='/search-package'>
                                 <div><b><FormattedMessage id="home-header.fee" /></b></div>
                                 <div className='subs-title'><FormattedMessage id="home-header.check-health" /></div>
                             </a>

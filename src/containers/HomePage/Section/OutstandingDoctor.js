@@ -48,7 +48,7 @@ class OutstandingDoctor extends Component {
                     <div className='section-container'>
                         <div className='section-header'>
                             <span className='title-section'>Bác sĩ</span>
-                            <button className='btn-section'>XEM THÊM</button>
+                            <a href='/search-doctor'><button className='btn-section'>XEM THÊM</button></a>
                         </div>
 
 

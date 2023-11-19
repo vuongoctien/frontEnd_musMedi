@@ -28,7 +28,7 @@ class Handbook extends Component {
                 <div className='section-container'>
                     <div className='section-header'>
                         <span className='title-section'>Gói dịch vụ</span>
-                        <button className='btn-section'>XEM THÊM</button>
+                        <a href='/search-package'><button className='btn-section'>XEM THÊM</button></a>
                     </div>
 
 

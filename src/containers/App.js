@@ -21,6 +21,8 @@ import DetailSpeciatly from './Patient/Specialty/DetailSpeciatly';
 import DetailClinic from './System/Clinic/DetailClinic';
 import SearchClinic from './Search/SearchClinic.js';
 import ListChuyenKhoa from './Search/ListChuyenKhoa.js';
+import SearchPackage from './Search/SearchPackage.js';
+import SearchDoctor from './Search/SearchDoctor.js';
 
 class App extends Component {
 
@@ -64,6 +66,8 @@ class App extends Component {
 
                                     <Route path={'/search-clinic'} component={SearchClinic} />
                                     <Route path={'/list-specialty'} component={ListChuyenKhoa} />
+                                    <Route path={'/search-package'} component={SearchPackage} />
+                                    <Route path={'/search-doctor'} component={SearchDoctor} />
 
                                     <Route path={'/adLogin'} component={AdLogin} />
                                     {/* Đây là component tổ tiên*/}

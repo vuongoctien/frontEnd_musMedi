@@ -4,7 +4,7 @@ import './SearchClinic.scss'
 import HomeHeader from '../HomePage/HomeHeader';
 import HomeFooter from '../HomePage/Section/HomeFooter'
 import Select from 'react-select'
-import { getAllClinic } from '../../services/userService';
+import { getTopMediPackageHomeServices } from '../../services/userService';
 import _ from 'lodash';
 import { bodau } from './bodauTiengViet';
 
@@ -19,22 +19,22 @@ class SearchClinic extends Component {
 
             provinces: [],
             selectedProvince: {
-                "label": ">> không có tỉnh thành được chọn <<",
+                "label": ">> không có loại dịch vụ được chọn <<",
                 "value": 0
             },
         }
     }
 
     async componentDidMount() {
-        document.title = 'Cơ sở y tế'
-        let res = await getAllClinic()
+        document.title = 'Gói dịch vụ'
+        let res = await getTopMediPackageHomeServices(100)
         if (res && res.errCode === 0) {
             this.setState({
                 allClinic: res.data ? res.data : [],
                 filterClinic: res.data ? res.data : [],
                 showClinic: res.data ? res.data : []
             })
-            let uniqueSet = new Set(this.state.allClinic.map(clinic => clinic.province))
+            let uniqueSet = new Set(this.state.allClinic.map(clinic => clinic.position))
             this.setState({ provinces: [...uniqueSet] })
         }
     }
@@ -64,8 +64,8 @@ class SearchClinic extends Component {
             })
         } else {
             this.setState({
-                filterClinic: this.state.allClinic.filter(item => item.province === selectedOption.value),
-                showClinic: this.state.allClinic.filter(item => item.province === selectedOption.value)
+                filterClinic: this.state.allClinic.filter(item => item.position === selectedOption.value),
+                showClinic: this.state.allClinic.filter(item => item.position === selectedOption.value)
             })
         }
         document.getElementById('stringsearch').value = ''
@@ -86,13 +86,14 @@ class SearchClinic extends Component {
     }
 
     render() {
-        // console.log('state', this.state)
+        console.log('state', this.state)
+
         return (
             <div className='searchclinic-container'>
                 <HomeHeader />
                 <div className='searchclinic-content'>
                     <div className='row '>
-                        <div className='col-3'><h2>Cơ sở y tế</h2></div>
+                        <div className='col-3'><h2>Gói dịch vụ</h2></div>
                         <div className='col-2'></div>
                         <div className='col-4'>
                             <Select
@@ -111,11 +112,13 @@ class SearchClinic extends Component {
                     </div>
                     <div className='row' style={{ marginTop: '10px', minHeight: '100vh' }}>
                         {this.state.showClinic.map(clinic => {
+                            let img = ''
+                            if (clinic.image) { img = new Buffer(clinic.image, 'base64').toString('binary') }
                             return (<div className='col-3 clinic'>
                                 <div className='clinic-avatar'
-                                    style={{ backgroundImage: `url(${clinic.image ? clinic.image : ''})` }}></div>
+                                    style={{ backgroundImage: `url(${img})`, backgroundSize: 'cover' }}></div>
                                 <div className='clinic-name'>
-                                    <a href={`../detail-clinic/${clinic.id}`}>{clinic.image ? clinic.image : ''}</a>
+                                    <a href={`detail-medipackage/${clinic.clinicID}&${clinic.id}`}>{clinic.name}</a>
                                 </div>
                             </div>)
                         })}
