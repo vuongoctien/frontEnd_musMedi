@@ -60,7 +60,7 @@ class EditDoctor extends Component {
     }
 
     async componentDidMount() {
-        document.title = `Chỉnh sửa thông tin | ${this.props.match.params.clinicName}`
+        document.title = `Chỉnh sửa thông tin`
         // document.getElementsByClassName('fa-stethoscope')[0].setAttribute("style", "color:brown;")
         let res = await getAllDoctorByClinicId(this.props.match.params.clinicID)
         if (res && res.errCode === 0) {

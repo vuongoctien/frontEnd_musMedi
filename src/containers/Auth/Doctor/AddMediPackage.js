@@ -84,7 +84,7 @@ class AddMediPackage extends Component {
             }
             if (res && res.errCode === 0) {
                 alert('Thêm mới Gói dịch vụ thành công')
-                window.location = `/adLogin/admin/listDoctor/${this.props.match.params.clinicID}&${this.props.match.params.clinicName}`;
+                window.location = `/adLogin/admin/listDoctor/${this.props.match.params.clinicID}`;
                 toast.success('Thêm mới Gói dịch vụ thành công')// hàm này không thể chạy vì load lại trang rồi
             }
             if (res && res.errCode === 1) {

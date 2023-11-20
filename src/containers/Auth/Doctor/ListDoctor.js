@@ -66,7 +66,7 @@ class ListDoctor extends Component {
                 <div className='row'>
                     <div className='col-12'><br /></div>
                     <div className='col-10 text-center'><h1>Danh sách bác sĩ & gói dịch vụ</h1></div>
-                    <div className='col-2'><h1><a href={`/adLogin/admin/editDoctor/${this.props.match.params.clinicID}&${this.props.match.params.clinicName}`}>
+                    <div className='col-2'><h1><a href={`/adLogin/admin/editDoctor/${this.props.match.params.clinicID}`}>
                         <i className="fas fa-user-edit"></i>
                     </a></h1></div>
                 </div>
@@ -75,7 +75,7 @@ class ListDoctor extends Component {
                     <div className='col-1'></div>
                     <div className='col-8'><h2>Bác sĩ</h2></div>
                     <div className='col-3'>
-                        <a href={`/adLogin/admin/addDoctor/${this.props.match.params.clinicID}&${this.props.match.params.clinicName}`}>
+                        <a href={`/adLogin/admin/addDoctor/${this.props.match.params.clinicID}`}>
                             <button type="button" class="btn btn-outline-success">
                                 <i className="fas fa-plus"></i> Thêm bác sĩ mới
                             </button>
@@ -126,7 +126,7 @@ class ListDoctor extends Component {
                     <div className='col-1'></div>
                     <div className='col-8'><h2>Gói dịch vụ</h2></div>
                     <div className='col-3'>
-                        <a href={`/adLogin/admin/addMediPackage/${this.props.match.params.clinicID}&${this.props.match.params.clinicName}`}>
+                        <a href={`/adLogin/admin/addMediPackage/${this.props.match.params.clinicID}`}>
                             <button type="button" class="btn btn-outline-success">
                                 <i className="fas fa-plus"></i> Thêm gói dịch vụ mới
                             </button>

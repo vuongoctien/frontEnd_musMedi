@@ -32,10 +32,10 @@ class AdminCRUD extends Component {
                     <Route path="/adLogin/admin/clinicEditDelete" component={ManageClinic} />
                     <Route path="/adLogin/admin/clinicAdd" component={AddClinic} />
                     <Route path="/adLogin/admin/listClinic" component={ManageClinic_2} />
-                    <Route path="/adLogin/admin/listDoctor/:clinicID&:clinicName" component={ListDoctor} />
-                    <Route path="/adLogin/admin/addDoctor/:clinicID&:clinicName" component={AddDoctor} />
-                    <Route path="/adLogin/admin/addMediPackage/:clinicID&:clinicName" component={AddMediPackage} />
-                    <Route path="/adLogin/admin/editDoctor/:clinicID&:clinicName" component={EditDoctor} />
+                    <Route path="/adLogin/admin/listDoctor/:clinicID" component={ListDoctor} />
+                    <Route path="/adLogin/admin/addDoctor/:clinicID" component={AddDoctor} />
+                    <Route path="/adLogin/admin/addMediPackage/:clinicID" component={AddMediPackage} />
+                    <Route path="/adLogin/admin/editDoctor/:clinicID" component={EditDoctor} />
                 </Switch>
 
             </Router>

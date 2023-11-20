@@ -101,7 +101,7 @@ class ManageClinic_2 extends Component {
                                             }
                                         </td>
                                         <td>
-                                            <a href={`/adLogin/admin/listDoctor/${item.id}&${item.name}`}><i className="fas fa-external-link-alt"></i></a>
+                                            <a href={`/adLogin/admin/listDoctor/${item.id}`}><i className="fas fa-external-link-alt"></i></a>
                                         </td>
                                     </tr>
                                 )
