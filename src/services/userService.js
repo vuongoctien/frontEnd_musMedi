@@ -215,6 +215,21 @@ const deleteSpecialty = (deleteData) => { //ok
 const getSpecDr = (query) => { //ok
     return axios.get(`/api/get-specdr?specialtyID=${query.specialtyID}&dr_or_pk_ID=${query.dr_or_pk_ID}`)
 }
+
+const deleteSpecDr = (dr_or_pk_ID) => { //ok
+    return axios.delete(`/api/delete-specdr`, {
+        data: { // mình không hiểu tại sao lại viết thế này, nhưng kệ, chạy được rồi
+            dr_or_pk_ID: dr_or_pk_ID
+        }
+    })
+}
+
+const createSpecDr = (data) => {
+    return axios.post(`/api/create-specdr`, data)
+}
+
+
+
 /********************************************************************************************** */
 
 /*********CLINIC *****************************************************************************/
@@ -294,4 +309,7 @@ export {
     danhDauDaXem,
     changeStatus,
     getSpecDr,
+    deleteSpecDr,
+    createSpecDr,
+
 }

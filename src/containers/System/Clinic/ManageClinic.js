@@ -441,7 +441,7 @@ class ManageClinic extends Component {
         //         }
         //     }
         // }
-        alert('Giờ chưa xóa được, mình chưa ràng buộc những dữ liệu liên quan, xóa là lằng nhằng lắm. Thích xóa thì check ràng buộc cho kỹ, rồi tự vào DB mà xóa')
+        alert('Chức năng xóa hiện không khả dụng')
     }
 
 

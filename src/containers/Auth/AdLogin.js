@@ -75,9 +75,11 @@ function Admin() {
                         <a>Chuyên khoa ▾</a>
                         <ul class="dropdown">
                             <li><a href="/adLogin/admin/specialty">Thêm & sửa</a></li>
+                            <li><a href="/adLogin/admin/editSpec">Chọn chuyên khoa cho bác sĩ</a></li>
                         </ul>
                     </li>
                     <li><a>Số liệu ▾</a></li>
+
                 </ul>
             </div>
             <div style={{ minHeight: '100vh' }}>

@@ -10,6 +10,7 @@ import ListDoctor from '../Auth/Doctor/ListDoctor'
 import AddDoctor from '../Auth/Doctor/AddDoctor';
 import AddMediPackage from '../Auth/Doctor/AddMediPackage'
 import EditDoctor from '../Auth/Doctor/EditDoctor'
+import EditSpec from '../Patient/Specialty/EditSpec';
 
 class AdminCRUD extends Component {
     constructor(props) {
@@ -36,6 +37,7 @@ class AdminCRUD extends Component {
                     <Route path="/adLogin/admin/addDoctor/:clinicID" component={AddDoctor} />
                     <Route path="/adLogin/admin/addMediPackage/:clinicID" component={AddMediPackage} />
                     <Route path="/adLogin/admin/editDoctor/:clinicID" component={EditDoctor} />
+                    <Route path="/adLogin/admin/editSpec" component={EditSpec} />
                 </Switch>
 
             </Router>
