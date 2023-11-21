@@ -155,7 +155,10 @@ class CapNhatLich extends Component {
                                 if (res && res.errCode === 0) toast.success('Thêm lịch thành công')
                                 if (res && res.errCode === 1) toast.error('Vui lòng điền đầy đủ thông tin')
                                 if (res && res.errCode === -1) toast.error('Lỗi máy chủ')
-                                if (!res) toast.error('Lỗi chưa xác định')
+                                if (!res) { // nếu không có res tức lỗi gì đó mình không biết
+                                    alert('Lỗi không xác định. Chúng tôi sẽ tải lại trang bây giờ')
+                                    window.location.reload()
+                                }
                             })
                         }
                     }
@@ -178,7 +181,10 @@ class CapNhatLich extends Component {
                                 if (res && res.errCode === 0) toast.success('Thêm lịch thành công')
                                 if (res && res.errCode === 1) toast.error('Vui lòng điền đầy đủ thông tin')
                                 if (res && res.errCode === -1) toast.error('Lỗi máy chủ')
-                                if (!res) toast.error('Lỗi chưa xác định')
+                                if (!res) { // nếu không có res tức lỗi gì đó mình không biết
+                                    alert('Lỗi không xác định. Chúng tôi sẽ tải lại trang bây giờ')
+                                    window.location.reload()
+                                }
                             })
                         }
                     }
@@ -220,7 +226,10 @@ class CapNhatLich extends Component {
                             if (res && res.errCode === 0) toast.success('Xóa lịch thành công')
                             if (res && res.errCode === 1) toast.error('Vui lòng điền đầy đủ thông tin')
                             if (res && res.errCode === -1) toast.error('Lỗi máy chủ')
-                            if (!res) toast.error('Lỗi chưa xác định')
+                            if (!res) { // nếu không có res tức lỗi gì đó mình không biết
+                                alert('Lỗi không xác định. Chúng tôi sẽ tải lại trang bây giờ')
+                                window.location.reload()
+                            }
 
                         }
                     }
@@ -241,7 +250,10 @@ class CapNhatLich extends Component {
                             if (res && res.errCode === 0) toast.success('Xóa lịch thành công')
                             if (res && res.errCode === 1) toast.error('Vui lòng điền đầy đủ thông tin')
                             if (res && res.errCode === -1) toast.error('Lỗi máy chủ')
-                            if (!res) toast.error('Lỗi chưa xác định')
+                            if (!res) { // nếu không có res tức lỗi gì đó mình không biết
+                                alert('Lỗi không xác định. Chúng tôi sẽ tải lại trang bây giờ')
+                                window.location.reload()
+                            }
 
                         }
                     }

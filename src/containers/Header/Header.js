@@ -82,7 +82,7 @@ class Header extends Component {
                     {/* <a href=''><h1></h1></a> */}
                     {/* <a href='/system/listDoctor' title='Bác sĩ & gói dịch vụ'><i className="fas fa-stethoscope"></i></a> */}
                     <a
-                        href={`/system/LichBieu/${new Date().getDate()}&${new Date().getMonth() + 1}&${new Date().getFullYear()}`}
+                        href={`/system/LichBieu/${new Date().getDate() + 1}&${new Date().getMonth() + 1}&${new Date().getFullYear()}`}
                         title='Lịch biểu'
                     >
                         <i className="fas fa-calendar-alt"></i>

@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl';
 import _, { filter, iteratee } from 'lodash'
 import FooterClinic from '../Footer/FooterClinic';
 import DatePicker from 'react-flatpickr';
-import { getOrderByDate, getOrderByStatusOfClinic, danhDauDaXem, changeStatus } from '../../services/userService';
+import { getOrderByDate, getOrderByStatusOfClinic, danhDauDaXem, changeStatus, guiEmail } from '../../services/userService';
 import moment from 'moment/moment';
 import { Modal } from 'reactstrap';
 import Select from 'react-select'
@@ -166,10 +166,15 @@ class UserManage extends Component {
                 toast.success(`Đã cập nhật trạng thái "${newStatus}"`)
                 this.fetchOrderChuaXem()
                 this.fetchAllOrderByDate(this.state.datePicked)
+                let res1 = await guiEmail({
+                    idOrder: idOrder,
+                    loai: newStatus
+                })
+                if (res1 && res1.errCode === 0) toast.success('Gửi mail thông báo thành công')
+                else toast.error('Gửi email thông báo thất bại')
             }
             else toast.error('Lỗi')
         }
-
     }
 
     render() {

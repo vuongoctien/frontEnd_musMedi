@@ -131,6 +131,10 @@ const sendSimpleEmail = (data) => { //ok
     return axios.post(`/api/send-mail`, data)
 }
 
+const guiEmail = (data) => { //ok
+    return axios.post(`/api/gui-mail`, data)
+}
+
 
 /*********************************************************** */
 
@@ -311,5 +315,5 @@ export {
     getSpecDr,
     deleteSpecDr,
     createSpecDr,
-
+    guiEmail
 }

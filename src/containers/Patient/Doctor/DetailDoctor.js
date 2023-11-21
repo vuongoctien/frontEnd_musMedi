@@ -209,11 +209,11 @@ class DetailDoctor extends Component {
                                 </div>
 
                             </div>
-                            <div className='text-calendar'>
+                            {/* <div className='text-calendar'>
                                 <p><i className='fas fa-calendar-alt'></i>&nbsp;LỊCH KHÁM</p>
                                 {listClockTime.length === 0 ? <></> :
                                     <label onClick={this.handleShowOrder}>Xem số lượng đã đặt</label>}
-                            </div>
+                            </div> */}
                             <div className='giokham'>
                                 {listClockTime.length === 0 ?
                                     <h5>Không có lịch hẹn trong ngày này</h5>
