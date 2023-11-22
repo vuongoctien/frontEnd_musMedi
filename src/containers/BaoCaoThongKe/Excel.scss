@@ -1,0 +1,29 @@
+.excel {
+    .xuatraexcel {
+        cursor: pointer;
+        color : blue;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    table {
+        margin-top: 20px;
+        font-size : 15px;
+
+        th {
+            background-color: lightblue;
+            text-align      : center;
+        }
+
+        td {
+            background-color: lightcyan;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+        }
+    }
+}

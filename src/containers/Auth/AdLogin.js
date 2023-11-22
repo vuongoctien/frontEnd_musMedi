@@ -64,7 +64,7 @@ function Admin() {
             <div className="menu">
                 <ul>
                     <li>
-                        <a>Cơ sở Y tế ▾</a>
+                        <a>&emsp;Cơ sở Y tế ▾&emsp;</a>
                         <ul class="dropdown">
                             <li><a href="/adLogin/admin/listClinic">Danh sách</a></li>
                             <li><a href="/adLogin/admin/clinicAdd">Thêm</a></li>
@@ -72,13 +72,18 @@ function Admin() {
                         </ul>
                     </li>
                     <li>
-                        <a>Chuyên khoa ▾</a>
+                        <a>&emsp;Chuyên khoa ▾&emsp;</a>
                         <ul class="dropdown">
                             <li><a href="/adLogin/admin/specialty">Thêm & sửa</a></li>
                             <li><a href="/adLogin/admin/editSpec">Chọn chuyên khoa cho bác sĩ</a></li>
                         </ul>
                     </li>
-                    <li><a>Số liệu ▾</a></li>
+                    <li>
+                        <a>&emsp;&ensp;&ensp;Dữ liệu ▾&ensp;&ensp;&ensp;</a>
+                        <ul class="dropdown">
+                            <li><a href="/adLogin/admin/excel">Đơn đặt khám</a></li>
+                        </ul>
+                    </li>
 
                 </ul>
             </div>

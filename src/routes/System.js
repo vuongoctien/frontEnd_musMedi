@@ -14,6 +14,7 @@ import LichBieu from '../containers/System/Doctor/LichBieu';
 import CapNhatLich from '../containers/System/Doctor/CapNhatLich';
 import Setting from '../containers/System/Setting';
 import FooterClinic from '../containers/Footer/FooterClinic';
+import ExcelClinic from '../containers/BaoCaoThongKe/ExcelClinic';
 class System extends Component {
     render() {
         const { systemMenuPath, isLoggedIn } = this.props;
@@ -35,6 +36,7 @@ class System extends Component {
                             <Route path="/system/LichBieu/:dd&:mm&:yy" component={LichBieu} />
                             <Route path="/system/CapNhatLich/:dd&:mm&:yy&:dr_or_pk_ID&:dr_or_pk" component={CapNhatLich} />
                             <Route path="/system/setting" component={Setting} />
+                            <Route path="/system/excel" component={ExcelClinic} />
 
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                         </Switch>

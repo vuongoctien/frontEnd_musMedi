@@ -219,6 +219,10 @@ class AddMediPackage extends Component {
                         </div>
                         <div className='col-12'><br></br></div>
                         <div className='col-12'>
+                            <h5>Sau khi tạo mới bác sĩ, vào phần sửa thông tin để chọn chuyên khoa </h5>
+                        </div>
+                        <div className='col-12'><br></br></div>
+                        <div className='col-12'>
                             <label>Thông tin khám: </label>
                             <textarea
                                 className='form-control'

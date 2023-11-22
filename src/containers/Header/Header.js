@@ -88,7 +88,7 @@ class Header extends Component {
                         <i className="fas fa-calendar-alt"></i>
                     </a>
                     <a href='/system/setting' title='Cài đặt'><i className="fas fa-cog"></i></a>
-                    <a href='' title='Số liệu'><i className="fas fa-database"></i></a>
+                    <a href='/system/excel' title='Số liệu'><i className="fas fa-database"></i></a>
                 </div>
 
                 <div className='rowLoz'>

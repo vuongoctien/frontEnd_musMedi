@@ -117,6 +117,12 @@ const changeStatus = (queryObject) => { //ok
     return axios.put(`/api/change-status`, queryObject)
 }
 
+const getOrderByClinic = (query) => { //ok
+    return axios.get(`/api/get-order-by-clinic?clinicID=${query.clinicID}`)
+}
+
+
+
 
 
 
@@ -315,5 +321,7 @@ export {
     getSpecDr,
     deleteSpecDr,
     createSpecDr,
-    guiEmail
+    guiEmail,
+    getOrderByClinic,
+
 }
