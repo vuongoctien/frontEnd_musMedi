@@ -16,6 +16,7 @@ class Setting extends Component {
     }
 
     async componentDidMount() {
+        document.title = `cài đặt | ${this.props.userInfo.name}`
         document.getElementsByClassName('fa-cog')[0].setAttribute("style", "color:brown;")
         let res = await getAllDetailClinicById(this.props.userInfo.id) ////////////////api
         if (res && res.errCode === 0) {

@@ -214,6 +214,16 @@ class BookingModal extends Component {
     render() {
         // console.log('this.props', this.props)
         // console.log('this.state', this.state)
+
+        let img = ''
+        if (this.props.Dr_Pk.image) {
+            if (this.props.Dr_Pk.image.type === "Buffer") {
+                img = new Buffer(this.props.Dr_Pk.image, 'base64').toString('binary')
+            } else {
+                img = this.props.Dr_Pk.image
+            }
+        }
+
         return (
             <>
                 <Modal
@@ -232,7 +242,7 @@ class BookingModal extends Component {
                         <div className='booking-modal-body'>
                             <div className='doctor-medipk-info'>
                                 <div className={this.props.dr_or_pk === 1 ? 'img-doctor' : 'img-medipk'}
-                                    style={{ backgroundImage: `url(${this.props.Dr_Pk.image ? this.props.Dr_Pk.image : ''})` }}>
+                                    style={{ backgroundImage: `url(${img})` }}>
                                 </div>
                                 <div className='info-doctor'>
                                     {this.props.dr_or_pk === 1 ?
@@ -477,6 +487,9 @@ class BookingModal extends Component {
                 >
                     <div className='text-center waiting'>
                         <h1>Đang xử lý&nbsp;<i class="fas fa-spinner fa-spin"></i></h1>
+                        <br />
+                        <h5>Lưu ý: Quá trình có thể mất chút thời gian, tùy vào tốc độ Internet</h5>
+                        <h5>Nếu tắt giữa chừng, email vẫn sẽ được gửi, nhưng cơ sở y tế sẽ không nhận được đơn đặt khám của bạn</h5>
                     </div>
                 </Modal>
             </>

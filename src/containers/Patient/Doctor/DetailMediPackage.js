@@ -9,6 +9,7 @@ import DoctorExtrainfor from './DoctorExtrainfor';
 import Select from 'react-select'
 import HomeFooter from '../../HomePage/Section/HomeFooter';
 import BookingModal from './Modal/BookingModal';
+import SoLuongDaDat from './Modal/SoLuongDaDat';
 
 class DetailMediPackage extends Component {
 
@@ -26,7 +27,9 @@ class DetailMediPackage extends Component {
             showmore: false,
 
             isOpen: false, // to Modal
-            clockTime: '' // to Modal
+            clockTime: '', // to Modal
+
+            isOpen2: true, // to Modal
         }
     }
 
@@ -140,6 +143,12 @@ class DetailMediPackage extends Component {
         })
     }
 
+    closeModal2 = () => { // to Modal
+        this.setState({
+            isOpen2: false
+        })
+    }
+
     handleShowOrder = async () => {
         alert('ok Viết hàm đi')
     }
@@ -162,6 +171,10 @@ class DetailMediPackage extends Component {
                     Dr_Pk={this.state.medi_packageData} // bsi/goidvu đó
                     date={this.state.selectedDate} // ngày
                     clockTime={this.state.clockTime} // giờ
+                />
+                <SoLuongDaDat
+                    isOpen={this.state.isOpen2}
+                    closeModal={this.closeModal2}
                 />
                 <HomeHeader isShowBaner={false} />
                 <div className='medipackage-detail-container'>
@@ -208,11 +221,11 @@ class DetailMediPackage extends Component {
                                 </div>
 
                             </div>
-                            {/* <div className='text-calendar'>
+                            <div className='text-calendar'>
                                 <p><i className='fas fa-calendar-alt'></i>&nbsp;LỊCH KHÁM</p>
                                 {listClockTime.length === 0 ? <></> :
                                     <label onClick={this.handleShowOrder}>Xem số lượng đã đặt</label>}
-                            </div> */}
+                            </div>
                             <div className='giokham'>
                                 {listClockTime.length === 0 ?
                                     <h5>Không có lịch hẹn trong ngày này</h5>

@@ -27,7 +27,8 @@ class ExcelClinic extends Component {
     }
 
     async componentDidMount() {
-        document.title = 'Truy xuất dữ liệu'
+        document.title = `truy xuất dữ liệu | ${this.props.userInfo.name}`
+        document.getElementsByClassName('fas fa-database')[0].setAttribute("style", "color:brown;")
         let res = await getAllClinic()
         if (res && res.errCode === 0) {
             this.setState({

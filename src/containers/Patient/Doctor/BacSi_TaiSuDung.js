@@ -8,6 +8,7 @@ import { getScheduleDoctorByDate, getScheduleForUser } from '../../../services/u
 import { FormattedMessage } from 'react-intl';
 import BookingModal from './Modal/BookingModal';
 import { times } from 'lodash';
+import SoLuongDaDat from './Modal/SoLuongDaDat';
 
 class BacSi_TaiSuDung extends Component {
 
@@ -25,7 +26,9 @@ class BacSi_TaiSuDung extends Component {
             showmore: false,
 
             isOpen: false, // to Modal
-            clockTime: '' // to Modal
+            clockTime: '', // to Modal
+
+            isOpen2: true, // to Modal
         }
     }
 
@@ -131,6 +134,12 @@ class BacSi_TaiSuDung extends Component {
         })
     }
 
+    closeModal2 = () => { // to Modal
+        this.setState({
+            isOpen2: false
+        })
+    }
+
     handleShowOrder = async () => {
         alert('ok Viết hàm đi')
     }
@@ -164,6 +173,10 @@ class BacSi_TaiSuDung extends Component {
                     Dr_Pk={this.props.doctorInfo} // bsi/goidvu đó
                     date={this.state.selectedDate} // ngày
                     clockTime={this.state.clockTime} // giờ
+                />
+                <SoLuongDaDat
+                    isOpen={this.state.isOpen2}
+                    closeModal={this.closeModal2}
                 />
                 <div className='left'>
                     <div className='intro-doctor'>
@@ -215,11 +228,11 @@ class BacSi_TaiSuDung extends Component {
                         </div>
 
                     </div>
-                    {/* <div className='text-calendar'>
+                    <div className='text-calendar'>
                         <p><i className='fas fa-calendar-alt'></i>&nbsp;LỊCH KHÁM</p>
                         {listClockTime.length === 0 ? <></> :
                             <label onClick={this.handleShowOrder}>Xem số lượng đã đặt</label>}
-                    </div> */}
+                    </div>
                     <div className='giokham'>
                         {listClockTime.length === 0 ?
                             <h5>Không có lịch hẹn trong ngày này</h5>
