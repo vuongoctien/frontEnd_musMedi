@@ -28,7 +28,7 @@ class BacSi_TaiSuDung extends Component {
             isOpen: false, // to Modal
             clockTime: '', // to Modal
 
-            isOpen2: true, // to Modal
+            isOpen2: false, // to Modal
         }
     }
 
@@ -141,7 +141,7 @@ class BacSi_TaiSuDung extends Component {
     }
 
     handleShowOrder = async () => {
-        alert('ok Viết hàm đi')
+        this.setState({ isOpen2: true })
     }
 
 
@@ -174,10 +174,12 @@ class BacSi_TaiSuDung extends Component {
                     date={this.state.selectedDate} // ngày
                     clockTime={this.state.clockTime} // giờ
                 />
-                <SoLuongDaDat
+                {/* <SoLuongDaDat
                     isOpen={this.state.isOpen2}
                     closeModal={this.closeModal2}
-                />
+                    date={this.state.selectedDate.value}
+                    dr_or_pk_ID={this.state.doctorData.id}
+                /> */}
                 <div className='left'>
                     <div className='intro-doctor'>
                         <div className='text-center'>

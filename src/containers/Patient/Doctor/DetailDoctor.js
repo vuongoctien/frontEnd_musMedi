@@ -29,7 +29,7 @@ class DetailDoctor extends Component {
             isOpen: false, // to Modal
             clockTime: '', // to Modal
 
-            isOpen2: true, // to Modal
+            isOpen2: false, // to Modal
         }
     }
 
@@ -150,7 +150,7 @@ class DetailDoctor extends Component {
     }
 
     handleShowOrder = async () => {
-        alert('ok Viết hàm đi')
+        this.setState({ isOpen2: true })
     }
 
     render() {
@@ -175,6 +175,8 @@ class DetailDoctor extends Component {
                 <SoLuongDaDat
                     isOpen={this.state.isOpen2}
                     closeModal={this.closeModal2}
+                    date={this.state.selectedDate.value}
+                    dr_or_pk_ID={this.state.doctorData.id}
                 />
                 <HomeHeader isShowBaner={false} />
                 <div className='doctor-detail-container'>
