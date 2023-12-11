@@ -278,8 +278,8 @@ class BookingModal extends Component {
                                             value={this.state.sdt} /></td>
                                     </tr>
                                     <tr>
-                                        <td className='td1'>Email (không bắt buộc):  &ensp;</td>
-                                        <td className='td2'><input type="email" placeholder='Email người đặt lịch (không bắt buộc)' className='form-control'
+                                        <td className='td1'>Email:  &ensp;</td>
+                                        <td className='td2'><input type="email" placeholder='Email người đặt lịch' className='form-control'
                                             onChange={(event) => this.handleOnChangeInput(event, 'email')}
                                             value={this.state.email} />
                                         </td>
@@ -385,8 +385,8 @@ class BookingModal extends Component {
                     centered
                 >
                     <div className='head2'>
-                        &nbsp;
-                        <h1>Đặt khám thành công</h1>
+                        &nbsp;&nbsp;
+                        {/* <h1>Đặt khám thành công</h1> */}
                         <div><i onClick={() => {
                             this.setState({ open2ndModal: false })
                             this.props.closeModal()

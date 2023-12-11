@@ -176,7 +176,7 @@ class DetailMediPackage extends Component {
                     isOpen={this.state.isOpen2}
                     closeModal={this.closeModal2}
                     date={this.state.selectedDate.value}
-                    dr_or_pk_ID={this.state.doctorData.id}
+                    dr_or_pk_ID={this.state.medi_packageData.id}
                 />
                 <HomeHeader isShowBaner={false} />
                 <div className='medipackage-detail-container'>

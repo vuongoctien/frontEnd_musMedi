@@ -121,7 +121,9 @@ const getOrderByClinic = (query) => { //ok
     return axios.get(`/api/get-order-by-clinic?clinicID=${query.clinicID}`)
 }
 
-
+const xemSoLuongDaDat = (query) => { //ok
+    return axios.get(`/api/xem-so-luong-da-dat?dr_or_pk_ID=${query.dr_or_pk_ID}&date=${query.date}`)
+}
 
 
 
@@ -323,5 +325,5 @@ export {
     createSpecDr,
     guiEmail,
     getOrderByClinic,
-
+    xemSoLuongDaDat
 }

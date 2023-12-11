@@ -154,7 +154,7 @@ class DetailDoctor extends Component {
     }
 
     render() {
-        console.log('this.state', this.state)
+        // console.log('this.state', this.state)
         let listClockTime = []
         for (let i = 0; i < this.state.listClockTime.length; i++) {
             listClockTime[i] = this.state.listClockTime[i].clockTime

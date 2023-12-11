@@ -146,6 +146,7 @@ class BacSi_TaiSuDung extends Component {
 
 
     render() {
+        console.log('this.props from BStaisudung', this.props)
         // Những bên khác muốn xài component con này đều phải đặt tên biến là doctorInfo và clinicInfo
         // Để tránh bất đồng bộ, phải làm như này
         let img = ''
@@ -174,12 +175,12 @@ class BacSi_TaiSuDung extends Component {
                     date={this.state.selectedDate} // ngày
                     clockTime={this.state.clockTime} // giờ
                 />
-                {/* <SoLuongDaDat
+                <SoLuongDaDat
                     isOpen={this.state.isOpen2}
                     closeModal={this.closeModal2}
                     date={this.state.selectedDate.value}
-                    dr_or_pk_ID={this.state.doctorData.id}
-                /> */}
+                    dr_or_pk_ID={this.props.doctorInfo.id}
+                />
                 <div className='left'>
                     <div className='intro-doctor'>
                         <div className='text-center'>
